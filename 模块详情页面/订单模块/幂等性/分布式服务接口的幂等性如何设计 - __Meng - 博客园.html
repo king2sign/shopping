@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<!-- saved from url=(0051)http://www.cnblogs.com/mengchunchen/p/10077366.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="origin">
+    <title>分布式服务接口的幂等性如何设计 - __Meng - 博客园</title>
+<meta property="og:description" content="假如你有个服务提供一个接口，结果这个服务部署在了5台机器上，接着有个接口就是付款接口。 然后用户在前端上操作的时候，不知道为啥，总之就是一个订单不小心发起了两次支付请求，然后这俩请求分散在了这个服务部">
+    <link type="text/css" rel="stylesheet" href="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/bundle-iMetro_HD.css">
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/bundle-iMetro_HD-mobile.css">
+    <link title="RSS" type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/mengchunchen/rss">
+    <link title="RSD" type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/mengchunchen/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/mengchunchen/wlwmanifest.xml">
+    <script src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/osd.js.下载"></script><script src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/pubads_impl_rendering_2019050901.js.下载"></script><script async="" src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/analytics.js.下载"></script><script src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/jquery-2.2.0.min.js.下载"></script>
+    <script>var currentBlogId=226222;var currentBlogApp='mengchunchen',cb_enable_mathjax=false;var isLogined=false;</script>
+    <script src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+<link rel="preload" href="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/f.txt" as="script"><script type="text/javascript" src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/f.txt"></script><script src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/pubads_impl_2019050901.js.下载" async=""></script><script src="chrome-extension://oofgjnalpjodkfmfomihdlchiiacnman/injectScripts.min.js"></script><link rel="prefetch" href="http://tpc.googlesyndication.com/safeframe/1-0-33/html/container.html"></head>
+<body>
+<a name="top"></a>
+
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="https://www.cnblogs.com/mengchunchen/"><img id="blogLogo" src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="https://www.cnblogs.com/mengchunchen/">__Meng</a></h1>
+<h2></h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">博客园</a></li>
+<li><a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/mengchunchen/">首页</a></li>
+<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/__Meng">联系</a></li>
+<li><a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/mengchunchen/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="https://www.cnblogs.com/mengchunchen/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<span id="stats_post_count">随笔 - 640&nbsp; </span>
+<span id="stats_article_count">文章 - 0&nbsp; </span>
+<span id="stats-comment_count">评论 - 21</span>
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+        <div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/mengchunchen/p/10077366.html">分布式服务接口的幂等性如何设计</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body" class="blogpost-body"><p><span style="font-size: 18px; font-family: verdana, geneva;">　　<img src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/720994-20181206161951225-1670608401.png" alt=""></span></p>
+<p>&nbsp;</p>
+<p><span style="font-size: 18px; font-family: verdana, geneva;">　　假如你有个服务提供一个接口，结果这个服务部署在了5台机器上，接着有个接口就是付款接口。</span></p>
+<p><span style="font-size: 18px; font-family: verdana, geneva;">　　然后用户在前端上操作的时候，不知道为啥，总之就是一个订单不小心发起了两次支付请求，然后这俩请求分散在了这个服务部署的不同的机器上，结果造成一个订单扣款扣两次。</span></p>
+<p>&nbsp;</p>
+<p><span style="font-size: 18px; font-family: verdana, geneva;">　　所谓幂等性，就是说一个接口，多次发起同一个请求，你这个接口得保证结果是准确的，比如不能多扣款，不能多插入一条数据，不能将统计值多加了1。。</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><strong><span style="font-size: 18px; font-family: verdana, geneva;">保证幂等性主要是三点：</span></strong></p>
+<p><span style="font-size: 18px; font-family: verdana, geneva;">　　对于每个请求必须有一个唯一的标识，比如：订单支付请求，肯定得包含订单id，一个订单id最多支付一次。</span></p>
+<p><span style="font-size: 18px; font-family: verdana, geneva;">　　每次处理完请求之后，必须有一个记录标识这个请求处理过了，比如说常见的方案是在mysql中记录个状态啥的，比如支付之前记录一条这个订单的支付流水，而且支付流水采</span></p>
+<p><span style="font-size: 18px; font-family: verdana, geneva;">　　每次接收请求需要进行判断之前是否处理过的逻辑处理，比如说，如果有一个订单已经支付了，就已经有了一条支付流水，那么如果重复发送这个请求，则此时先插入支付流水，orderId已经存在了，唯一键约束生效，报错插入不进去的。然后你就不用再扣款了。</span></p>
+<p>&nbsp;</p>
+<p><span style="font-size: 18px; font-family: verdana, geneva;">　　还有一种方法，比如说redis用orderId作为唯一键。只有成功插入这个支付流水，才可以执行实际的支付扣款。</span></p>
+<p>&nbsp;</p>
+<p><span style="font-size: 18px; font-family: verdana, geneva;">&nbsp;转自：中华石杉Java工程师面试突击</span></p>
+<p>&nbsp;</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="https://www.cnblogs.com/mengchunchen/category/1300855.html" target="_blank">分布式</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(10077366,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;85f07e01-33ac-e411-b908-9dcfd8948a71&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/mengchunchen/" target="_blank"><img src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/20171022215125.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/mengchunchen/">__Meng</a><br>
+            <a href="http://home.cnblogs.com/u/mengchunchen/followees">关注 - 6</a><br>
+            <a href="http://home.cnblogs.com/u/mengchunchen/followers">粉丝 - 38</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;85f07e01-33ac-e411-b908-9dcfd8948a71&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(10077366,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+    <div class="buryit" onclick="votePost(10077366,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="https://www.cnblogs.com/mengchunchen/p/10075622.html" class="p_n_p_prefix">« </a> 上一篇：<a href="https://www.cnblogs.com/mengchunchen/p/10075622.html" title="发布于2018-12-06 11:14">dubbo负载均衡策略和集群容错策略都有哪些</a><br><a href="https://www.cnblogs.com/mengchunchen/p/10081376.html" class="p_n_p_prefix">» </a> 下一篇：<a href="https://www.cnblogs.com/mengchunchen/p/10081376.html" title="发布于2018-12-07 10:18">zookeeper都有哪些使用场景</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2018-12-06 16:20</span> <a href="https://www.cnblogs.com/mengchunchen/">__Meng</a> 阅读(<span id="post_view_count">3555</span>) 评论(<span id="post_comment_count">0</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=10077366" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/mengchunchen/p/10077366.html#" onclick="AddToWz(10077366);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=226222,cb_entryId=10077366,cb_blogApp=currentBlogApp,cb_blogUserGuid='85f07e01-33ac-e411-b908-9dcfd8948a71',cb_entryCreatedDate='2018/12/6 16:20:00';loadViewCount(cb_entryId);var cb_postType=1;var isMarkdown=false;</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/mengchunchen/p/10077366.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/mengchunchen/p/10077366.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-工控&#39;)">【推荐】超50万C++/C#源码: 大型实时仿真组态图形源码</a><br><a href="https://www.bagevent.com/event/2195041?bag_track=13072958" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-看雪&#39;)">【活动】看雪2019安全开发者峰会，共话安全领域焦点</a><br><a href="https://ke.qq.com/adActivity.html?name=xiangxueketang2" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-享学&#39;)">【培训】Java程序员年薪40W，他1年走了别人5年的路</a><br></div>
+<div id="opt_under_post"></div>
+<script async="async" src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/gpt.js.下载"></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+</script>
+<script>
+  googletag.cmd.push(function() {
+        googletag.defineSlot('/1090369/C1', [300, 250], 'div-gpt-ad-1546353474406-0').addService(googletag.pubads());
+        googletag.defineSlot('/1090369/C2', [468, 60], 'div-gpt-ad-1539008685004-0').addService(googletag.pubads());
+        googletag.pubads().enableSingleRequest();
+        googletag.enableServices();
+  });
+</script>
+<div id="cnblogs_c1" class="c_ad_block">
+    <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;" data-google-query-id="CISt_c2rneICFZ0dKgodRc8OZg"><div id="google_ads_iframe_/1090369/C1_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C1_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C1_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" data-google-container-id="1" style="border: 0px; vertical-align: bottom;" data-load-complete="true" src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/saved_resource.html"></iframe></div></div>
+</div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>相关博文：</b><br>·  <a href="https://www.cnblogs.com/mengchunchen/p/10007537.html" target="_blank" onclick="clickRecomItmem(10007537)">如何保证消息不被重复消费（如何保证消息消费时的幂等性）</a><br>·  <a href="https://www.cnblogs.com/sea520/p/10117729.html" target="_blank" onclick="clickRecomItmem(10117729)">关于接口幂等性的一些总结</a><br>·  <a href="https://www.cnblogs.com/yingchen/p/7274813.html" target="_blank" onclick="clickRecomItmem(7274813)">幂等性</a><br>·  <a href="https://www.cnblogs.com/firstdream/p/7089735.html" target="_blank" onclick="clickRecomItmem(7089735)">幂等设计</a><br>·  <a href="https://www.cnblogs.com/DreamRecorder/p/9243278.html" target="_blank" onclick="clickRecomItmem(9243278)">接口设计的幂等性考虑</a><br></div></div>
+<div id="cnblogs_c2" class="c_ad_block">
+    <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;" data-google-query-id="CIWt_c2rneICFZ0dKgodRc8OZg"><div id="google_ads_iframe_/1090369/C2_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C2_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C2_0" width="468" height="60" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" data-google-container-id="2" style="border: 0px; vertical-align: bottom;" data-load-complete="true" src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/saved_resource(1).html"></iframe></div></div>
+</div>
+<div id="under_post_kb"><div class="itnews c_ad_block"><b>最新新闻</b>：<br> ·  <a href="https://news.cnblogs.com/n/625346/" target="_blank">国产内存揭秘：源于奇梦达一千多万份DRAM内存技术资料</a><br> ·  <a href="https://news.cnblogs.com/n/625345/" target="_blank">北京地铁实施新规：五类不文明行为将纳入个人信用</a><br> ·  <a href="https://news.cnblogs.com/n/625344/" target="_blank">这个季度，QQ的月活跃用户环比增长超过了微信</a><br> ·  <a href="https://news.cnblogs.com/n/625343/" target="_blank">科学家发现干细胞会进行自卫性质的“转换”</a><br> ·  <a href="https://news.cnblogs.com/n/625342/" target="_blank">腾讯2019年Q1财报：净利润272.1亿元人民币</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"><b>历史上的今天:</b><br>2017-12-06 <a href="https://www.cnblogs.com/mengchunchen/p/7994370.html">653. Two Sum IV - Input is a BST</a><br></div>
+<script type="text/javascript">
+ if(enablePostBottom()) {
+    codeHighlight();
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverT2();
+    deliverC1();
+    deliverC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);  
+}
+</script>
+</div>
+
+    
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><div style="text-align: center; margin: 0; padding: 0; width: 200px"><br><img src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/0q8a4tvc9f4.gif" width="1" height="1" alt=""><a href="http://www.revolvermaps.com/?target=enlarge&amp;i=0q8a4tvc9f4&amp;color=ff0000&amp;m=7">Large Visitor Globe</a></div>
+
+<a href="https://info.flagcounter.com/0gof"><img src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/saved_resource" alt="Flag Counter" border="0"></a>
+
+<div id="profile_block">昵称：<a href="https://home.cnblogs.com/u/mengchunchen/">__Meng</a><br>园龄：<a href="https://home.cnblogs.com/u/mengchunchen/" title="入园时间：2015-02-04">4年3个月</a><br>粉丝：<a href="https://home.cnblogs.com/u/mengchunchen/followers/">38</a><br>关注：<a href="https://home.cnblogs.com/u/mengchunchen/followees/">6</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;85f07e01-33ac-e411-b908-9dcfd8948a71&#39;)">+加关注</a></div><script>getFollowStatus('85f07e01-33ac-e411-b908-9dcfd8948a71')</script></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2019/04/01&#39;);return false;">&lt;</a></td><td align="center">2019年5月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2019/06/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td align="center">1</td><td align="center">2</td><td align="center">3</td><td class="CalWeekendDay" align="center">4</td></tr><tr><td class="CalWeekendDay" align="center">5</td><td align="center">6</td><td align="center">7</td><td align="center">8</td><td align="center">9</td><td align="center">10</td><td class="CalWeekendDay" align="center">11</td></tr><tr><td class="CalWeekendDay" align="center">12</td><td align="center">13</td><td align="center"><a href="https://www.cnblogs.com/mengchunchen/archive/2019/05/14.html"><u>14</u></a></td><td class="CalTodayDay" align="center">15</td><td align="center">16</td><td align="center">17</td><td class="CalWeekendDay" align="center">18</td></tr><tr><td class="CalWeekendDay" align="center">19</td><td align="center">20</td><td align="center">21</td><td align="center">22</td><td align="center">23</td><td align="center">24</td><td class="CalWeekendDay" align="center">25</td></tr><tr><td class="CalWeekendDay" align="center">26</td><td align="center">27</td><td align="center">28</td><td align="center">29</td><td align="center">30</td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td></tr><tr><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="https://www.cnblogs.com/mengchunchen/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="https://www.cnblogs.com/mengchunchen/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="https://www.cnblogs.com/mengchunchen/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="https://www.cnblogs.com/mengchunchen/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="https://www.cnblogs.com/mengchunchen/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_toptags" class="sidebar-block"></div><div id="sidebar_categories">
+<div id="sidebar_postcategory" class="catListPostCategory sidebar-block">
+<h3 class="catListTitle">随笔分类</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="https://www.cnblogs.com/mengchunchen/category/802499.html">C/C++(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="https://www.cnblogs.com/mengchunchen/category/1356412.html">Dubbo(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="https://www.cnblogs.com/mengchunchen/category/1215357.html">hadoop(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="https://www.cnblogs.com/mengchunchen/category/1120046.html">Java(27)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="https://www.cnblogs.com/mengchunchen/category/1101067.html">Java虚拟机(16)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="https://www.cnblogs.com/mengchunchen/category/899084.html">LeetCode(235)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="https://www.cnblogs.com/mengchunchen/category/1132967.html">Linux(25)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="https://www.cnblogs.com/mengchunchen/category/1143435.html">Mysql(18)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="https://www.cnblogs.com/mengchunchen/category/1306660.html">Redis(12)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="https://www.cnblogs.com/mengchunchen/category/1306649.html">Spring(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="https://www.cnblogs.com/mengchunchen/category/1194645.html">操作系统(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="https://www.cnblogs.com/mengchunchen/category/1300855.html">分布式(7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_12" href="https://www.cnblogs.com/mengchunchen/category/802556.html">计算机网络(10)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_13" href="https://www.cnblogs.com/mengchunchen/category/1112709.html">剑指offer(60)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_14" href="https://www.cnblogs.com/mengchunchen/category/1087530.html">目录(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_15" href="https://www.cnblogs.com/mengchunchen/category/860906.html">设计模式(14)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_16" href="https://www.cnblogs.com/mengchunchen/category/1149154.html">算法与数据结构(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_17" href="https://www.cnblogs.com/mengchunchen/category/1346189.html">消息队列(9)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_18" href="https://www.cnblogs.com/mengchunchen/category/1185082.html">学习笔记(14)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_19" href="https://www.cnblogs.com/mengchunchen/category/1329984.html">智力题(4)</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
+<h3 class="catListTitle">随笔档案</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="https://www.cnblogs.com/mengchunchen/archive/2019/05.html">2019年5月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="https://www.cnblogs.com/mengchunchen/archive/2019/04.html">2019年4月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="https://www.cnblogs.com/mengchunchen/archive/2019/03.html">2019年3月 (24)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="https://www.cnblogs.com/mengchunchen/archive/2019/02.html">2019年2月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="https://www.cnblogs.com/mengchunchen/archive/2019/01.html">2019年1月 (32)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="https://www.cnblogs.com/mengchunchen/archive/2018/12.html">2018年12月 (18)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="https://www.cnblogs.com/mengchunchen/archive/2018/11.html">2018年11月 (21)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="https://www.cnblogs.com/mengchunchen/archive/2018/10.html">2018年10月 (10)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_8" href="https://www.cnblogs.com/mengchunchen/archive/2018/09.html">2018年9月 (15)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_9" href="https://www.cnblogs.com/mengchunchen/archive/2018/08.html">2018年8月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_10" href="https://www.cnblogs.com/mengchunchen/archive/2018/07.html">2018年7月 (17)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_11" href="https://www.cnblogs.com/mengchunchen/archive/2018/06.html">2018年6月 (10)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_12" href="https://www.cnblogs.com/mengchunchen/archive/2018/05.html">2018年5月 (30)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_13" href="https://www.cnblogs.com/mengchunchen/archive/2018/04.html">2018年4月 (26)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_14" href="https://www.cnblogs.com/mengchunchen/archive/2018/03.html">2018年3月 (41)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_15" href="https://www.cnblogs.com/mengchunchen/archive/2018/01.html">2018年1月 (33)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_16" href="https://www.cnblogs.com/mengchunchen/archive/2017/12.html">2017年12月 (35)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_17" href="https://www.cnblogs.com/mengchunchen/archive/2017/11.html">2017年11月 (60)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_18" href="https://www.cnblogs.com/mengchunchen/archive/2017/10.html">2017年10月 (22)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_19" href="https://www.cnblogs.com/mengchunchen/archive/2017/09.html">2017年9月 (21)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_20" href="https://www.cnblogs.com/mengchunchen/archive/2017/07.html">2017年7月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_21" href="https://www.cnblogs.com/mengchunchen/archive/2017/06.html">2017年6月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_22" href="https://www.cnblogs.com/mengchunchen/archive/2017/04.html">2017年4月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_23" href="https://www.cnblogs.com/mengchunchen/archive/2017/03.html">2017年3月 (16)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_24" href="https://www.cnblogs.com/mengchunchen/archive/2017/02.html">2017年2月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_25" href="https://www.cnblogs.com/mengchunchen/archive/2016/11.html">2016年11月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_26" href="https://www.cnblogs.com/mengchunchen/archive/2016/10.html">2016年10月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_27" href="https://www.cnblogs.com/mengchunchen/archive/2016/08.html">2016年8月 (13)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_28" href="https://www.cnblogs.com/mengchunchen/archive/2016/07.html">2016年7月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_29" href="https://www.cnblogs.com/mengchunchen/archive/2016/03.html">2016年3月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_30" href="https://www.cnblogs.com/mengchunchen/archive/2015/10.html">2015年10月 (17)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_31" href="https://www.cnblogs.com/mengchunchen/archive/2015/09.html">2015年9月 (30)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_32" href="https://www.cnblogs.com/mengchunchen/archive/2015/07.html">2015年7月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_33" href="https://www.cnblogs.com/mengchunchen/archive/2015/06.html">2015年6月 (45)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_34" href="https://www.cnblogs.com/mengchunchen/archive/2015/05.html">2015年5月 (61)</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_links689116" class="catList sidebar-block">
+<h3 class="catListTitle">Orz</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_2_Link_0" href="http://netcanblog.sinaapp.com/" rel="nofollow">Netcan</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_1" href="https://www.cnblogs.com/pdev/" rel="nofollow">Pentium</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_2" href="https://www.cnblogs.com/neopenx/" rel="nofollow" target="_blank">Physcal</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_3" href="http://blog.csdn.net/zjtzyrc/" rel="nofollow">zjtzyrc</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_4" href="https://www.cnblogs.com/cnblogs321114287/" rel="nofollow">战亿熊猫</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	95576
+	</li>
+	<li class="liRank">
+		排名 -	5063
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/mengchunchen/p/10025139.html#4232539">1. Re:消息持续积压几小时怎么办</a></li>
+        <li class="recent_comment_body">q里有partition吗？</li>
+        <li class="recent_comment_author">--绿色茶叶</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/mengchunchen/p/10020997.html#4209450">2. Re:如何保证消息的顺序性</a></li>
+        <li class="recent_comment_body">因为网络时延问题，发送消息时的顺序，不一定是mq入队的顺序。</li>
+        <li class="recent_comment_author">--少年郎dj</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/mengchunchen/p/7845173.html#4192268">3. Re:线程上下文类加载器</a></li>
+        <li class="recent_comment_body">问个问题，比如jdbc提供的接口java.sql.Driver，这个是由启动类加载器来加载的，现在假设有一个自定义的实现类MyDatabaseDriver在classpath下，这个为什么按照双亲委派......</li>
+        <li class="recent_comment_author">--小小小小涛</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/mengchunchen/p/9647756.html#4191194">4. Re:Redis与Zookeeper实现分布式锁的区别</a></li>
+        <li class="recent_comment_body">文章写得不错</li>
+        <li class="recent_comment_author">--仰望星空_脚踏实地</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/mengchunchen/p/10115928.html#4178994">5. Re:如何设计可以动态扩容缩容的分库分表方案</a></li>
+        <li class="recent_comment_body">@花溪的小石头看具体的业务场景吧，肯定不会适合所有场景，只是提供一种思路...</li>
+        <li class="recent_comment_author">--__Meng</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="https://www.cnblogs.com/mengchunchen/p/7819370.html">1. JVM内存区域的划分（内存结构或者内存模型）(5653)</a></li><li><a href="https://www.cnblogs.com/mengchunchen/p/7890729.html">2. Java面向对象的三个特征与含义(5613)</a></li><li><a href="https://www.cnblogs.com/mengchunchen/p/9647756.html">3. Redis与Zookeeper实现分布式锁的区别(5213)</a></li><li><a href="https://www.cnblogs.com/mengchunchen/p/9999774.html">4. ActiveMQ、RabbitMQ、RocketMQ、Kafka有什么优点和缺点(4329)</a></li><li><a href="https://www.cnblogs.com/mengchunchen/p/10044603.html">5. 如何保证Redis的高并发(4244)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="https://www.cnblogs.com/mengchunchen/p/4528290.html">1. J 判断二叉树每个结点的权值是否关于根节点完全对称(3)</a></li><li><a href="https://www.cnblogs.com/mengchunchen/p/4841971.html">2. hdu 4559 涂色游戏（SG）(3)</a></li><li><a href="https://www.cnblogs.com/mengchunchen/p/10115928.html">3. 如何设计可以动态扩容缩容的分库分表方案(2)</a></li><li><a href="https://www.cnblogs.com/mengchunchen/p/4528259.html">4. A  暴力搜索  剪枝是关键(2)</a></li><li><a href="https://www.cnblogs.com/mengchunchen/p/4490713.html">5. 巴什博奕(2)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="https://www.cnblogs.com/mengchunchen/p/4490713.html">1. 巴什博奕(1)</a></li><li><a href="https://www.cnblogs.com/mengchunchen/p/8093642.html">2. 496. Next Greater Element I(1)</a></li><li><a href="https://www.cnblogs.com/mengchunchen/p/7940587.html">3. 717. 1-bit and 2-bit Characters(1)</a></li><li><a href="https://www.cnblogs.com/mengchunchen/p/10059436.html">4. Redis cluster集群模式的原理(1)</a></li><li><a href="https://www.cnblogs.com/mengchunchen/p/9698351.html">5. Redis的优势和特点(1)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2019 __Meng
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+
+<iframe id="google_osd_static_frame_7187430354151" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;" src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/saved_resource(2).html"></iframe></body></html>

@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<!-- saved from url=(0051)https://www.cnblogs.com/leechenxiang/p/6626629.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="origin">
+    <title>什么是分布式系统中的幂等性 - 风间影月 - 博客园</title>
+<meta property="og:description" content="最近很多人都在谈论幂等性，好吧，这回我也来聊聊这个话题，光看着俩字，一开始的确有点一头雾水，语文不好嘛，词太专业嘛，对吧 现如今我们的系统大多拆分为分布式SOA，或者微服务，一套系统中包含了多个子系统">
+    <link type="text/css" rel="stylesheet" href="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/blog-common.css">
+<link type="text/css" rel="stylesheet" href="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/273398.css">
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/bundle-LessIsMore-mobile.css">
+    <link title="RSS" type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/leechenxiang/rss">
+    <link title="RSD" type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/leechenxiang/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/leechenxiang/wlwmanifest.xml">
+    <script src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/pubads_impl_rendering_2019050901.js.下载"></script><script async="" src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/analytics.js.下载"></script><script src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/jquery-2.2.0.min.js.下载"></script>
+    <script>var currentBlogId=273398;var currentBlogApp='leechenxiang',cb_enable_mathjax=false;var isLogined=false;</script>
+    <script src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+<link rel="preload" href="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/f.txt" as="script"><script type="text/javascript" src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/f.txt"></script><script src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/pubads_impl_2019050901.js.下载" async=""></script><script src="chrome-extension://oofgjnalpjodkfmfomihdlchiiacnman/injectScripts.min.js"></script><link rel="prefetch" href="https://tpc.googlesyndication.com/safeframe/1-0-33/html/container.html"></head>
+<body>
+<a name="top"></a>
+
+
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+		
+<!--done-->
+<div class="title"><a id="Header1_HeaderTitle" class="headermaintitle" href="https://www.cnblogs.com/leechenxiang/">风间影月の技术小站</a></div>
+<div class="subtitle">--   `  `心态有多开放，视野就有多开阔 · ❀不忘初心， 持之以恒  ❀❀ Stay hungry, Stay foolish.</div>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li id="nav_sitehome"><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">博客园</a></li>
+<li id="nav_myhome"><a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/leechenxiang/">首页</a></li>
+<li id="nav_newpost"><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li id="nav_contact"><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/%E9%A3%8E%E9%97%B4%E5%BD%B1%E6%9C%88">联系</a></li>
+<li id="nav_rss">
+<!----></li>
+<li id="nav_admin"><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<!--done-->
+随笔-201&nbsp;
+文章-0&nbsp;
+评论-82&nbsp;
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+        <div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/leechenxiang/p/6626629.html">什么是分布式系统中的幂等性</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body" class="blogpost-body"><p>最近很多人都在谈论幂等性，好吧，这回我也来聊聊这个话题，光看着俩字，一开始的确有点一头雾水，语文不好嘛，词太专业嘛，对吧</p>
+<p>&nbsp;</p>
+<p>现如今我们的系统大多拆分为分布式SOA，或者微服务，一套系统中包含了多个子系统服务，而一个子系统服务往往会去调用另一个服务，而服务调用服务无非就是使用RPC通信或者restful，既然是通信，那么就有可能再服务器处理完毕后返回结果的时候挂掉，这个时候用户端发现很久没有反应，那么就会多次点击按钮，这样请求有多次，那么处理数据的结果是否要统一呢？那是肯定的！尤其再支付场景。</p>
+<p>&nbsp;</p>
+<p>幂等性：就是用户对于同一操作发起的一次请求或者多次请求的结果是一致的，不会因为多次点击而产生了副作用。举个最简单的例子，那就是支付，用户购买商品使用约支付，支付扣款成功，但是返回结果的时候网络异常，此时钱已经扣了，用户再次点击按钮，此时会进行第二次扣款，返回结果成功，用户查询余额返发现多扣钱了，流水记录也变成了两条．．．</p>
+<p>&nbsp;</p>
+<p>在以前的单应用系统中，我们只需要把数据操作放入事务中即可，发生错误立即回滚，但是再响应客户端的时候也有可能出现网络中断或者异常等等。</p>
+<p>&nbsp;</p>
+<p>在增删改查4个操作中，尤为注意就是增加或者修改，</p>
+<p>查询对于结果是不会有改变的，</p>
+<p>删除只会进行一次，用户多次点击产生的结果一样</p>
+<p>修改在大多场景下结果一样</p>
+<p>增加在重复提交的场景下会出现</p>
+<p>&nbsp;</p>
+<p>那么如何设计接口才能做到幂等呢？</p>
+<p>方法一、单次支付请求，也就是直接支付了，不需要额外的数据库操作了，这个时候发起异步请求创建一个唯一的ticketId，就是门票，这张门票只能使用一次就作废，具体步骤如下：</p>
+<ol class=" list-paddingleft-2">
+<li>
+<p>异步请求获取门票</p>
+</li>
+<li>
+<p>调用支付，传入门票</p>
+</li>
+<li>
+<p>根据门票ID查询此次操作是否存在，如果存在则表示该操作已经执行过，直接返回结果；如果不存在，支付扣款，保存结果</p>
+</li>
+<li>
+<p>返回结果到客户端</p>
+</li>
+</ol>
+<p>如果步骤4通信失败，用户再次发起请求，那么最终结果还是一样的</p>
+<p>&nbsp;</p>
+<p>方法二、分布式环境下各个服务相互调用</p>
+<p>这边就要举例我们的系统了，我们支付的时候先要扣款，然后更新订单，这个地方就涉及到了订单服务以及支付服务了。</p>
+<p>用户调用支付，扣款成功后，更新对应订单状态，然后再保存流水。</p>
+<p>而在这个地方就没必要使用门票ticketId了，因为会比较闲的麻烦</p>
+<p>（支付状态：未支付，已支付）</p>
+<p>步骤：</p>
+<p>1、查询订单支付状态</p>
+<p>2、如果已经支付，直接返回结果</p>
+<p>3、如果未支付，则支付扣款并且保存流水</p>
+<p>4、返回支付结果</p>
+<p>如果步骤4通信失败，用户再次发起请求，那么最终结果还是一样的</p>
+<p>对于做过支付的朋友，幂等，也可以称之为冲正，保证客户端与服务端的交易一致性，避免多次扣款。</p>
+<p>&nbsp;</p>
+<p>最后来看一下我们的订单流程，虽然不是很复杂，但是最后在支付环境是一定要实现幂等性的</p>
+<p><img src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/841496-20170327141803264-2007026807.png" alt=""></p>
+<p>&nbsp;</p></div><div id="MySignature" style="display: block;"><br>
+<a href="http://www.itzixi.com/" target="_blank"><font color="green">官网itzixi.com</font> </a>
+&nbsp;&nbsp;
+
+<font color="#44b549">微信公众号：BeJavaGod</font> 
+&nbsp;&nbsp;
+
+<a href="https://weibo.com/leechenxiang" target="_blank"><font color="#e6162d">新浪微博</font> </a>
+&nbsp;&nbsp;
+
+<a href="https://zhuanlan.zhihu.com/itzixi" target="_blank"><font color="#0f88eb">知乎</font> </a>
+&nbsp;&nbsp;
+
+<a href="http://www.jianshu.com/u/62f6654c2ee4" target="_blank"><font color="#ea6f5a">简书</font> </a>
+&nbsp;&nbsp;
+
+<a href="http://www.cnblogs.com/leechenxiang" target="_blank"><font color="#2b6695">cnblogs</font></a> 
+&nbsp;&nbsp;
+
+<a href="http://www.toutiao.com/c/user/6325805986/#mid=6359294271" target="_blank"><font color="red">今日头条</font></a> 
+&nbsp;&nbsp;
+
+<a href="https://www.douban.com/people/leechenxiang/" target="_blank"><font color="#072">豆瓣</font></a> 
+&nbsp;&nbsp;
+
+<font color="orange">--&gt; 同步更新</font>
+<br>
+
+<img src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/841496-20160802101247950-1079022337.jpg" title="我扫！我扫！我扫扫扫！">
+
+<a target="_blank" href="https://shang.qq.com/wpa/qunwpa?idkey=e9d4098b1ca9fb194762a46d6200f9afdc1ecf4c3af2282017e63b86997f7e60"><img border="0" src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/group.png" alt="BeJavaGod 学习交流群" title="BeJavaGod 学习交流群"></a>
+
+<img src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/841496-20170717085353019-1695887414.jpg" alt="" width="180"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="https://www.cnblogs.com/leechenxiang/category/800254.html" target="_blank">J2EE</a>,<a href="https://www.cnblogs.com/leechenxiang/category/833680.html" target="_blank">工作日志</a>,<a href="https://www.cnblogs.com/leechenxiang/category/807078.html" target="_blank">架构</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(6626629,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;ff8bfa18-2d8f-e511-9fc1-ac853d9f53cc&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/leechenxiang/" target="_blank"><img src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/20160315173528.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/leechenxiang/">风间影月</a><br>
+            <a href="http://home.cnblogs.com/u/leechenxiang/followees">关注 - 10</a><br>
+            <a href="http://home.cnblogs.com/u/leechenxiang/followers">粉丝 - 177</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;ff8bfa18-2d8f-e511-9fc1-ac853d9f53cc&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(6626629,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">9</span>
+    </div>
+    <div class="buryit" onclick="votePost(6626629,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="https://www.cnblogs.com/leechenxiang/p/6603884.html" class="p_n_p_prefix">« </a> 上一篇：<a href="https://www.cnblogs.com/leechenxiang/p/6603884.html" title="发布于2017-03-23 10:43">图片上传的第二种形式</a><br><a href="https://www.cnblogs.com/leechenxiang/p/6640737.html" class="p_n_p_prefix">» </a> 下一篇：<a href="https://www.cnblogs.com/leechenxiang/p/6640737.html" title="发布于2017-03-29 17:16">抛弃百度UMEditor，拥抱summernote （解决上传文件又慢又卡的问题）</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2017-03-27 14:38</span> <a href="https://www.cnblogs.com/leechenxiang/">风间影月</a> 阅读(<span id="post_view_count">62106</span>) 评论(<span id="post_comment_count">12</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=6626629" rel="nofollow">编辑</a> <a href="https://www.cnblogs.com/leechenxiang/p/6626629.html#" onclick="AddToWz(6626629);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=273398,cb_entryId=6626629,cb_blogApp=currentBlogApp,cb_blogUserGuid='ff8bfa18-2d8f-e511-9fc1-ac853d9f53cc',cb_entryCreatedDate='2017/3/27 14:38:00';loadViewCount(cb_entryId);var cb_postType=1;var isMarkdown=false;</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<!--done-->
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems"></div>
+	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/leechenxiang/p/6626629.html#3758334" class="layer">#1楼</a><a name="3758334" id="comment_anchor_3758334"></a>  <span class="comment_date">2017-08-15 13:32</span> <a id="a_comment_author_3758334" href="https://www.cnblogs.com/oxspirt/" target="_blank">立志做一个好的程序员</a> <a href="http://msg.cnblogs.com/send/%E7%AB%8B%E5%BF%97%E5%81%9A%E4%B8%80%E4%B8%AA%E5%A5%BD%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%91%98" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3758334" class="blog_comment_body">幂等性，讲得不错</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3758334,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3758334,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/leechenxiang/p/6626629.html#3758337" class="layer">#2楼</a><a name="3758337" id="comment_anchor_3758337"></a>  <span class="comment_date">2017-08-15 13:34</span> <a id="a_comment_author_3758337" href="https://www.cnblogs.com/oxspirt/" target="_blank">立志做一个好的程序员</a> <a href="http://msg.cnblogs.com/send/%E7%AB%8B%E5%BF%97%E5%81%9A%E4%B8%80%E4%B8%AA%E5%A5%BD%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%91%98" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3758337" class="blog_comment_body">你好，请问一下“如果步骤4通信失败，用户再次发起请求”， 这里再次发起请求，所用的“门票”是和前一次的是一样的吧？这个是怎么实现的呢？谢谢</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3758337,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3758337,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/leechenxiang/p/6626629.html#3758345" class="layer">#3楼</a><a name="3758345" id="comment_anchor_3758345"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2017-08-15 13:40</span> <a id="a_comment_author_3758345" href="https://www.cnblogs.com/leechenxiang/" target="_blank">风间影月</a> <a href="http://msg.cnblogs.com/send/%E9%A3%8E%E9%97%B4%E5%BD%B1%E6%9C%88" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3758345" class="blog_comment_body"><a href="https://www.cnblogs.com/leechenxiang/p/6626629.html#3758337" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3758337);">@</a>
+牛顿的小脑<br>Java学习交流QQ群：458372464<br>加一下这个群吧，讨论方便哟~~</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3758345,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3758345,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3758345_avatar" style="display:none;">http://pic.cnblogs.com/face/841496/20160315173528.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/leechenxiang/p/6626629.html#3790535" class="layer">#4楼</a><a name="3790535" id="comment_anchor_3790535"></a>  <span class="comment_date">2017-09-20 10:21</span> <a id="a_comment_author_3790535" href="https://www.cnblogs.com/whf191/" target="_blank">放在垃圾桶里</a> <a href="http://msg.cnblogs.com/send/%E6%94%BE%E5%9C%A8%E5%9E%83%E5%9C%BE%E6%A1%B6%E9%87%8C" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3790535" class="blog_comment_body"><a href="https://www.cnblogs.com/leechenxiang/p/6626629.html#3758337" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3758337);">@</a>
+牛顿的小脑<br>把门票ID放到session里，用户请求先判断有没有。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3790535,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3790535,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/leechenxiang/p/6626629.html#3799885" class="layer">#5楼</a><a name="3799885" id="comment_anchor_3799885"></a>  <span class="comment_date">2017-09-28 21:15</span> <a id="a_comment_author_3799885" href="http://home.cnblogs.com/u/315060/" target="_blank">mengqing124</a> <a href="http://msg.cnblogs.com/send/mengqing124" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3799885" class="blog_comment_body">写的不错。。。但是一大波错别字，还好我语文不错</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3799885,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3799885,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/leechenxiang/p/6626629.html#3799888" class="layer">#6楼</a><a name="3799888" id="comment_anchor_3799888"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2017-09-28 21:24</span> <a id="a_comment_author_3799888" href="https://www.cnblogs.com/leechenxiang/" target="_blank">风间影月</a> <a href="http://msg.cnblogs.com/send/%E9%A3%8E%E9%97%B4%E5%BD%B1%E6%9C%88" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3799888" class="blog_comment_body"><a href="https://www.cnblogs.com/leechenxiang/p/6626629.html#3799885" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3799885);">@</a>
+mengqing124<br><fieldset class="comment_quote"><legend><a href="https://www.cnblogs.com/leechenxiang/p/6626629.html#3799885" title="查看引用原文">引用</a></legend><br>写的不错。。。但是一大波错别字，还好我语文不错<br></fieldset><br>欢迎加入我们的qq群：458372464</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3799888,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3799888,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3799888_avatar" style="display:none;">http://pic.cnblogs.com/face/841496/20160315173528.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/leechenxiang/p/6626629.html#3806488" class="layer">#7楼</a><a name="3806488" id="comment_anchor_3806488"></a>  <span class="comment_date">2017-10-10 16:55</span> <a id="a_comment_author_3806488" href="http://home.cnblogs.com/u/352483/" target="_blank">皮五天</a> <a href="http://msg.cnblogs.com/send/%E7%9A%AE%E4%BA%94%E5%A4%A9" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3806488" class="blog_comment_body"><a href="https://www.cnblogs.com/leechenxiang/p/6626629.html#3758337" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3758337);">@</a>
+牛顿的小脑<br>门票可以理解成token， 付款前拿到token，付款时销毁。当发生付款异常时，按之前token生成的规则，塞到某个地方（可以是页面中的某个隐藏域）。再次付款时 就重复之前逻辑了</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3806488,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3806488,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/leechenxiang/p/6626629.html#3934774" class="layer">#8楼</a><a name="3934774" id="comment_anchor_3934774"></a>  <span class="comment_date">2018-03-27 14:30</span> <a id="a_comment_author_3934774" href="https://www.cnblogs.com/MasterJ/" target="_blank">going&amp;fighting</a> <a href="http://msg.cnblogs.com/send/going%26amp%3Bfighting" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3934774" class="blog_comment_body">你好，如果支付成功，更改订单状态失败怎么处理？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3934774,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3934774,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/leechenxiang/p/6626629.html#3989640" class="layer">#9楼</a><a name="3989640" id="comment_anchor_3989640"></a>  <span class="comment_date">2018-06-04 09:53</span> <a id="a_comment_author_3989640" href="http://home.cnblogs.com/u/1104187/" target="_blank">Vecho</a> <a href="http://msg.cnblogs.com/send/Vecho" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3989640" class="blog_comment_body">这两个方法都有一个问题，以方法一为例：<br>根据门票ID查询此次操作是否存在，如果存在则表示该操作已经执行过，直接返回结果；如果不存在，支付扣款，保存结果<br>如果第二次调用的时候第一次正在处理，但是没有处理完，第二次怎么去返回结果？或者说第二次在查询此次操作的时候是不是查不到第一次的操作？<br>方法二也是一样的，先查后支付，那两次同时调用都查到没有支付然后去扣款，还是有并发的问题</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3989640,&#39;Digg&#39;,this)">支持(1)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3989640,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/leechenxiang/p/6626629.html#3989686" class="layer">#10楼</a><a name="3989686" id="comment_anchor_3989686"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2018-06-04 10:22</span> <a id="a_comment_author_3989686" href="https://www.cnblogs.com/leechenxiang/" target="_blank">风间影月</a> <a href="http://msg.cnblogs.com/send/%E9%A3%8E%E9%97%B4%E5%BD%B1%E6%9C%88" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3989686" class="blog_comment_body"><a href="https://www.cnblogs.com/leechenxiang/p/6626629.html#3989640" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3989640);">@</a>
+Vecho<br><fieldset class="comment_quote"><legend><a href="https://www.cnblogs.com/leechenxiang/p/6626629.html#3989640" title="查看引用原文">引用</a></legend><br>这两个方法都有一个问题，以方法一为例：<br>根据门票ID查询此次操作是否存在，如果存在则表示该操作已经执行过，直接返回结果；如果不存在，支付扣款，保存结果<br>如果第二次调用的时候第一次正在处理，但是没有处理完，第二次怎么去返回结果？或者说第二次在查询此次操作的时候是不是查不到第一次的操作？<br>方法二也是一样的，先查后支付，那两次同时调用都查到没有支付然后去扣款，还是有并发的问题<br></fieldset><br><br>分布式锁</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3989686,&#39;Digg&#39;,this)">支持(2)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3989686,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3989686_avatar" style="display:none;">http://pic.cnblogs.com/face/841496/20160315173528.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/leechenxiang/p/6626629.html#3999637" class="layer">#11楼</a><a name="3999637" id="comment_anchor_3999637"></a>  <span class="comment_date">2018-06-16 17:03</span> <a id="a_comment_author_3999637" href="https://www.cnblogs.com/qianjinyan/" target="_blank">夏天里的Jasmine</a> <a href="http://msg.cnblogs.com/send/%E5%A4%8F%E5%A4%A9%E9%87%8C%E7%9A%84Jasmine" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3999637" class="blog_comment_body">写得不错，也提出了两种解决方案。学习了，谢谢</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3999637,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3999637,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3999637_avatar" style="display:none;">http://pic.cnblogs.com/face/1064427/20181029094145.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/leechenxiang/p/6626629.html#4026801" class="layer">#12楼</a><a name="4026801" id="comment_anchor_4026801"></a><span id="comment-maxId" style="display:none;">4026801</span><span id="comment-maxDate" style="display:none;">2018/7/23 14:55:19</span>  <span class="comment_date">2018-07-23 14:55</span> <a id="a_comment_author_4026801" href="https://www.cnblogs.com/yugure/" target="_blank">Yugure</a> <a href="http://msg.cnblogs.com/send/Yugure" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_4026801" class="blog_comment_body">本来考虑是不是加个 支付中 状态能不能解决。想了想发现好像没什么卵用。还是得加锁。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(4026801,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(4026801,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_4026801_avatar" style="display:none;">http://pic.cnblogs.com/face/1010014/20170628170902.png</span>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="https://www.cnblogs.com/leechenxiang/p/6626629.html#" onclick="return RefreshPage();">刷新页面</a><a href="https://www.cnblogs.com/leechenxiang/p/6626629.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-工控&#39;)">【推荐】超50万C++/C#源码: 大型实时仿真组态图形源码</a><br><a href="https://www.bagevent.com/event/2195041?bag_track=13072958" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-看雪&#39;)">【活动】看雪2019安全开发者峰会，共话安全领域焦点</a><br><a href="https://ke.qq.com/adActivity.html?name=xiangxueketang2" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-享学&#39;)">【培训】Java程序员年薪40W，他1年走了别人5年的路</a><br></div>
+<div id="opt_under_post"></div>
+<script async="async" src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/gpt.js.下载"></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+</script>
+<script>
+  googletag.cmd.push(function() {
+        googletag.defineSlot('/1090369/C1', [300, 250], 'div-gpt-ad-1546353474406-0').addService(googletag.pubads());
+        googletag.defineSlot('/1090369/C2', [468, 60], 'div-gpt-ad-1539008685004-0').addService(googletag.pubads());
+        googletag.pubads().enableSingleRequest();
+        googletag.enableServices();
+  });
+</script>
+<div id="cnblogs_c1" class="c_ad_block" style="">
+    <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;"><div id="google_ads_iframe_/1090369/C1_0__container__" style="border: 0pt none; width: 300px; height: 250px;"></div></div>
+</div>
+<div id="under_post_news"></div>
+<div id="cnblogs_c2" class="c_ad_block" style="">
+    <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;"><div id="google_ads_iframe_/1090369/C2_0__container__" style="border: 0pt none; width: 468px; height: 60px;"></div></div>
+</div>
+<div id="under_post_kb"></div>
+<div id="HistoryToday" class="c_ad_block"><b>历史上的今天:</b><br>2016-03-27 <a href="https://www.cnblogs.com/leechenxiang/p/5327086.html">nginx 与 tomcat 集群 一二事 (0) - 简单介绍</a><br></div>
+<script type="text/javascript">
+ if(enablePostBottom()) {
+    codeHighlight();
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverT2();
+    deliverC1();
+    deliverC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);  
+}
+</script>
+</div>
+
+    
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><img src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/841496-20160416204603879-2096177495.jpg" alt="" width="180">
+
+<div id="profile_block">Java学习交流QQ群：<a href="http://home.cnblogs.com/u/leechenxiang/">458372464</a><br>
+
+Java进阶学习平台：<a href="http://www.itzixi.com/" title="程序员的进阶平台" target="_blank">尚自习</a><br>
+
+微信公众号：<a href="http://images2015.cnblogs.com/blog/841496/201608/841496-20160802083136168-2114286596.jpg" target="_blank">BeJavaGod</a><br>
+
+邮箱：<a href="http://home.cnblogs.com/u/leechenxiang/" title="">leechenxiang@163.com</a><br>
+
+github开源项目：<a href="https://github.com/leechenxiang/LeeCX" title="" target="_blank">LeeCX 开源后台管理系统</a><br>
+
+个人简介：互联网后端开发工程师，技术经理，项目经理，架构师，目前主要以分布式系统，集群，高可用负载均衡为主要方向。尚自习（<a href="http://www.itzixi.com/" title="" target="_blank">www.itzixi.com</a>）站长
+
+<div id="profile_block">PMP 认证, SUN 认证, 微软认证<br>
+
+<img src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/841496-20160418004606645-1856930462.jpg" alt="" width="150">
+
+<img src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/841496-20160802101247950-1079022337.jpg" alt="" width="150">
+
+<a target="_blank" href="https://shang.qq.com/wpa/qunwpa?idkey=4db1030f9a10309f083ea7f042170b5e0b18c096c58e7ede0abbf7b36f8da71d"><img border="0" src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/group.png" alt="BeJavaGod 学习交流群" title="BeJavaGod 学习交流群"></a>
+
+<img src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/841496-20170717085353019-1695887414.jpg" alt="" width="150">
+
+<div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;ff8bfa18-2d8f-e511-9fc1-ac853d9f53cc&#39;)">+加关注</a></div>
+</div>
+</div><div id="profile_block">昵称：<a href="https://home.cnblogs.com/u/leechenxiang/">风间影月</a><br>园龄：<a href="https://home.cnblogs.com/u/leechenxiang/" title="入园时间：2015-11-20">3年5个月</a><br>粉丝：<a href="https://home.cnblogs.com/u/leechenxiang/followers/">177</a><br>关注：<a href="https://home.cnblogs.com/u/leechenxiang/followees/">10</a><div id="p_b_follow"></div><script>getFollowStatus('ff8bfa18-2d8f-e511-9fc1-ac853d9f53cc')</script></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2019/04/01&#39;);return false;">&lt;</a></td><td align="center">2019年5月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2019/06/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td align="center">1</td><td align="center">2</td><td align="center">3</td><td class="CalWeekendDay" align="center">4</td></tr><tr><td class="CalWeekendDay" align="center">5</td><td align="center">6</td><td align="center">7</td><td align="center">8</td><td align="center">9</td><td align="center">10</td><td class="CalWeekendDay" align="center">11</td></tr><tr><td class="CalWeekendDay" align="center">12</td><td align="center">13</td><td align="center">14</td><td class="CalTodayDay" align="center">15</td><td align="center">16</td><td align="center">17</td><td class="CalWeekendDay" align="center">18</td></tr><tr><td class="CalWeekendDay" align="center">19</td><td align="center">20</td><td align="center">21</td><td align="center">22</td><td align="center">23</td><td align="center">24</td><td class="CalWeekendDay" align="center">25</td></tr><tr><td class="CalWeekendDay" align="center">26</td><td align="center">27</td><td align="center">28</td><td align="center">29</td><td align="center">30</td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td></tr><tr><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="https://www.cnblogs.com/leechenxiang/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="https://www.cnblogs.com/leechenxiang/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="https://www.cnblogs.com/leechenxiang/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="https://www.cnblogs.com/leechenxiang/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="https://www.cnblogs.com/leechenxiang/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_recentposts" class="sidebar-block">
+<div class="catListEssay">
+<h3 class="catListTitle">最新随笔</h3>
+<ul>
+<li><a href="https://www.cnblogs.com/leechenxiang/p/10685712.html">1. nrm 安装与npm镜像切换</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/10545033.html">2. james2.3 配置收件 之 MariaDB数据库配置</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/10544832.html">3. James 如何作为服务在后台启动</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/10526109.html">4. 安装最新版RabbitMQ v3.7.13 以及基本配置</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/10506995.html">5. mac 下 通过 brew 安装 MariaDB</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/10505462.html">6. Mac 上安装maven</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/10474228.html">7. mac 上安装 openJDK11</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/10472933.html">8. 云服务jdk 升级为 OpenJDK11</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/10420464.html">9. 企业和个人都需要的终极跨平台全端解决方案 UniApp</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/9673344.html">10. 小程序登录 之 支付宝授权</a></li>
+</ul>
+</div>
+</div><div id="sidebar_toptags" class="sidebar-block">
+<div class="catListTag">
+<h3 class="catListTitle">我的标签</h3>
+<ul>
+<li><a href="https://www.cnblogs.com/leechenxiang/tag/j2ee/">j2ee</a>(58)</li><li><a href="https://www.cnblogs.com/leechenxiang/tag/java/">java</a>(49)</li><li><a href="https://www.cnblogs.com/leechenxiang/tag/spring/">spring</a>(47)</li><li><a href="https://www.cnblogs.com/leechenxiang/tag/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a>(21)</li><li><a href="https://www.cnblogs.com/leechenxiang/tag/maven/">maven</a>(20)</li><li><a href="https://www.cnblogs.com/leechenxiang/tag/eclipse/">eclipse</a>(13)</li><li><a href="https://www.cnblogs.com/leechenxiang/tag/mybatis/">mybatis</a>(13)</li><li><a href="https://www.cnblogs.com/leechenxiang/tag/nginx/">nginx</a>(10)</li><li><a href="https://www.cnblogs.com/leechenxiang/tag/tomcat/">tomcat</a>(10)</li><li><a href="https://www.cnblogs.com/leechenxiang/tag/MVC/">MVC</a>(7)</li><li><a href="https://www.cnblogs.com/leechenxiang/tag/">更多</a></li>
+</ul>
+</div></div><div id="sidebar_categories">
+<div class="catListPostCategory">
+<h3 class="catListTitle">随笔分类<span style="font-size:11px;font-weight:normal">(505)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="https://www.cnblogs.com/leechenxiang/category/1065214.html">【原创视频】(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="https://www.cnblogs.com/leechenxiang/category/934874.html">BJG吐槽汇(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="https://www.cnblogs.com/leechenxiang/category/803405.html">BootStrap(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="https://www.cnblogs.com/leechenxiang/category/803746.html">css/css3(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="https://www.cnblogs.com/leechenxiang/category/803763.html">database(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="https://www.cnblogs.com/leechenxiang/category/999324.html">dubbo(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="https://www.cnblogs.com/leechenxiang/category/823917.html">freemarker(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="https://www.cnblogs.com/leechenxiang/category/817232.html">Hadoop 大数据(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="https://www.cnblogs.com/leechenxiang/category/803764.html">hibernate(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="https://www.cnblogs.com/leechenxiang/category/803402.html">HTML/HTML5(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="https://www.cnblogs.com/leechenxiang/category/1146767.html">IntelliJ IDEA</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="https://www.cnblogs.com/leechenxiang/category/958118.html">IT杂谈</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_12" href="https://www.cnblogs.com/leechenxiang/category/800254.html">J2EE(72)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_13" href="https://www.cnblogs.com/leechenxiang/category/803403.html">JavaScript(15)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_14" href="https://www.cnblogs.com/leechenxiang/category/803404.html">Jquery(13)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_15" href="https://www.cnblogs.com/leechenxiang/category/817231.html">Linux(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_16" href="https://www.cnblogs.com/leechenxiang/category/803401.html">maven(12)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_17" href="https://www.cnblogs.com/leechenxiang/category/803399.html">mybatis(15)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_18" href="https://www.cnblogs.com/leechenxiang/category/817138.html">nginx(13)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_19" href="https://www.cnblogs.com/leechenxiang/category/832374.html">RabbitMQ(7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_20" href="https://www.cnblogs.com/leechenxiang/category/822333.html">redis(9)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_21" href="https://www.cnblogs.com/leechenxiang/category/803406.html">Shiro(15)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_22" href="https://www.cnblogs.com/leechenxiang/category/1097267.html">Shiro权限管理在J2EE企业级开发中的应用与实战(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_23" href="https://www.cnblogs.com/leechenxiang/category/822332.html">solr(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_24" href="https://www.cnblogs.com/leechenxiang/category/803398.html">Spring(44)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_25" href="https://www.cnblogs.com/leechenxiang/category/999321.html">Spring Boot(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_26" href="https://www.cnblogs.com/leechenxiang/category/999322.html">Spring Cloud</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_27" href="https://www.cnblogs.com/leechenxiang/category/803400.html">Spring MVC(25)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_28" href="https://www.cnblogs.com/leechenxiang/category/823206.html">zookeeper(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_29" href="https://www.cnblogs.com/leechenxiang/category/1113844.html">zookeeper系列</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_30" href="https://www.cnblogs.com/leechenxiang/category/823916.html">动静分离(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_31" href="https://www.cnblogs.com/leechenxiang/category/950238.html">分布式集群权限管理(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_32" href="https://www.cnblogs.com/leechenxiang/category/806425.html">服务器/集群(41)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_33" href="https://www.cnblogs.com/leechenxiang/category/833680.html">工作日志(66)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_34" href="https://www.cnblogs.com/leechenxiang/category/807078.html">架构(40)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_35" href="https://www.cnblogs.com/leechenxiang/category/803745.html">网络/通信(10)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_36" href="https://www.cnblogs.com/leechenxiang/category/803785.html">网络转载(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_37" href="https://www.cnblogs.com/leechenxiang/category/999323.html">微服务(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_38" href="https://www.cnblogs.com/leechenxiang/category/817545.html">运维(36)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catListPostArchive">
+<h3 class="catListTitle">随笔档案<span style="font-size:11px;font-weight:normal">(201)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="https://www.cnblogs.com/leechenxiang/archive/2019/04.html">2019年4月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="https://www.cnblogs.com/leechenxiang/archive/2019/03.html">2019年3月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="https://www.cnblogs.com/leechenxiang/archive/2019/02.html">2019年2月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="https://www.cnblogs.com/leechenxiang/archive/2018/11.html">2018年11月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="https://www.cnblogs.com/leechenxiang/archive/2018/10.html">2018年10月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="https://www.cnblogs.com/leechenxiang/archive/2018/08.html">2018年8月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="https://www.cnblogs.com/leechenxiang/archive/2018/07.html">2018年7月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="https://www.cnblogs.com/leechenxiang/archive/2018/06.html">2018年6月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_8" href="https://www.cnblogs.com/leechenxiang/archive/2018/05.html">2018年5月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_9" href="https://www.cnblogs.com/leechenxiang/archive/2018/04.html">2018年4月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_10" href="https://www.cnblogs.com/leechenxiang/archive/2018/03.html">2018年3月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_11" href="https://www.cnblogs.com/leechenxiang/archive/2018/01.html">2018年1月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_12" href="https://www.cnblogs.com/leechenxiang/archive/2017/12.html">2017年12月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_13" href="https://www.cnblogs.com/leechenxiang/archive/2017/11.html">2017年11月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_14" href="https://www.cnblogs.com/leechenxiang/archive/2017/10.html">2017年10月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_15" href="https://www.cnblogs.com/leechenxiang/archive/2017/09.html">2017年9月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_16" href="https://www.cnblogs.com/leechenxiang/archive/2017/08.html">2017年8月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_17" href="https://www.cnblogs.com/leechenxiang/archive/2017/07.html">2017年7月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_18" href="https://www.cnblogs.com/leechenxiang/archive/2017/06.html">2017年6月 (11)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_19" href="https://www.cnblogs.com/leechenxiang/archive/2017/05.html">2017年5月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_20" href="https://www.cnblogs.com/leechenxiang/archive/2017/04.html">2017年4月 (10)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_21" href="https://www.cnblogs.com/leechenxiang/archive/2017/03.html">2017年3月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_22" href="https://www.cnblogs.com/leechenxiang/archive/2017/02.html">2017年2月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_23" href="https://www.cnblogs.com/leechenxiang/archive/2017/01.html">2017年1月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_24" href="https://www.cnblogs.com/leechenxiang/archive/2016/12.html">2016年12月 (9)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_25" href="https://www.cnblogs.com/leechenxiang/archive/2016/11.html">2016年11月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_26" href="https://www.cnblogs.com/leechenxiang/archive/2016/10.html">2016年10月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_27" href="https://www.cnblogs.com/leechenxiang/archive/2016/09.html">2016年9月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_28" href="https://www.cnblogs.com/leechenxiang/archive/2016/08.html">2016年8月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_29" href="https://www.cnblogs.com/leechenxiang/archive/2016/07.html">2016年7月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_30" href="https://www.cnblogs.com/leechenxiang/archive/2016/06.html">2016年6月 (12)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_31" href="https://www.cnblogs.com/leechenxiang/archive/2016/05.html">2016年5月 (20)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_32" href="https://www.cnblogs.com/leechenxiang/archive/2016/04.html">2016年4月 (15)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_33" href="https://www.cnblogs.com/leechenxiang/archive/2016/03.html">2016年3月 (23)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	232852
+	</li>
+	<li class="liRank">
+		排名 -	1404
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/leechenxiang/p/10420464.html#4229720">1. Re:企业和个人都需要的终极跨平台全端解决方案 UniApp</a></li>
+        <li class="recent_comment_body">表示uniapp 还不够完善 很多vue有的功能 都没有 很难受😣</li>
+        <li class="recent_comment_author">--安静男孩</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/leechenxiang/p/6181449.html#4199842">2. Re:如何限制用户在某一时间段多次访问接口</a></li>
+        <li class="recent_comment_body">这种不支持滑动窗口吧？譬如5s限制20个请求，我前四秒来了1个，第五秒来了19个</li>
+        <li class="recent_comment_author">--规格严格-功夫到家</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/leechenxiang/p/6181449.html#4199841">3. Re:如何限制用户在某一时间段多次访问接口</a></li>
+        <li class="recent_comment_body">感觉有点问题啊</li>
+        <li class="recent_comment_author">--规格严格-功夫到家</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/leechenxiang/p/5767809.html#4188418">4. Re:Java后端实现图片压缩技术</a></li>
+        <li class="recent_comment_body">可以替代调用本地库吗?</li>
+        <li class="recent_comment_author">--袁良锭</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/leechenxiang/p/5767809.html#4171460">5. Re:Java后端实现图片压缩技术</a></li>
+        <li class="recent_comment_body">@ZephyrLai.outputFormat("jpg") 输出格式写成jpg可以压缩，但是有时候会出问题...</li>
+        <li class="recent_comment_author">--Legolas_4</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/leechenxiang/p/9389043.html#4151450">6. Re:Netty＋MUI从零打造一个仿微信的高性能聊天项目，兼容iPhone/iPad/安卓</a></li>
+        <li class="recent_comment_body"><a href="https://www.cnblogs.com/leechenxiang/p/6626629.html" target="_blank"></a></li>
+        <li class="recent_comment_author">--xiaoyan2017</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/leechenxiang/p/5767809.html#4149116">7. Re:Java后端实现图片压缩技术</a></li>
+        <li class="recent_comment_body">@测试5454刚遇到，png从3MB压缩到12MB，一脸懵逼...</li>
+        <li class="recent_comment_author">--ZephyrLai</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/leechenxiang/p/5767809.html#4140239">8. Re:Java后端实现图片压缩技术</a></li>
+        <li class="recent_comment_body">使用thumbnailator压缩图片，有些图片还会莫名的变大，请问作者没有遇到过么</li>
+        <li class="recent_comment_author">--天德社区</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/leechenxiang/p/5452386.html#4112778">9. Re:redis 一二事 - 设置过期时间，以文件夹形式展示key显示缓存数据</a></li>
+        <li class="recent_comment_body">怎么获取文件夹下的所有呢</li>
+        <li class="recent_comment_author">--乔梁</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/leechenxiang/p/8807872.html#4049222">10. Re:腾讯云SpringBoot部署 + HTTPS配置</a></li>
+        <li class="recent_comment_body">不错！！！</li>
+        <li class="recent_comment_author">--达兔哥</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/leechenxiang/p/6626629.html#4026801">11. Re:什么是分布式系统中的幂等性</a></li>
+        <li class="recent_comment_body">本来考虑是不是加个 支付中 状态能不能解决。想了想发现好像没什么卵用。还是得加锁。</li>
+        <li class="recent_comment_author">--Yugure</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/leechenxiang/p/5694397.html#4000924">12. Re:阿里巴巴Druid数据源，史上最强的数据源，没有之一</a></li>
+        <li class="recent_comment_body">HikariCP才是最快的</li>
+        <li class="recent_comment_author">--MasterPan</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/leechenxiang/p/6626629.html#3999637">13. Re:什么是分布式系统中的幂等性</a></li>
+        <li class="recent_comment_body">写得不错，也提出了两种解决方案。学习了，谢谢</li>
+        <li class="recent_comment_author">--夏天里的Jasmine</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/leechenxiang/p/6626629.html#3989686">14. Re:什么是分布式系统中的幂等性</a></li>
+        <li class="recent_comment_body">@Vecho引用这两个方法都有一个问题，以方法一为例：根据门票ID查询此次操作是否存在，如果存在则表示该操作已经执行过，直接返回结果；如果不存在，支付扣款，保存结果如果第二次调用的时候第一次正在处理，......</li>
+        <li class="recent_comment_author">--风间影月</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/leechenxiang/p/6626629.html#3989640">15. Re:什么是分布式系统中的幂等性</a></li>
+        <li class="recent_comment_body">这两个方法都有一个问题，以方法一为例：根据门票ID查询此次操作是否存在，如果存在则表示该操作已经执行过，直接返回结果；如果不存在，支付扣款，保存结果如果第二次调用的时候第一次正在处理，但是没有处理完，......</li>
+        <li class="recent_comment_author">--Vecho</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/leechenxiang/p/6185929.html#3976063">16. Re:微信支付（三） - 异步通知并且查询支付结果</a></li>
+        <li class="recent_comment_body">@纪梵希已发布在 itzixi.com ，你去看看...</li>
+        <li class="recent_comment_author">--风间影月</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/leechenxiang/p/6185929.html#3975937">17. Re:微信支付（三） - 异步通知并且查询支付结果</a></li>
+        <li class="recent_comment_body">DEMO可以提供一下吗</li>
+        <li class="recent_comment_author">--纪梵希</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/leechenxiang/p/5454902.html#3971779">18. Re:FreeMarker 一二事 - 静态模板的使用与生成</a></li>
+        <li class="recent_comment_body">不能转译特殊符号</li>
+        <li class="recent_comment_author">--咖啡不好喝</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/leechenxiang/p/5422396.html#3958046">19. Re:Java公众号推荐 - BeJavaGod</a></li>
+        <li class="recent_comment_body">强烈推荐：java技术学习之道，每天分享java技术干货</li>
+        <li class="recent_comment_author">--Tanyboye</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/leechenxiang/p/5810960.html#3948816">20. Re:Redis漏洞？阿里云被攻击！</a></li>
+        <li class="recent_comment_body">我的就被攻击过了   把握服务器文件删完了</li>
+        <li class="recent_comment_author">--zaier1203</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="https://www.cnblogs.com/leechenxiang/p/6626629.html">1. 什么是分布式系统中的幂等性(62106)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5694397.html">2. 阿里巴巴Druid数据源，史上最强的数据源，没有之一(30298)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5952959.html">3. 使用ztree.js，受益一生，十分钟学会使用tree树形结构插件(15957)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5490930.html">4. 在springmvc中使用hibernate-validate(14691)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/6365856.html">5. 使用Spring ThreadPoolTaskExecutor实现多线程任务(12298)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/6181449.html">6. 如何限制用户在某一时间段多次访问接口(11957)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5914661.html">7. 安全框架 - Shiro与springMVC整合的注解以及JSP标签(11442)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5783467.html">8. 来说说SpringMVC + JSONP的跨域请求(10886)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/6263420.html">9. 【BJG吐槽汇】第一期 - 警惕亚马逊莫名自动扣款！千万不要进了它的坑！(10878)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/6185929.html">10. 微信支付（三） - 异步通知并且查询支付结果(10490)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/7070229.html">11. shiro 自定义过滤器，拦截过期session的请求，并且以ajax形式返回(8794)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5767809.html">12. Java后端实现图片压缩技术(8297)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/6367432.html">13. 通过spring实现javamail发送邮件功能(8242)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/6171151.html">14. Shiro - 限制并发人数登录与剔除(7465)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5546615.html">15. ssm中使用hibernate-validator验证BO(7456)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5475728.html">16. SSO - 我们为何需要单点登录系统(6725)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5452386.html">17. redis 一二事 - 设置过期时间，以文件夹形式展示key显示缓存数据(4955)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5460093.html">18. SpringMVC 通过post接收form参数或者json参数(4891)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/6014147.html">19. BeJavaGod - 如何正确使用数据字典进行分类统一操作（一）(4880)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/6115719.html">20. 数据字典的缓存刷新与读取的几种方式(4860)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="https://www.cnblogs.com/leechenxiang/p/6626629.html">1. 什么是分布式系统中的幂等性(12)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5585488.html">2. “爸爸用键盘养活了全家”(5)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/6694960.html">3. 防CSRF攻击：一场由重复提交的问题引发的前端后端测试口水战(4)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/6171151.html">4. Shiro - 限制并发人数登录与剔除(4)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5767809.html">5. Java后端实现图片压缩技术(4)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/6646787.html">6. tips：解决bootstrap-switch 在jqgrid中动态加载不显示的问题(4)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5449781.html">7. ZooKeeper一二事 - 搭建ZooKeeper伪分布式及正式集群 提供集群服务(4)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/6640737.html">8. 抛弃百度UMEditor，拥抱summernote （解决上传文件又慢又卡的问题）(3)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5728143.html">9. 不要让任何事情成为你不去学习的理由(3)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5694397.html">10. 阿里巴巴Druid数据源，史上最强的数据源，没有之一(2)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/6136017.html">11. 发一份shiro标准配置，特此记录(2)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5649893.html">12. RabbitMQ - 实例操作(2)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/6185929.html">13. 微信支付（三） - 异步通知并且查询支付结果(2)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/6181449.html">14. 如何限制用户在某一时间段多次访问接口(2)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5406548.html">15. fastDFS 一二事 - 简易服务器搭建（单linux）(2)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5460093.html">16. SpringMVC 通过post接收form参数或者json参数(2)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5305687.html">17. Spring 一二事（7） - annotation(2)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5402960.html">18. nginx 一二事(2) - 创建虚拟静态服务器(2)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5335875.html">19. [转]优秀的程序员不会觉得累成狗是一种荣耀(2)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5591332.html">20. 省市区 - 三级联动通用化模块组件(2)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="https://www.cnblogs.com/leechenxiang/p/6626629.html">1. 什么是分布式系统中的幂等性(9)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5339597.html">2. maven 多工程搭建演示(4)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/6181449.html">3. 如何限制用户在某一时间段多次访问接口(4)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/6171151.html">4. Shiro - 限制并发人数登录与剔除(3)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5406548.html">5. fastDFS 一二事 - 简易服务器搭建（单linux）(3)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5405127.html">6. nginx 一二事(3) - 反向代理以及负载均衡(3)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5694397.html">7. 阿里巴巴Druid数据源，史上最强的数据源，没有之一(2)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5328962.html">8. Spring MVC Spring MyBatis 整合 - 快速上手(2)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5449781.html">9. ZooKeeper一二事 - 搭建ZooKeeper伪分布式及正式集群 提供集群服务(2)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5444325.html">10. 搜索服务solr 一二事(1) - solr-5.5 使用自带Jetty或者tomcat 搭建单机版搜索服务器(2)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5441126.html">11. redis 一二事 - 搭建集群缓存服务器(1)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5433276.html">12. 紧接上篇，jQuery调用jsonp，并且在页面上展示(1)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5447927.html">13. Redis 一二事 - 在spring中使用jedis 连接调试单机redis以及集群redis(1)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5327086.html">14. nginx 与 tomcat 集群 一二事 (0) - 简单介绍(1)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5306655.html">15. mybatis 一二事（1） - 简单介绍(1)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5306186.html">16. Spring 一二事（10） - annotation AOP(1)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5475728.html">17. SSO - 我们为何需要单点登录系统(1)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5452386.html">18. redis 一二事 - 设置过期时间，以文件夹形式展示key显示缓存数据(1)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5546615.html">19. ssm中使用hibernate-validator验证BO(1)</a></li><li><a href="https://www.cnblogs.com/leechenxiang/p/5525388.html">20. RabbitMQ 一二事(5) - 通配符模式应用(1)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2019 风间影月
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+
+</body></html>

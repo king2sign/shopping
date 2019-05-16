@@ -1,0 +1,31 @@
+
+   1:Web-API
+        解释：Web API是网络应用程序接口。包含了广泛的功能，网络应用通过API接口，可以实现存储服务、消息服务、计算服务等能力，利用这些能力可以进行开发出强大功能的web应用。
+        例子：
+             在这种类型的Web API里，比较流行的是这三种：REST，RPC和GraphQL。
+             A：REST：
+                    解释：REST全称是Representational State Transfer 表述性状态传递。REST可能是现在最流行的一种Web API。
+                    例子： REST API有一些规则和约束
+                           在资源里，使用名词而不是动词，例如 /getUserInfo/123 这就不对了，应该是 /users/123
+                           HTTP方法表明了要执行的动作，不同的HTTP方法作用于同一个URL上可实现不同的功能：
+                           创建 -- POST
+                           读取 -- GET
+                           整体更新 -- PUT
+                           局部更新 -- PATCH
+                           删除 -- DELETE
+
+                     注意：API难免会有一个非CRUD的操作，直接使用动词。实在不行了，就用动词吧，例如 /search/params?......
+
+
+              B：RPC
+                   解释：Remote Procedure Call。RPC是一种比较简单的API，客户端直接会执行另一个服务器上的代码。
+                   提示：RPC的规则比较少：
+                        端点要包含被执行操作的服务名字
+                        使用合理的HTTP动词，GET用于读取，POST用于其它类型。
+                        RPC适用于那种无法用CRUD封装的动作，或者其影响和资源无关的动作。
+                        RPC不仅限于HTTP，还有其它协议可以支持，例如Apache Thrift和gRPC。
+
+              C：GraphQL
+                   解释：GraphQL 是 API的查询语言。最近越来越火。它由Facebook于2012年开始开发，2015年被开源了。
+                   提示：GraphQL允许客户端定义需要得到的数据结构，服务器精确的返回所需的数据结构，例如：
+                         与REST和RPC不同，GraphQL API只需要一个端点；它也不需要使用不同的HTTP动词，它只使用POST，你需要在JSON body里面指定是要执行查询还是修改。

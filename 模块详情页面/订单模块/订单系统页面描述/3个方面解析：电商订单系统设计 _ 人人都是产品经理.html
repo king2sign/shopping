@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)http://www.woshipm.com/pd/1055272.html -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>3个方面解析：电商订单系统设计 | 人人都是产品经理</title>
+    <!--[if lt IE 9]>
+    <script src="http://www.woshipm.com/wp-content/themes/Kan/js/html5.js"></script>
+    <![endif]-->
+    <meta name="keywords" content="2年, 初级, 电商订单系统, "><meta name="description" content="一个订单系统的设计并不简单，它需要一批又一批的人去维护、去优化，根据公司的业务情况做出改变和兼容。本文主要分析一下电商订单系统该如何设计。 电商所有模块中，订单系统作为最为核心的模块，决定了整个流程能不能顺畅的执行，起着承上启下的作用。相信很多PM都不陌生，到"><link type="image/vnd.microsoft.icon" href="http://image.woshipm.com/wp-files/other/favicon.ico" rel="shortcut icon"><link rel="dns-prefetch" href="http://image.woshipm.com/">
+<link rel="stylesheet" id="misc-css" href="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/misc.css" type="text/css" media="screen">
+<style id="misc-inline-css" type="text/css">
+
+                .surface-content.header-fix{
+                    padding-top:60px;
+                }
+                .surface-content.header-fix .metabar{
+                    position:fixed;
+                    top:0;
+                    left:0;
+                    right:0;
+                }
+                
+</style>
+<link rel="stylesheet" id="fa-css" href="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/font-awesome.min.css" type="text/css" media="screen">
+<script type="text/javascript" src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/jquery-1.12.4.min.js.下载"></script>
+<link rel="canonical" href="http://www.woshipm.com/pd/1055272.html">
+<script type="text/javascript">var algolia = {"debug":false,"application_id":"4OCSFS3SIM","search_api_key":"7bd75daaf81d0299565fce2232394dfd","powered_by_enabled":true,"query":"","autocomplete":{"sources":[],"input_selector":"input[name='s']:not('.no-autocomplete')"},"indices":{"searchable_posts":{"name":"w_searchable_posts","id":"searchable_posts","enabled":true,"replicas":[]}}};</script><script src="chrome-extension://oofgjnalpjodkfmfomihdlchiiacnman/injectScripts.min.js"></script></head>
+<body class="single u-backgroundColorLightBlue">
+<div class="surface-content header-fix">
+    <div class="metabar metabar--shadow u-clearfix">
+        <div class="container">
+            <div class="u-floatLeft">
+                <a href="http://www.woshipm.com/" class="logo-xmas">
+                    <img class="logo" src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/logo.png">
+                </a>
+            </div>
+            <div class="content u-floatLeft">
+                <nav class="header-nav"><ul id="menu-%e9%a1%b6%e9%83%a8%e5%af%bc%e8%88%aa" class="subnav-ul layoutSingleColumn layoutSingleColumn--wide"><li id="menu-item-155938" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-155938"><a href="http://www.woshipm.com/">首页</a></li>
+<li id="menu-item-155939" class="third menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-155939"><a href="http://www.woshipm.com/pd/1055272.html#">分类浏览</a><span class="fa fa-angle-down"></span><ul class="sub-menu">	<li id="menu-item-155928" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-155928"><a href="http://www.woshipm.com/category/pmd">产品经理</a></li>
+	<li id="menu-item-155929" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-155929"><a href="http://www.woshipm.com/category/pd">产品设计</a></li>
+	<li id="menu-item-155927" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-155927"><a href="http://www.woshipm.com/category/ucd">交互体验</a></li>
+	<li id="menu-item-155930" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-155930"><a href="http://www.woshipm.com/category/operate">产品运营</a></li>
+	<li id="menu-item-155932" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-155932"><a href="http://www.woshipm.com/category/rp">原型设计</a></li>
+	<li id="menu-item-191466" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-191466"><a href="http://www.woshipm.com/category/evaluating">分析评测</a></li>
+	<li id="menu-item-155926" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-155926"><a href="http://www.woshipm.com/category/it">业界动态</a></li>
+	<li id="menu-item-155936" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-155936"><a href="http://www.woshipm.com/category/zhichang">职场攻略</a></li>
+	<li id="menu-item-184121" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-184121"><a href="http://www.woshipm.com/category/chuangye">创业学院</a></li>
+	<li id="menu-item-1016325" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1016325"><a href="http://www.woshipm.com/category/marketing">营销推广</a></li>
+	<li id="menu-item-906383" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-906383"><a href="http://www.woshipm.com/category/ai">人工智能</a></li>
+	<li id="menu-item-906382" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-906382"><a href="http://www.woshipm.com/category/blockchain">区块链</a></li>
+</ul>
+</li>
+<li id="menu-item-155940" class="vip menu-item menu-item-type-custom menu-item-object-custom menu-item-155940"><a href="http://www.woshipm.com/course">学习提升</a></li>
+<li id="menu-item-420537" class="niubi menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-420537"><a href="http://www.woshipm.com/categroy/active">活动讲座</a><span class="fa fa-angle-down"></span><ul class="sub-menu">	<li id="menu-item-158482" class="menu-item menu-item-type-gs_sim menu-item-object-gs_sim menu-item-158482"><ul class="metabar-activities"><li class="metabar-activity-item"><a class="e-title" href="http://www.woshipm.com/active/2335564.html">线下课程 | 12年数据行业经历，有这些经验想分享给你…</a><div class="meta">北京-05月18日<span class="status">进行中</span></div></li><li class="metabar-activity-item"><a class="e-title" href="http://www.woshipm.com/active/2335506.html">线上课程丨转岗运营却拿不到offer？可能是因为职场红利正在逐渐消失</a><div class="meta">全国-05月24日<span class="status">进行中</span></div></li></ul><div class="metabar-activity-more u-textAlignCenter u-clearfix"><a href="http://www.woshipm.com/category/active">更多活动</a></div></li>
+</ul>
+</li>
+<li id="menu-item-279085" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-279085"><a target="_blank" href="http://wen.woshipm.com/">问答</a></li>
+<li id="menu-item-395532" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-395532"><a target="_blank" href="http://996.pm/7b1Zr">年费会员</a></li>
+<li id="menu-item-155941" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-155941"><a target="_blank" href="http://www.woshipm.com/books">书单</a></li>
+<li id="menu-item-500728" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-500728"><a href="http://www.woshipm.com/pd/1055272.html#">百宝箱</a><span class="fa fa-angle-down"></span><ul class="sub-menu">	<li id="menu-item-395530" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-395530"><a target="_blank" href="http://dh.woshipm.com/">网址导航</a></li>
+	<li id="menu-item-590029" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-590029"><a target="_blank" href="http://www.woshipm.com/topics">知识体系</a></li>
+	<li id="menu-item-500729" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-500729"><a target="_blank" href="http://www.woshipm.com/tools">必备工具</a></li>
+	<li id="menu-item-852376" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-852376"><a target="_blank" href="http://www.woshipm.com/screen/index.html">设计规范</a></li>
+	<li id="menu-item-1019313" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1019313"><a target="_blank" href="https://www.yunyingpai.com/download">资料下载</a></li>
+	<li id="menu-item-501017" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-501017"><a target="_blank" href="http://www.yunyingpai.com/">运营派</a></li>
+	<li id="menu-item-1317021" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1317021"><a target="_blank" href="https://t.qidianla.com/">学员空间</a></li>
+	<li id="menu-item-500731" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-500731"><a target="_blank" href="https://www.apptu.cn/">朋友圈素材</a></li>
+</ul>
+</li>
+</ul></nav>
+            </div>
+            <div class="u-floatRight content">
+                                    <span class="item" data-action="popLogin"><svg class="svgIcon-use" width="18" height="17" viewBox="0 0 18 17"><path d="M17.831,3.950 L9.184,12.519 C9.113,12.590 9.024,12.641 8.927,12.667 L4.754,13.785 C4.705,13.798 4.655,13.805 4.603,13.805 C4.450,13.805 4.301,13.743 4.193,13.635 C4.047,13.489 3.992,13.275 4.048,13.078 L5.219,8.984 C5.246,8.891 5.296,8.805 5.366,8.736 L14.013,0.165 C14.122,0.058 14.267,-0.002 14.421,-0.002 C14.575,-0.002 14.720,0.058 14.829,0.165 L17.831,3.141 C17.940,3.249 18.000,3.393 18.000,3.545 C18.000,3.698 17.940,3.842 17.831,3.950 ZM8.156,11.689 L6.199,9.750 L5.436,12.419 L8.156,11.689 ZM14.421,1.378 L6.902,8.830 L9.088,10.997 L16.607,3.546 L14.421,1.378 ZM1.153,2.286 L1.153,14.895 C1.153,15.425 1.588,15.855 2.122,15.855 L14.732,15.855 C15.267,15.855 15.701,15.425 15.701,14.895 L15.701,10.476 L16.855,10.476 L16.855,14.895 C16.855,16.055 15.902,16.998 14.732,16.998 L2.122,16.998 C0.952,16.998 -0.000,16.055 -0.000,14.895 L-0.000,2.286 C-0.000,1.126 0.952,0.183 2.122,0.183 L9.326,0.183 L9.326,1.326 L2.122,1.326 C1.588,1.326 1.153,1.756 1.153,2.286 Z"></path></svg>投稿</span>
+                    <span class="item show-search"><svg class="svgIcon-use" width="16" height="16" viewBox="0 0 16 16"><path d="M15.800,14.481 L12.519,11.200 C12.504,11.184 12.487,11.170 12.471,11.156 C13.361,9.988 13.890,8.529 13.890,6.947 C13.890,3.110 10.780,-0.000 6.945,-0.000 C3.109,-0.000 -0.000,3.110 -0.000,6.947 C-0.000,10.785 3.109,13.895 6.945,13.895 C8.529,13.895 9.990,13.364 11.159,12.471 C11.172,12.487 11.186,12.503 11.201,12.518 L14.483,15.800 C14.786,16.104 15.329,16.056 15.693,15.692 C16.056,15.328 16.104,14.786 15.800,14.481 L15.800,14.481 ZM0.772,6.947 C0.772,3.537 3.535,0.771 6.945,0.771 C10.354,0.771 13.118,3.537 13.118,6.947 C13.118,8.621 12.453,10.138 11.373,11.250 C11.351,11.269 11.330,11.288 11.310,11.308 C11.289,11.329 11.269,11.351 11.250,11.373 C10.138,12.456 8.619,13.123 6.945,13.123 C3.535,13.123 0.772,10.358 0.772,6.947 L0.772,6.947 Z" class="cls-1"></path></svg>搜索</span>
+                    <div class="item app-qrcode"><svg class="svgIcon-use" width="12" height="18" viewBox="0 0 12 18"><path d="M10.599,17.999 L1.401,17.999 C0.626,17.999 -0.000,17.381 -0.000,16.616 L-0.000,1.382 C-0.000,0.617 0.626,-0.001 1.401,-0.001 L10.599,-0.001 C11.374,-0.001 12.000,0.627 12.000,1.382 L12.000,16.616 C12.000,17.381 11.374,17.999 10.599,17.999 ZM11.066,1.382 C11.066,1.128 10.857,0.922 10.599,0.922 L1.401,0.922 C1.142,0.922 0.934,1.128 0.934,1.382 L0.934,12.800 L11.066,12.800 L11.066,1.382 ZM11.066,13.811 L0.934,13.811 L0.934,16.626 C0.934,16.881 1.142,17.087 1.401,17.087 L10.599,17.087 C10.857,17.087 11.066,16.881 11.066,16.626 L11.066,13.811 ZM6.000,16.283 C5.483,16.283 5.066,15.871 5.066,15.361 C5.066,14.851 5.483,14.439 6.000,14.439 C6.516,14.439 6.934,14.851 6.934,15.361 C6.934,15.871 6.516,16.283 6.000,16.283 Z"></path></svg>APP<div class="app-qrcode-dropdown"><img class="app-qrcode-img" src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/footer-appdownload.png"></div></div>
+                    <span class="item" data-action="popLogin">注册 | 登录</span>
+                                            </div>
+        </div>
+    </div>
+    <div class="search-overlay">
+        <div class="container search-content">
+            <form class="search-form" action="http://www.woshipm.com/search-posts" target="_blank" method="get">
+                <input type="search" class="search-form-input" name="k" placeholder="请输入搜索关键词">
+                <button class="btn-search">
+                    <i class="fa fa-search"></i>
+                </button>            </form>
+            <div class="search-hot-words">
+                <h3 class="search-overlay-title"><svg class="svgIcon-use u-colorYellow" width="16" height="16" viewBox="0 0 20 22">
+                        <path d="M19.595,15.561 C18.224,19.972 14.151,21.765 10.797,21.972 C9.858,22.028 8.916,22.002 7.981,21.894 C3.718,21.402 -0.382,18.446 0.029,13.748 C0.223,11.528 1.519,8.904 2.466,6.987 L2.620,6.672 C2.756,6.400 3.029,6.236 3.319,6.254 C3.609,6.268 3.865,6.462 3.972,6.747 C4.106,7.109 4.318,7.534 4.543,7.984 C4.629,8.156 4.715,8.330 4.800,8.504 C6.731,6.456 7.296,3.554 7.602,0.687 C7.631,0.425 7.783,0.197 8.007,0.081 C8.233,-0.035 8.498,-0.026 8.716,0.107 C10.922,1.463 12.480,2.863 13.616,4.513 C13.922,4.959 14.199,5.426 14.445,5.913 C14.621,5.327 14.811,4.747 15.016,4.172 C15.110,3.928 15.312,3.749 15.555,3.695 C15.798,3.640 16.051,3.718 16.229,3.901 C20.136,7.930 20.484,12.700 19.595,15.561 ZM7.493,12.523 C7.493,12.149 7.202,11.847 6.844,11.847 C6.486,11.847 6.196,12.149 6.196,12.523 L6.196,13.784 L4.857,13.804 L4.857,12.559 C4.857,12.186 4.566,11.884 4.209,11.884 C3.851,11.884 3.560,12.186 3.560,12.559 L3.560,16.704 C3.560,17.077 3.851,17.379 4.209,17.379 C4.566,17.379 4.857,17.077 4.857,16.704 L4.857,15.156 L6.196,15.135 L6.196,16.667 C6.196,17.040 6.486,17.343 6.844,17.343 C7.202,17.343 7.493,17.040 7.493,16.667 L7.493,12.523 ZM10.632,11.813 C9.385,11.813 8.371,13.034 8.371,14.535 C8.371,16.036 9.386,17.258 10.632,17.258 C11.878,17.258 12.892,16.036 12.892,14.535 C12.892,13.034 11.878,11.813 10.632,11.813 ZM16.522,11.959 L13.574,11.959 C13.216,11.959 12.926,12.262 12.926,12.635 C12.927,12.816 12.996,12.988 13.118,13.115 C13.239,13.242 13.403,13.312 13.574,13.311 L14.399,13.311 L14.399,16.629 C14.399,17.002 14.690,17.304 15.048,17.304 C15.406,17.304 15.696,17.002 15.696,16.629 L15.696,13.311 L16.522,13.311 C16.692,13.312 16.856,13.242 16.978,13.115 C17.100,12.988 17.169,12.816 17.170,12.635 C17.170,12.262 16.880,11.959 16.522,11.959 ZM10.632,15.908 C10.109,15.908 9.669,15.279 9.669,14.535 C9.669,13.791 10.109,13.163 10.632,13.163 C11.153,13.163 11.595,13.791 11.595,14.535 C11.595,15.279 11.154,15.908 10.632,15.908 Z" class="cls-1"></path>
+                    </svg>热搜词</h3>
+                <div class="words-list">
+                    <a href="http://www.woshipm.com/tag/app" target="_blank" class="words-item">app</a><a href="http://www.woshipm.com/tag/o2o" target="_blank" class="words-item">O2O</a><a href="http://www.woshipm.com/tag/prd" target="_blank" class="words-item">PRD</a><a href="http://www.woshipm.com/tag/%e4%ba%92%e8%81%94%e7%bd%91%e9%87%91%e8%9e%8d" target="_blank" class="words-item">互联网金融</a><a href="http://www.woshipm.com/tag/%e4%ba%a4%e4%ba%92%e8%ae%be%e8%ae%a1" target="_blank" class="words-item">交互设计</a><a href="http://www.woshipm.com/tag/rp" target="_blank" class="words-item">原型设计</a><a href="http://www.woshipm.com/tag/%e5%95%86%e4%b8%9a%e6%a8%a1%e5%bc%8f" target="_blank" class="words-item">商业模式</a><a href="http://www.woshipm.com/tag/%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90" target="_blank" class="words-item">数据分析</a><a href="http://www.woshipm.com/tag/ue" target="_blank" class="words-item">用户体验</a><a href="http://www.woshipm.com/tag/%e7%ab%9e%e5%93%81%e5%88%86%e6%9e%90" target="_blank" class="words-item">竞品分析</a><a href="http://www.woshipm.com/tag/%e8%bf%90%e8%90%a5" target="_blank" class="words-item">运营</a><a href="http://www.woshipm.com/tag/%e9%9c%80%e6%b1%82%e5%88%86%e6%9e%90" target="_blank" class="words-item">需求分析</a>                </div>
+            </div>
+            <div class="search-features">
+                <h3 class="search-overlay-title"><svg class="svgIcon-use  u-colorPink" width="16" height="16" viewBox="0 0 22 22">
+                        <path d="M21.988,7.680 C21.978,7.317 21.969,6.921 21.963,6.490 C21.954,6.060 21.951,5.617 21.951,5.169 C21.932,4.117 21.917,2.952 21.898,1.674 C21.865,1.468 21.825,1.259 21.782,1.053 C21.739,0.847 21.631,0.647 21.459,0.457 C21.287,0.284 21.093,0.168 20.875,0.106 C20.660,0.045 20.466,0.017 20.294,0.017 L12.428,0.017 C12.394,-0.001 12.271,-0.005 12.065,0.005 C11.860,0.014 11.730,0.035 11.678,0.069 C11.574,0.103 11.457,0.165 11.328,0.251 C11.199,0.337 11.091,0.423 11.005,0.509 L0.576,10.993 C-0.183,11.891 -0.192,12.754 0.551,13.581 L8.568,21.631 C8.740,21.770 8.925,21.868 9.125,21.929 C9.324,21.991 9.527,22.012 9.733,21.994 C9.939,21.976 10.136,21.932 10.314,21.865 C10.495,21.797 10.646,21.702 10.765,21.579 C12.698,19.646 14.422,17.912 15.940,16.375 L17.855,14.433 C18.494,13.812 19.059,13.249 19.551,12.751 C20.042,12.250 20.445,11.845 20.755,11.534 L21.247,11.042 C21.281,11.009 21.336,10.935 21.416,10.821 C21.493,10.710 21.576,10.563 21.662,10.381 C21.748,10.200 21.825,9.997 21.895,9.773 C21.963,9.549 22.000,9.306 22.000,9.047 L22.000,8.583 C22.000,8.344 21.994,8.042 21.988,7.680 L21.988,7.680 L21.988,7.680 ZM8.479,14.845 L7.013,14.845 L7.290,12.908 L8.756,12.908 L8.479,14.845 L8.479,14.845 L8.479,14.845 ZM9.232,12.327 C9.161,12.376 9.084,12.413 9.001,12.438 C8.918,12.462 8.836,12.475 8.756,12.475 L7.188,12.475 L7.188,11.331 L8.037,11.331 L8.037,10.271 L7.087,10.317 L7.004,9.192 L8.037,9.137 L8.037,7.999 L6.967,7.999 L6.967,6.847 L8.037,6.847 L8.037,6.026 L9.465,6.026 L9.465,6.847 L10.452,6.847 L10.452,7.999 L9.465,7.999 L9.465,9.051 L10.406,9.005 L10.498,10.148 L9.466,10.203 L9.466,11.900 C9.466,11.992 9.444,12.075 9.401,12.146 C9.358,12.220 9.303,12.278 9.232,12.327 L9.232,12.327 L9.232,12.327 ZM9.742,14.845 L9.456,12.908 L10.931,12.908 L11.208,14.845 L9.742,14.845 L9.742,14.845 ZM12.041,14.845 L11.764,12.908 L13.230,12.908 L13.506,14.845 L12.041,14.845 L12.041,14.845 ZM13.860,12.115 C13.814,12.035 13.789,11.943 13.789,11.838 L13.789,8.009 L12.840,8.009 L12.757,9.281 L13.494,9.346 L13.384,10.489 L12.692,10.425 L12.600,11.937 C12.588,12.115 12.505,12.250 12.351,12.343 C12.197,12.435 12.041,12.481 11.881,12.481 L10.710,12.481 L10.609,11.340 L11.208,11.340 L11.272,10.299 L10.692,10.243 L10.802,9.091 L11.337,9.155 L11.411,8.012 L10.701,8.012 L10.701,6.859 L11.475,6.859 L11.530,6.011 L12.959,6.066 L12.904,6.859 L15.218,6.859 L15.218,11.353 L15.716,11.353 L15.716,12.487 L14.554,12.487 C14.462,12.487 14.370,12.472 14.281,12.444 C14.191,12.416 14.109,12.373 14.035,12.318 C13.961,12.263 13.906,12.195 13.860,12.115 L13.860,12.115 L13.860,12.115 ZM14.336,14.845 L14.060,12.908 L15.525,12.908 L15.802,14.845 L14.336,14.845 L14.336,14.845 L14.336,14.845 ZM19.373,4.830 C19.053,5.141 18.669,5.298 18.220,5.298 C17.772,5.298 17.390,5.141 17.080,4.830 C16.770,4.520 16.613,4.139 16.613,3.690 C16.613,3.241 16.770,2.860 17.080,2.550 C17.390,2.239 17.772,2.083 18.220,2.083 C18.669,2.083 19.053,2.239 19.373,2.550 C19.692,2.860 19.852,3.241 19.852,3.690 C19.852,4.139 19.692,4.520 19.373,4.830 L19.373,4.830 Z" class="cls-1">
+                    </path></svg>热门专题</h3>
+                                    <div class="search-feature-item">
+                        <a class="tool-img" href="http://www.woshipm.com/topic/program" target="_blank">
+                            <img rel="nofollow" src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/180x120">
+                            <h3>小程序该如何设计和运营？</h3>
+                        </a>
+                    </div>
+                                    <div class="search-feature-item">
+                        <a class="tool-img" href="http://www.woshipm.com/topic/grow" target="_blank">
+                            <img rel="nofollow" src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/180x120(1)">
+                            <h3>运营人的自我修养</h3>
+                        </a>
+                    </div>
+                                    <div class="search-feature-item">
+                        <a class="tool-img" href="http://www.woshipm.com/topic/promote" target="_blank">
+                            <img rel="nofollow" src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/180x120(2)">
+                            <h3>运营人如何提高自身竞争力？</h3>
+                        </a>
+                    </div>
+                            </div>
+        </div>
+    </div>    <div class="container u-clearfix single-wrapper u-marginBottom30">
+        <div class="u-width840 u-floatLeft">
+            <div class="u-marginTop30">
+                <article class="article-wrapper u-backgroundColorWhite u-rounded">
+                    <header class="article-header">
+                        <h2 class="article-title">3个方面解析：电商订单系统设计</h2>
+                    </header>
+                    <div class="postMetaLockup--authorWithBio u-flex">
+                        <div class="u-flex0">
+                            <a href="http://www.woshipm.com/u/303373" target="_blank"><img src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/APP_U_201805_20180514105916_3161.jpeg" alt="" height="42" width="42" class="avatar"></a>
+                        </div>
+                        <div class="u-flex1 u-paddingLeft15 u-overflowHidden">
+                            <div class="">
+                                <a href="http://www.woshipm.com/u/303373" target="_blank">野蛮非先生</a><button class="button button--toggle button--primary button--follow" data-action="showLoginForm" data-id="303373"><span class="is-default">订阅专栏</span><span class="is-active">取消订阅</span></button>                            </div>
+                            <div class="des">电商后台PM</div>
+                            <div class="postMetaInline postMetaInlineSupplemental post-meta-items">
+                                <span class="post-meta-item"><span class="fa fa-clock-o"></span>2018-06-11</span>
+                                <span class="post-meta-item"><span class="fa fa-eye"></span>1.8万</span>
+                                <span class="post-meta-item"><button title="收藏" class="button button--chromeless button--toggle button-post-1055272" data-id="1055272" data-action="popLogin"><span class="fa fa-star"></span><span class="count">165</span></button></span>
+                                <span class="post-meta-item"><button data-action="uplike" data-id="1055272" class="button button--toggle button--chromeless">
+<span class="fa fa-thumbs-up"></span><span class="count">48</span>
+</button></span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="article-topAd">
+                        产品小白专属，10周线上特训，测、练、实战，22位导师全程带班，11项求职服务，保障就业！<a href="http://996.pm/MeZN8" target="_blank">了解一下</a>                    </div>
+                        <div id="postAudio" class="jp-jplayer" style="width: 0px; height: 0px;"><img id="jp_poster_0" style="width: 0px; height: 0px; display: none;"><audio id="jp_audio_0" preload="none" src="http://audio-pm.woshipm.com/cache/vava-1055272.mp3"></audio></div>
+                        <div id="jp_container_1" class="jp-audio" role="application" aria-label="media player">
+                            <div class="jp-type-single">
+                                <div class="jp-gui jp-interface">
+                                    <div class="jp-controls">
+                                        <button class="jp-play" role="button" tabindex="0"><svg class="svgIcon-use" width="25" height="25" viewBox="0 0 25 25"><path d="M7 4v17.03a.5.5 0 0 0 .795.404l11.1-8.111a1 1 0 0 0 0-1.615l-11.1-8.112A.5.5 0 0 0 7 4z"></path></svg></button>
+                                        <button class="jp-pause" role="button" tabindex="0" style="display: none;"><svg class="svgIcon-use" width="25" height="25" viewBox="0 0 25 25"><g transform="translate(5 4)" fill-rule="evenodd"><rect width="6" height="17" rx="2"></rect><rect x="9" width="6" height="17" rx="2"></rect></g></svg></button>
+                                    </div>
+                                    <div class="u-flex1">
+                                        <div>释放双眼，带上耳机，听听看~！</div>
+                                        <div class="u-flexCenter">
+                                            <div class="u-flex0 u-marginRight10 jp-current-time js-currentTime" style="width:34px">00:00</div>
+                                            <div class="u-flex1">
+                                                <div class="js-progress" data-action="seek-audioPlayer">
+                                                    <div class="js-progressBar">
+                                                        <div class="js-play-bar" style="width: 0%;"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="u-flex0 u-marginLeft10 jp-duration">00:00</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="grap">
+                        <blockquote><p>一个订单系统的设计并不简单，它需要一批又一批的人去维护、去优化，根据公司的业务情况做出改变和兼容。本文主要分析一下电商订单系统该如何设计。</p></blockquote>
+<p><img data-action="zoom" class="aligncenter size-full wp-image-1056033" src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/06buhrU5zjPjDNjUwEiH.jpg!v.jpg" alt="" width="800" height="450"></p>
+<p>电商所有模块中，订单系统作为最为核心的模块，决定了整个流程能不能顺畅的执行，起着承上启下的作用。相信很多PM都不陌生，到了一家电商公司，总会觉得公司现有的流程有不少问题，因为问题来自四面八方，一下子摸不着到底是哪里出了问题，PM就跟补丁师傅一样，遇到一个补一个。</p>
+<p>其实很多日常开发和测试提得需求都是表面需求，而这些表面上呈现出的各种问题，都是源自于流程上的不完整或者流程上某个环节上的缺失导致的。订单系统作为一个承上启下的模块，流程上出了问题，它肯定脱不了干系。</p>
+<p>订单系统分为用户端和商家端，今天我们从商家端简单分析一下订单系统该如何设计和完善，才能不断适应公司的业务发展，减少因为流程导致的不必要的返工和“补丁”。</p>
+<p>为什么说订单系统是承上启下的作用，上游是什么，下游又是什么？</p>
+<p>这里我们先把问题放在这，后面讲到再作解释。</p>
+<h2><strong>订单系统</strong></h2>
+<p>设计订单系统需要考虑几个模块，只有所有模块都考虑清晰了，才能保证订单系统的稳定性和可扩展性。</p>
+<h3>1. 订单字段</h3>
+<p>其实呈现在界面上的订单信息，都是由各种订单字段组合而成。订单字段齐全从某个程度上代表着订单流程的完整。</p>
+<p><img data-action="zoom" class="aligncenter" src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/p7NKrNdO5B11V4R4FJPy.png!v.jpg"></p>
+<p style="text-align: center;">订单字段信息</p>
+<p>订单字段包括几个部分，其中金额信息因为特殊性，独立出来讲，实质上金额信息属于商品信息。</p>
+<p><b>商品信息</b>：商品信息属于订单系统的上游端，所有订单都是从商品演进而来，从商品到订单，订单系统必须搜集相关的商品信息，包括店铺信息，商品id，商品规格，商品数量，商品价格。获取到的商品信息将在订单详情页内展示，形成订单信息后供仓库方便拣货，包装。</p>
+<p><b>用户信息</b>：用户信息包括购买用户的ID，收货人，收货地址，联系方式。有些平台的用户成长体系是基于用户对平台的活跃度来计算的，例如京东，它有会员等级及积分卡等类似的成长标识，此时获取到的用户信息除了普通的信息字段外，还需要获取该用户的等级，该次购买后所获得的积分，以及该用户所在等级能在该订单上扣除的优惠等信息，具体怎么操作取决于公司的业务方向。</p>
+<p><b>金额信息</b>：因为金额信息的特殊性，所以独立出来讲，理论上金额信息应归属商品信息。金额信息的特殊性在于其不止一种金额，其涉及到商品金额，优惠金额，支付金额。而优惠金额中涉及到的信息较复杂，像有自营和第三方入驻的电商平台，都会有商家优惠和跨店优惠，而这些优惠又分不同类型，例如现金扣减，消费券扣减，积分获取，礼品卡扣减，或者以上几种的组合使用。想要涉及好这一块内容，需要根据目前自己公司的业务情况，列出所支持的优惠类型，再枚举出各种组合下的优惠类型，才能保证流程的完整性。</p>
+<p><b>时间信息</b>：记录各个卡点下的时间，一是记录，二也是方便售后验证和客户分析。订单时间是根据订单状态改变而改变的，比如：我们常见的用户。</p>
+<ul>
+<li><b>下单未付款：</b>即展示订单创建时间、下单时间；</li>
+<li><b>待发货状态：</b>展示订单创建时间、下单时间、支付时间；</li>
+<li><b>待收货状态：</b>展示订单创建时间、下单时间、支付时间、发货时间；</li>
+<li><b>交易完成状态：</b>展示订单创建时间、下单时间、下单时间、支付时间、发货时间、完成时间；</li>
+<li><b>待退款状态：</b>展示退款订单创建时间、申请退款时间；</li>
+<li><b>交易关闭-用户取消：</b>展示订单创建时间、下单时间、用户取消时间；</li>
+<li><b>交易关闭-仅退款：</b>订单创建时间、下单时间、支付时间、退款申请时间、退款成功时间；</li>
+<li><b>交易关闭-退货退款（包含部分仅退款）：</b>订单创建时间、下单时间、支付时间、交易完成时间、退款申请时间、退款时间。</li>
+</ul>
+<p>时间信息看起来不重要，其实是订单系统一个重要的组成部分，原因大家可以思考一下。</p>
+<p><b>订单信息</b>：订单信息在订单系统最为核心，订单信息最重要的又是订单状态。很多公司都有订单状态机的说法，那到底什么是订单状态机？</p>
+<p>我个人的理解是：在订单中，通过各种购物情景，触发订单状态，将订单的流转可视化，是订单状态机的一种具体呈现形式，而它实质就是在描述订单状态的转换。</p>
+<p>电商购物中，订单状态分别有以下几种：【待付款】、【待发货】、【待收货】、【待评价】、【交易完成】、【用户取消】、【仅退款】、【退货退款】。而我们一般会将后三种统一放在订单售后独立呈现，去方便平时商家操作的便捷性。</p>
+<p><img data-action="zoom" class="aligncenter" src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/dRWsdz4aQ0Jtl56JnGhQ.png!v.jpg"></p>
+<p style="text-align: center;">电商订单流程</p>
+<h3>2. 订单流程</h3>
+<p>订单流程是指从订单产生到完成整个流转的过程，其中包括正想流程和逆向流程。正向流程就是一个正常的网购步骤：订单生成–&gt;支付订单–&gt;卖家发货–&gt;确认收货–&gt;交易成功。</p>
+<p>而逆向流程则是各种退款流程。</p>
+<p><b>（1）正向流程</b></p>
+<p><img data-action="zoom" class="aligncenter size-full wp-image-1056011" src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/kHTenTmngznqJmoRSJIV.png!v.jpg" alt="" width="464" height="407"></p>
+<p style="text-align: center;">订单正向流程</p>
+<p>整个订单设计的流程其实是非常多的，接下来我们将从比较具体的描述一下各个环节下的实际情况。</p>
+<p><b>订单生成</b>：用户下单后，系统需要生成订单，此时需要先获取下单中涉及的商品信息，然后获取该商品所涉及到的优惠信息，如果商品不参与优惠信息，则无此环节。</p>
+<p>接着获取该账户的会员权益（这里其实需要注意的是：优惠信息与会员权益是有区别的，就好比商品满减是优惠信息，新人立减是会员权益，一个是针对商品，另一个是针对账户）。</p>
+<p>库存扣减是指可销售库存数量-1，严格来讲库存扣减目前分为两种：</p>
+<ul>
+<li>一种是下单减库存；</li>
+<li>另一种是付款减库存。</li>
+</ul>
+<p>个人觉得中小创业者也许竞争者不比淘宝中的卖家，在电商这个存量市场，需要精细化的运营才能存活下来，如此说保证用户体验才是根本。所以我这里的观点是生成订单扣减库存，这种做法会避免用户支付成功商家却没货的情况。然后计算运费，订单生成成功。</p>
+<p><b>支付订单：</b>用户支付完订单后，需要获取订单的支付信息，包括支付流水号、支付时间等。支付完订单接着就是等商家发货，但在发货过程中，往往还有一种情况存在，很正常却也比较复杂，就是订单拆单。</p>
+<ul>
+<li>订单拆单分两种：一种是用户挑选的商品来自于不同渠道（自营与商家，商家与商家），此时就需要拆分订单，并分开结算，这里还涉及父子订单的说法，这里不再赘述。</li>
+<li>另一种是在SKU层面上拆分订单：不同仓库，不同运输要求的SKU，包裹重量体积限制等因素都需要将订单拆分。比如：商品A只在甲仓库有，商品B又只在乙仓库有，此时会将商品A与商品B拆分成两个订单。或者有些企业的做法是将商品A/B调拨到另外一个仓库统一发货，也方便了用户。</li>
+</ul>
+<p>订单拆单看起来简单，其实里面涉及到底层的系统支持，如你需要对每一个仓库的货品进行相对准确的盘点，且做到实时同步（涉及到仓库精细化管理），对商品进行准确分类与摆放，对商品信息记录准确无误等。</p>
+<p>这其中哪一模块都是一个浩大的工程，PM一般进入一家公司都会在原有（半成品）的基础上进行优化，大家不妨多思考一下底层业务，只有在底层做好精细化管理，才能支持线上丰富的用户需求。</p>
+<p><b>商家发货：</b>商家发货过程也有一个标准化的流程，上面也有讲到，订单拆分时会涉及到仓库间调拨，然后仓库会对商品进行打单、拣货、包装、交接快递配送。这套标准化流程如果优化好，也是一个大工程，这里不再赘述，建议大家看看库存与仓库管理方面的书籍，详细了解。</p>
+<p><b>确认收货：</b>商家发货后，就是等快递配送了，订单系统需要接入一些常用快递企业的接口，方便用户与商家在站内查询快递信息。</p>
+<p><b>交易成功：</b>收到货后，不是一个服务的结束，相反是一个服务的开始。订单系统需要在快递被签收后提醒用户对商品做评价，这里要注意，确认收到货不代表交易成功，交易成功是指在收到货X天的状态，此时订单不在售后的支持时间范围内。到此，一个订单的正向流程就算走完了。</p>
+<p>目前我也没有研究过，不过我的经验告诉我订单系统对售后订单的处理并不比正产订单少，身为电商PM，我们的工作就是去优化这些流程，提高用户粘性。本身售后订单的出现，在某种程度上已经伤害到了用户，如果流程还一团糟的话，我们根本没有机会等到用户的复购。</p>
+<p><strong>（2）逆向流程</strong></p>
+<p><img data-action="zoom" class="aligncenter size-full wp-image-1056010" src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/pRmm96FbC32SHtMRHteP.png!v.jpg" alt="" width="700" height="332"></p>
+<p style="text-align: center;">订单逆向流程</p>
+<p>一个电商的基本逆向流程如上图所示，订单的逆向流程复杂就在于它几乎允许在正向流程的任何环节出现。有人会问：用户未收到货为什么还能退款？</p>
+<p>其实我们换位思考，也很容易理解。假想你是用户，买了一双鞋子，付了款发了货，正在美滋滋的等待收快递，然后刚好路过一家鞋店看到刚买的同款鞋子大促销，于是你就拿起手机点击退款，买下了这双促销的鞋子。</p>
+<p>这种场景其实是很普通也很正常的用户日常，所以我们的订单系统就必须得支持用户各种丰富的场景需求，也十分考验PM的业务渗透能力，好在电商的先行者淘宝已经做了很多基础建设和用户教育，我们直接可以拿来套用，不过还是要根据各个公司的业务情况进行修改。</p>
+<p><b>取消订单：</b>用户提交订单时，在跳转至支付前直接退出，此时用户原则上属于取消订单，因为还未付款，则比较简单，只需要将原本提交订单时扣减的库存补回即可。</p>
+<p><b>支付失败：</b>用户进行支付时退出，或者取消支付，我们将其列为支付失败状态，此时处理同上，将扣减的库存补回可销售库存即可。</p>
+<p><b>付款后退款：</b>用户支付成功后，商家还未发货，支持用户申请退款，此时如果仓库与客服是分离的，则需要先检查仓库是否已经发货，若已发货则应与客户沟通是否可以收到货后再进行退款，如果仓库还未发货，则可直接同意用户退款。或者企业接入菜鸟物流，实行截件功能，不过这种操作还不成熟，成本会比较大，不适合中小创业型公司。</p>
+<p><b>缺货退款：</b>用户支付成功后，商家发货时发现仓库缺货（如果提交订单扣减库存，则会减少缺货情况，为什么是减少而不是避免？因为仓库管理商品时没办法做到100%精准，所以信息有时候会不准确，导致线上的可销售库存显示有库存而仓库已经售空的状态），则需要与用户协商是否退款。</p>
+<p>这个流程订单系统可以做到流程化、自动化，连接消息中心和仓库管理系统去实现，难点在于消息的实时性。我就遇到过在淘宝买过一件上衣，一天过去了，商家跟我说没货了，我当时杀人的心都有了。</p>
+<p><b>待收货退款：</b>这个问题目前还没有特别完美的解决方法，商家发了货之后，用户还未收到货，此时货在路上。</p>
+<p>我曾经在一些交流群里提出过这个问题，大家的看法都不一样，大体上分为两种做法：</p>
+<ul>
+<li>一种是用户收到货后重新寄回；</li>
+<li>另一种是用户直接拒收包裹，包裹直接退回原地址。</li>
+</ul>
+<p>我个人倾向于第一种，第一种比较灵活，因为用户未收到货就退款的原因一般与商品质量关系不大，所以如果允许用户直接拒收退回，相当于商家需要承担回退运费，而本身可能与商家并无太大关系。</p>
+<p>另外一个原因就是，有些商家发货地址与退货地址不在同个地方，不支持直接退回。尽管如此，在到处强调用户体验的今天，增加用户的售后成本也是在消耗用户对平台的耐心，大家不妨去思考一下，有没有更好的解决方法。</p>
+<p><b>用户拒收：</b>同上。</p>
+<p><b>退货退款：</b>用户收到货后，想要申请售后，则此时需要提供让用户输入售后原因，包括上传凭证的功能，如果与商家协商无果，还需要增加平台客服的入口，方便用户进行申诉。而协商结果/申诉成功后直接触发自动退款机制，退款后触发消息通知，同时触发交易关闭状态，整个售后过程才算结束。</p>
+<p>我上面有好几处都提到与消息中心的对接，消息的触发等，其实这也算是订单系统设计的一部分内容，称之为订单推送。当订单状态机发生变化时，需要将对应的变化情况告知给相关人员以便了解当前订单的情况，这也是订单推送的作用。</p>
+<h3><strong>3. 订单推送</strong></h3>
+<p>订单推送的触发依赖于状态机的改变，涉及到的信息包括：</p>
+<ul>
+<li>推送对象（用户、商家、仓库）；</li>
+<li>推送方式（站内消息、push、短信、微信）；</li>
+<li>推送节点（状态机）。</li>
+</ul>
+<p>本文主讲订单系统的核心模块设计逻辑，订单推送的具体设计就不再此处赘述。</p>
+<h2><strong>结言</strong></h2>
+<p>一个订单系统的设计绝非这么简单，它需要一批又一批的人去维护、去优化，根据公司的业务情况做出改变和兼容。</p>
+<p>大家平时在做产品设计的时候可以多深入了解一下公司的具体业务场景，这样才能做出适用自己企业的订单系统，自己也才能成长，而不是一直套用别人的逻辑结果。</p>
+<p>写完文章已经完美进入周日了，下一篇文章会对上次有所保留的拼团活动进行更加详细的分析。</p>
+<p>&nbsp;</p>
+<p>本文由 @野蛮非先生 原创发布于人人都是产品经理。未经许可，禁止转载</p>
+<p>题图来自Unsplash，基于CC0协议</p>
+                    </div>
+                            <div class="article-bottomAd">
+            <a href="https://www.qidianla.com/course/yunying.html" target="_blank"><img src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/147xQ3hMFWacblsCN6VR.jpg" alt=""></a>        </div>
+        <div class="taglist"><a href="http://www.woshipm.com/tag/2%e5%b9%b4" rel="tag">2年</a><a href="http://www.woshipm.com/tag/%e5%88%9d%e7%ba%a7" rel="tag">初级</a><a href="http://www.woshipm.com/tag/%e7%94%b5%e5%95%86%e8%ae%a2%e5%8d%95%e7%b3%bb%e7%bb%9f" rel="tag">电商订单系统</a></div>        <div class="support-author"><div class="support-title">给作者打赏，鼓励TA抓紧创作！</div><button class="button--pay" data-post-id="1055272" data-author="303373" data-avatar="https://static.woshipm.com/APP_U_201805_20180514105916_3161.jpeg"><svg width="13" height="16" class="svgIcon--use" viewBox="0 0 13 16"><path d="M9.113,4.571 C9.951,3.771 10.895,2.742 10.685,2.057 C10.475,1.485 10.056,0.799 9.427,0.571 C8.903,0.342 8.379,0.456 7.750,0.799 C7.540,0.342 7.016,0.114 6.596,-0.001 C5.863,-0.001 5.234,0.228 4.814,0.914 C4.080,0.571 3.451,0.685 2.927,1.028 C2.613,1.256 2.298,1.713 2.298,2.628 C2.298,3.542 3.137,4.228 3.766,4.685 C2.508,5.599 -0.218,7.885 -0.008,12.228 C-0.218,15.656 2.613,15.999 2.613,15.999 L10.371,15.999 C11.314,15.885 12.991,14.971 12.991,12.571 L12.991,12.228 C13.201,7.771 10.371,5.371 9.113,4.571 L9.113,4.571 ZM8.932,11.835 L6.940,11.835 L6.940,13.207 C6.940,13.435 6.731,13.549 6.521,13.549 C6.311,13.549 6.102,13.435 6.102,13.207 L6.102,11.835 L4.110,11.835 C3.900,11.835 3.795,11.606 3.795,11.378 C3.795,11.149 3.900,10.921 4.110,10.921 L6.102,10.921 L6.102,10.121 L4.949,10.121 C4.739,10.121 4.634,9.892 4.634,9.664 C4.634,9.435 4.739,9.206 4.949,9.206 L5.892,9.206 L4.739,7.950 C4.634,7.835 4.739,7.606 4.949,7.492 C5.158,7.378 5.368,7.264 5.473,7.378 L6.521,8.635 L7.674,7.264 C7.779,7.149 7.989,7.264 8.198,7.378 C8.408,7.492 8.408,7.721 8.408,7.835 L7.150,9.321 L8.094,9.321 C8.303,9.321 8.408,9.549 8.408,9.778 C8.408,10.007 8.303,10.235 8.094,10.235 L6.940,10.235 L6.940,11.035 L8.932,11.035 C9.142,11.035 9.247,11.264 9.247,11.493 C9.247,11.606 9.037,11.835 8.932,11.835 L8.932,11.835 Z"></path></svg>
+赞赏</button><div class="pay-num">5人打赏</div><div class="donation-list"><div class="donation-item"><img class="avatar" src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/TTW_USER_R_201706_20170602182816_3884.jpg" height="32" width="32"></div><div class="donation-item"><img class="avatar" src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/TTW_USER_R_201706_20170602182840_2825.jpg" height="32" width="32"></div><div class="donation-item"><img class="avatar" src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/TTW_USER_R_201706_20170602183104_5236.png" height="32" width="32"></div><div class="donation-item"><img class="avatar" src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/TTW_USER_R201706_20170602174603_3604.jpg" height="32" width="32"></div><div class="donation-item"><img class="avatar" src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/TTW_USER_R_201706_20170602183445_5260.jpg" height="32" width="32"></div></div></div>        <div class="post-actions u-clearfix">
+            <div class="u-floatLeft share-actions">
+                <button class="button button--gray button--circle button--wechat"><span class="fa fa-wechat"></span><span class="qrcode-wrapper"><img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&amp;data=http://www.woshipm.com/pd/1055272.html"></span></button>
+                <a class="button button--gray button--circle button--weibo" target="_blank" href="http://service.weibo.com/share/share.php?appkey=2775287854&amp;title=3%E4%B8%AA%E6%96%B9%E9%9D%A2%E8%A7%A3%E6%9E%90%EF%BC%9A%E7%94%B5%E5%95%86%E8%AE%A2%E5%8D%95%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1&amp;url=http://www.woshipm.com/pd/1055272.html&amp;pic=http://image.woshipm.com/wp-files/2018/06/06buhrU5zjPjDNjUwEiH.jpg" "=""><span class="fa fa-weibo"></span></a>
+            </div>
+            <div class="u-floatRight">
+                <button title="收藏" class="button button--gray button--toggle button--recommend button-post-1055272 " data-id="1055272" data-action="popLogin"><span class="button-label is-default">收藏</span><span class="button-label is-active">已收藏</span> | <span class="count">165</span></button><button class="button button--toggle button--gray button--postlike" data-action="uplike" data-id="1055272"><span class="button-label is-default">赞</span><span class="button-label is-active">已赞</span> | <span class="count">48</span></button>            </div>
+        </div>
+        </article>
+        <div class="postFooterInfo u-marginTop30 u-backgroundColorWhite u-rounded">
+            <div class="u-flex">
+                <div class="u-flex0">
+                    <a href="http://www.woshipm.com/u/303373" target="_blank"><img src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/APP_U_201805_20180514105916_3161(1).jpeg" alt="" height="60" width="60" class="avatar"></a>
+                </div>
+                <div class="u-flex1 u-paddingLeft15 u-overflowHidden">
+                    <div class=""><span class="title"><a href="http://www.woshipm.com/u/303373" target="_blank">野蛮非先生</a></span><button class="button button--toggle button--primary button--follow" data-action="showLoginForm" data-id="303373"><span class="is-default">订阅专栏</span><span class="is-active">取消订阅</span></button></div>
+                    <div class="des">电商后台PM</div>
+                </div>
+                <div class="u-flex0">
+                    <div class="authorInfo-item"><i>4篇</i>作品</div>
+                    <div class="authorInfo-item"><i>7.8万</i>总阅读量</div>
+                </div>
+            </div>
+        </div>
+        <div class="u-backgroundColorWhite comments-area">
+    <div class="comment-list-header"><span class="title">评论</span></div>
+    <div id="respond" class="respond respond-1055272" role="form">
+        <form action="http://www.woshipm.com/wp-comments-post.php" method="post" id="commentform" data-post="1055272" class="comment-form u-clearfix">
+                        <div class="textarea--unlogin" data-action="popLogin">欢迎留言讨论~！</div>
+                </form>
+    </div>
+            <div class="commentshow">
+            <ol class="comment-list">
+                        <li class="comment byuser comment-author-89465 even thread-even depth-1" id="li-comment-328297" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-328297" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/89465" target="_blank"><img src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/40x40" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/89465" target="_blank">小火</a><span class="des">互联网+人生</span></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>谢谢。大致搞清楚了</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2019-02-12T10:46:17+08:00">2019/02/12</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-328297&#39;, &#39;328297&#39;, &#39;respond&#39;, &#39;1055272&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+        <li class="comment byuser comment-author-823886 odd alt thread-odd thread-alt depth-1" id="li-comment-323630" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-323630" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/823886" target="_blank"><img src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/woshipm_def_head_2.jpg" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/823886" target="_blank">若有所思</a><span class="des"></span></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>写得好棒呀，刚好要做订单系统的测试</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2019-01-11T09:20:25+08:00">2019/01/11</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-323630&#39;, &#39;323630&#39;, &#39;respond&#39;, &#39;1055272&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+        <li class="comment byuser comment-author-sleeping even thread-even depth-1" id="li-comment-289580" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-289580" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/286406" target="_blank"><img src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/40x40(1)" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/286406" target="_blank">sleeping</a><span class="des">产品经理</span></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>为什么不把点评从订单状态中独立出来？放在住流程中有什么特殊考虑吗？</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2018-09-05T15:44:06+08:00">2018/09/05</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-289580&#39;, &#39;289580&#39;, &#39;respond&#39;, &#39;1055272&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            <ol class="children">
+        <li class="comment byuser comment-author-303373 bypostauthor odd alt depth-2" id="li-comment-289969" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-289969" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/303373" target="_blank"><img src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/APP_U_201805_20180514105916_3161(2).jpeg" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/303373" target="_blank">野蛮非先生</a><span class="post-c-a" title="文章作者">作者</span><span class="color-noraml">回复</span><a href="http://www.woshipm.com/pd/1055272.html#comment-289580">sleeping</a></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>点评不算订单状态，是订单流程的一个子流程，是触发交易成功其中的一个前置条件。</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2018-09-07T10:33:21+08:00">2018/09/07</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-289969&#39;, &#39;289969&#39;, &#39;respond&#39;, &#39;1055272&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+        <li class="comment byuser comment-author-sleeping even depth-2" id="li-comment-290128" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-290128" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/286406" target="_blank"><img src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/40x40(1)" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/286406" target="_blank">sleeping</a><span class="color-noraml">回复</span><a href="http://www.woshipm.com/pd/1055272.html#comment-289969">野蛮非先生</a></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>现在买东西谁还会主动点评，就算做了自动好评的功能，跟主流程耦合性是不是太高了呢</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2018-09-07T18:10:28+08:00">2018/09/07</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-290128&#39;, &#39;290128&#39;, &#39;respond&#39;, &#39;1055272&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+        <li class="comment byuser comment-author-303373 bypostauthor odd alt depth-2" id="li-comment-290236" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-290236" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/303373" target="_blank"><img src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/APP_U_201805_20180514105916_3161(2).jpeg" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/303373" target="_blank">野蛮非先生</a><span class="post-c-a" title="文章作者">作者</span><span class="color-noraml">回复</span><a href="http://www.woshipm.com/pd/1055272.html#comment-290128">sleeping</a></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>如果你是指图中“交易成功”订单状态包含了用户评价，如我所回复，评价只是触发的条件之一，而主要的触发条件是时间，比如7天/15天/30天自动确认收货，通过自动确认改变订单状态。也如你所说，大多数用户不会主动点评，但也有一部分用户会希望通过主动点评促使订单交易成功，这样用户可以手动调整在商城订单的结算时间，在有积分，会员，购买力评分的商城内是一种业务需求，所以这种耦合是必要的。</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2018-09-08T15:14:14+08:00">2018/09/08</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-290236&#39;, &#39;290236&#39;, &#39;respond&#39;, &#39;1055272&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+        <li class="comment byuser comment-author-679516 even thread-odd thread-alt depth-1" id="li-comment-288120" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-288120" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/679516" target="_blank"><img src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/woshipm_def_head.jpg" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/679516" target="_blank">向死而生</a><span class="des">向死而生</span></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>不错，再继续呀</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2018-08-29T15:55:40+08:00">2018/08/29</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-288120&#39;, &#39;288120&#39;, &#39;respond&#39;, &#39;1055272&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+        <li class="comment byuser comment-author-710024 odd alt thread-even depth-1" id="li-comment-275281" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-275281" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/710024" target="_blank"><img src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/WX_U_201806_20180625163853_8327.jpg" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/710024" target="_blank">走在路上</a><span class="des"></span></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>不错，写的是那么回事 <img src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/icon_idea.gif" alt=":idea:" class="wp-smiley" style="height: 1em; max-height: 1em;"></p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2018-06-25T16:40:42+08:00">2018/06/25</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-275281&#39;, &#39;275281&#39;, &#39;respond&#39;, &#39;1055272&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            <ol class="children">
+        <li class="comment byuser comment-author-303373 bypostauthor even depth-2" id="li-comment-275296" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-275296" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/303373" target="_blank"><img src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/APP_U_201805_20180514105916_3161(2).jpeg" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/303373" target="_blank">野蛮非先生</a><span class="post-c-a" title="文章作者">作者</span><span class="color-noraml">回复</span><a href="http://www.woshipm.com/pd/1055272.html#comment-275281">走在路上</a></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>感谢支持哦 <img src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/icon_wink.gif" alt=";-)" class="wp-smiley" style="height: 1em; max-height: 1em;"></p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2018-06-25T17:22:47+08:00">2018/06/25</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-275296&#39;, &#39;275296&#39;, &#39;respond&#39;, &#39;1055272&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+            </ol>
+            <nav class="commentnav" data-fuck="1055272">
+                            </nav>
+        </div>
+    </div>        <div class="u-backgroundColorWhite promote-posts-wrapper u-rounded">
+            <h2 class="comments-title">您可能感兴趣的文章</h2>
+            <div class="promote-posts">
+                                    <div class="promote-post-item">
+                        <a target="_blank" href="http://www.woshipm.com/pd/2344953.html" style="background-image: url(http://image.woshipm.com/wp-files/2019/05/l4hKYmazdhUPrsdHKTTt.jpg)" class="promote-post-image">
+                        </a>
+                        <div class="promote-post-title"><a target="_blank" href="http://www.woshipm.com/pd/2344953.html">3年收获1.8亿用户，深度拆解Keep产品内容设计</a></div>
+                    </div>
+                                    <div class="promote-post-item">
+                        <a target="_blank" href="http://996.pm/YBWqW" style="background-image: url(http://image.woshipm.com/wp-files/2019/01/Lz4EJhGzHGpi0FErTGmN.jpg)" class="promote-post-image">
+                        </a>
+                        <div class="promote-post-title"><a target="_blank" href="http://996.pm/YBWqW">每天3块钱，补齐互联网专业知识，提升职场竞争力</a></div>
+                    </div>
+                                    <div class="promote-post-item">
+                        <a target="_blank" href="http://www.woshipm.com/operate/2343881.html" style="background-image: url(http://image.woshipm.com/wp-files/2019/05/1VUbqwnsqxb4DTBKTfwr.png)" class="promote-post-image">
+                        </a>
+                        <div class="promote-post-title"><a target="_blank" href="http://www.woshipm.com/operate/2343881.html">后流量时代的用户增长</a></div>
+                    </div>
+                                    <div class="promote-post-item">
+                        <a target="_blank" href="http://www.woshipm.com/pmd/2347867.html" style="background-image: url(http://image.woshipm.com/wp-files/2019/05/oX2KEM8sHufGT3SaRuZ1.png)" class="promote-post-image">
+                        </a>
+                        <div class="promote-post-title"><a target="_blank" href="http://www.woshipm.com/pmd/2347867.html">案例分析：从为盲人设计闹钟，来谈一下结构化产品思维</a></div>
+                    </div>
+                                    <div class="promote-post-item">
+                        <a target="_blank" href="http://www.woshipm.com/marketing/2265590.html" style="background-image: url(http://image.woshipm.com/wp-files/2019/05/MQNWjpCxOOYAN0D2f2gZ.png)" class="promote-post-image">
+                        </a>
+                        <div class="promote-post-title"><a target="_blank" href="http://www.woshipm.com/marketing/2265590.html">不蹭热点，如何建立品牌的记忆关联？</a></div>
+                    </div>
+                                    <div class="promote-post-item">
+                        <a target="_blank" href="http://www.woshipm.com/zhichang/2347657.html" style="background-image: url(http://image.woshipm.com/wp-files/2019/05/3CS2iIyTzz7pYCQo32sv.jpg)" class="promote-post-image">
+                        </a>
+                        <div class="promote-post-title"><a target="_blank" href="http://www.woshipm.com/zhichang/2347657.html">做一名合格的项目负责人（一）： 如何做好信息同步工作？</a></div>
+                    </div>
+                            </div>
+        </div>
+    </div>
+    </div>
+<div class="u-width335 u-floatRight js-sidebar">
+                       <div class="widget u-backgroundColorWhite">
+        <div class="inner">
+            <div class="widget-title"><span><svg class="svgIcon-use" width="20" height="20" viewBox="0 0 20 20"><path d="M6.551,8.213 L7.586,8.213 C7.586,9.594 8.667,10.713 10.000,10.713 C11.333,10.713 12.414,9.594 12.414,8.213 L13.448,8.213 C13.448,10.186 11.904,11.784 10.000,11.784 C8.096,11.784 6.551,10.186 6.551,8.213 ZM16.561,16.551 L17.597,19.999 L16.552,19.999 L16.207,18.928 L16.209,18.928 L15.277,15.706 C15.301,15.706 15.324,15.713 15.349,15.713 C17.347,15.713 18.966,14.034 18.966,11.963 C18.966,10.732 18.386,9.649 17.502,8.965 C17.110,11.828 15.232,14.189 12.701,15.189 L13.818,18.928 L13.815,18.928 L14.138,19.999 L13.103,19.999 L12.759,18.928 L11.275,14.511 C14.283,13.896 16.552,11.151 16.552,7.856 C16.552,4.108 13.618,1.070 10.000,1.070 C6.382,1.070 3.448,4.108 3.448,7.856 C3.448,11.151 5.717,13.896 8.724,14.511 L7.241,18.928 L6.896,19.999 L5.862,19.999 L6.182,18.928 L6.182,18.928 L7.298,15.190 C4.768,14.189 2.890,11.829 2.498,8.967 C1.615,9.650 1.035,10.733 1.035,11.963 C1.035,14.034 2.655,15.713 4.655,15.713 C4.679,15.713 4.702,15.706 4.726,15.706 L3.793,18.928 L3.448,19.999 L2.404,19.999 L3.441,16.551 C1.460,16.001 -0.000,14.144 -0.000,11.931 C-0.000,10.120 0.978,8.544 2.420,7.730 C2.486,3.449 5.851,-0.001 10.000,-0.001 C14.148,-0.001 17.513,3.449 17.580,7.729 C19.022,8.542 20.000,10.119 20.000,11.931 C20.000,14.144 18.541,16.001 16.561,16.551 Z"></path></svg>圈子</span></div>
+            <div class="widget-content">
+                <div class="contact-area">
+                    <ul class="code-ul">
+                        <li><span class="text">产品经理群</span><a target="_blank" href="https://jq.qq.com/?_wv=1027&amp;k=5Rzr7SN"><i>+</i>加入</a></li>
+<li><span class="text">运营交流群</span><a target="_blank" href="https://jq.qq.com/?_wv=1027&amp;k=5HbllFm"><i>+</i>加入</a></li>
+<li><span class="text">营销增长群</span><a target="_blank" href="https://jq.qq.com/?_wv=1027&amp;k=5YgCzCh"><i>+</i>加入</a></li>
+<li><span class="text">文案交流群</span><a target="_blank" href="https://jq.qq.com/?_wv=1027&amp;k=50j5r0V"><i>+</i>加入</a></li>
+<li><span class="text">Axure学习群</span><a target="_blank" href="https://jq.qq.com/?_wv=1027&amp;k=5kJimd1"><i>+</i>加入</a></li>                    </ul>
+                    <dl class="code-dl">
+                        <dd>
+                            <img src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/pm-erweima.jpg">
+                        </dd>
+                        <dt>关注微信公众号</dt>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="widget widget-ad fixed-sidebar-id is-fixed"><a href="http://996.pm/MRjgp" target="_blank"><img src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/csIAup03pO3Xw6sBsyld.jpg" alt="">       </a><a href="http://996.pm/Yw3wg" target="_blank"><img src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/12-3.jpg" alt=""></a><a href="http://996.pm/Y9mwX" target="_blank"><img src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/5-1.jpg" alt=""></a></div><div class="widget u-backgroundColorWhite">
+        <div class="inner">
+            <div class="widget-title"><span><svg class="svgIcon-use" width="20" height="20" viewBox="0 0 20 20">
+  <path d="M20.000,9.999 C20.000,4.476 15.524,-0.001 9.999,-0.001 C4.477,-0.001 -0.000,4.476 -0.000,9.999 C-0.000,15.522 4.477,19.999 9.999,19.999 C12.267,19.999 14.342,19.227 16.021,17.957 C16.089,17.878 16.134,17.779 16.134,17.666 C16.134,17.422 15.937,17.223 15.692,17.223 C15.565,17.223 15.452,17.273 15.369,17.358 L15.365,17.358 C13.864,18.463 12.016,19.125 10.009,19.125 C5.009,19.125 0.954,15.069 0.954,10.069 C0.954,5.067 5.009,1.012 10.009,1.012 C15.011,1.012 19.065,5.067 19.065,10.069 C19.065,11.597 18.707,13.034 18.039,14.296 L18.039,14.304 C18.026,14.346 18.012,14.387 18.012,14.431 C18.012,14.677 18.212,14.876 18.456,14.876 C18.647,14.876 18.807,14.753 18.869,14.584 L18.869,14.588 C19.580,13.211 20.000,11.654 20.000,9.999 L20.000,9.999 L20.000,9.999 L20.000,9.999 ZM3.981,13.384 C3.704,13.384 3.480,13.160 3.480,12.883 L3.480,7.138 C3.480,6.861 3.704,6.637 3.981,6.637 C4.258,6.637 4.482,6.861 4.482,7.138 L4.482,12.883 C4.482,13.160 4.258,13.384 3.981,13.384 L3.981,13.384 ZM7.589,13.384 C7.313,13.384 7.088,13.160 7.088,12.883 L7.088,7.138 C7.088,6.861 7.313,6.637 7.589,6.637 C7.866,6.637 8.090,6.861 8.090,7.138 L8.090,12.883 C8.090,13.160 7.866,13.384 7.589,13.384 L7.589,13.384 ZM7.589,10.511 L3.981,10.511 C3.704,10.511 3.480,10.287 3.480,10.011 C3.480,9.734 3.704,9.510 3.981,9.510 L7.589,9.510 C7.865,9.510 8.090,9.734 8.090,10.011 C8.090,10.287 7.865,10.511 7.589,10.511 L7.589,10.511 ZM14.791,13.384 C14.515,13.384 14.291,13.160 14.291,12.883 L14.291,7.138 C14.291,6.861 14.515,6.637 14.791,6.637 C15.068,6.637 15.292,6.861 15.292,7.138 L15.292,12.883 C15.292,13.160 15.068,13.384 14.791,13.384 L14.791,13.384 ZM16.596,7.639 L12.988,7.639 C12.711,7.639 12.487,7.415 12.487,7.138 C12.487,6.861 12.711,6.637 12.988,6.637 L16.596,6.637 C16.872,6.637 17.097,6.861 17.097,7.138 C17.097,7.415 16.872,7.639 16.596,7.639 L16.596,7.639 ZM10.534,13.384 C9.426,13.384 8.524,12.482 8.524,11.374 L8.524,8.648 C8.524,7.539 9.426,6.637 10.534,6.637 C11.643,6.637 12.545,7.539 12.545,8.648 L12.545,11.374 C12.545,12.482 11.643,13.384 10.534,13.384 L10.534,13.384 ZM10.534,7.639 C9.978,7.639 9.526,8.092 9.526,8.648 L9.526,11.374 C9.526,11.930 9.978,12.382 10.534,12.382 C11.091,12.382 11.543,11.930 11.543,11.374 L11.543,8.648 C11.543,8.092 11.091,7.639 10.534,7.639 L10.534,7.639 Z"></path>
+</svg>热门文章</span></div><ul class="widget-post-list--withImage"><li class="widget-post-item--withImage">
+                    <div class="img">
+<a href="http://www.woshipm.com/newretail/2326758.html" target="_blank">
+<img src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/100x60" width="100" height="60">
+</a>
+</div>
+<div class="title"><a href="http://www.woshipm.com/newretail/2326758.html">从日本消费社会演变史， 窥见未来 20 年的中国</a></div>
+<div class="meta">2019-05-10</div>
+                </li><li class="widget-post-item--withImage">
+                    <div class="img">
+<a href="http://www.woshipm.com/zhichang/2329530.html" target="_blank">
+<img src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/100x60(1)" width="100" height="60">
+</a>
+</div>
+<div class="title"><a href="http://www.woshipm.com/zhichang/2329530.html">画了多年的流程图，你真的画规范了吗？</a></div>
+<div class="meta">2019-05-11</div>
+                </li><li class="widget-post-item--withImage">
+                    <div class="img">
+<a href="http://www.woshipm.com/marketing/2318217.html" target="_blank">
+<img src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/100x60(2)" width="100" height="60">
+</a>
+</div>
+<div class="title"><a href="http://www.woshipm.com/marketing/2318217.html">三个原理，激发你源源不断的创意</a></div>
+<div class="meta">2019-05-08</div>
+                </li><li class="widget-post-item--withImage">
+                    <div class="img">
+<a href="http://www.woshipm.com/operate/2329957.html" target="_blank">
+<img src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/100x60(3)" width="100" height="60">
+</a>
+</div>
+<div class="title"><a href="http://www.woshipm.com/operate/2329957.html">被妖魔化的增长、裂变和社群</a></div>
+<div class="meta">2019-05-11</div>
+                </li><li class="widget-post-item--withImage">
+                    <div class="img">
+<a href="http://www.woshipm.com/marketing/2339268.html" target="_blank">
+<img src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/100x60(4)" width="100" height="60">
+</a>
+</div>
+<div class="title"><a href="http://www.woshipm.com/marketing/2339268.html">为什么我要对微商肃然起敬？跟着微商学战略</a></div>
+<div class="meta">2019-05-14</div>
+                </li></ul></div></div><div class="widget u-backgroundColorWhite">
+        <div class="inner">
+            <div class="widget-title"><span><svg class="svgIcon-use" width="20" height="20" viewBox="0 0 20 20">
+  <path d="M20.000,9.999 C20.000,4.476 15.524,-0.001 9.999,-0.001 C4.477,-0.001 -0.000,4.476 -0.000,9.999 C-0.000,15.522 4.477,19.999 9.999,19.999 C12.267,19.999 14.342,19.227 16.021,17.957 C16.089,17.878 16.134,17.779 16.134,17.666 C16.134,17.422 15.937,17.223 15.692,17.223 C15.565,17.223 15.452,17.273 15.369,17.358 L15.365,17.358 C13.864,18.463 12.016,19.125 10.009,19.125 C5.009,19.125 0.954,15.069 0.954,10.069 C0.954,5.067 5.009,1.012 10.009,1.012 C15.011,1.012 19.065,5.067 19.065,10.069 C19.065,11.597 18.707,13.034 18.039,14.296 L18.039,14.304 C18.026,14.346 18.012,14.387 18.012,14.431 C18.012,14.677 18.212,14.876 18.456,14.876 C18.647,14.876 18.807,14.753 18.869,14.584 L18.869,14.588 C19.580,13.211 20.000,11.654 20.000,9.999 L20.000,9.999 L20.000,9.999 L20.000,9.999 ZM3.981,13.384 C3.704,13.384 3.480,13.160 3.480,12.883 L3.480,7.138 C3.480,6.861 3.704,6.637 3.981,6.637 C4.258,6.637 4.482,6.861 4.482,7.138 L4.482,12.883 C4.482,13.160 4.258,13.384 3.981,13.384 L3.981,13.384 ZM7.589,13.384 C7.313,13.384 7.088,13.160 7.088,12.883 L7.088,7.138 C7.088,6.861 7.313,6.637 7.589,6.637 C7.866,6.637 8.090,6.861 8.090,7.138 L8.090,12.883 C8.090,13.160 7.866,13.384 7.589,13.384 L7.589,13.384 ZM7.589,10.511 L3.981,10.511 C3.704,10.511 3.480,10.287 3.480,10.011 C3.480,9.734 3.704,9.510 3.981,9.510 L7.589,9.510 C7.865,9.510 8.090,9.734 8.090,10.011 C8.090,10.287 7.865,10.511 7.589,10.511 L7.589,10.511 ZM14.791,13.384 C14.515,13.384 14.291,13.160 14.291,12.883 L14.291,7.138 C14.291,6.861 14.515,6.637 14.791,6.637 C15.068,6.637 15.292,6.861 15.292,7.138 L15.292,12.883 C15.292,13.160 15.068,13.384 14.791,13.384 L14.791,13.384 ZM16.596,7.639 L12.988,7.639 C12.711,7.639 12.487,7.415 12.487,7.138 C12.487,6.861 12.711,6.637 12.988,6.637 L16.596,6.637 C16.872,6.637 17.097,6.861 17.097,7.138 C17.097,7.415 16.872,7.639 16.596,7.639 L16.596,7.639 ZM10.534,13.384 C9.426,13.384 8.524,12.482 8.524,11.374 L8.524,8.648 C8.524,7.539 9.426,6.637 10.534,6.637 C11.643,6.637 12.545,7.539 12.545,8.648 L12.545,11.374 C12.545,12.482 11.643,13.384 10.534,13.384 L10.534,13.384 ZM10.534,7.639 C9.978,7.639 9.526,8.092 9.526,8.648 L9.526,11.374 C9.526,11.930 9.978,12.382 10.534,12.382 C11.091,12.382 11.543,11.930 11.543,11.374 L11.543,8.648 C11.543,8.092 11.091,7.639 10.534,7.639 L10.534,7.639 Z"></path>
+</svg>大家都在问</span></div>
+            <div class="widget-content hot-question-list js-hot-qlist"><div class="hot-question-item"><div class="title"><a href="https://wen.woshipm.com//question/detail/8untes.html"><span class="fa fa-caret-right"></span>【悬赏问答】公众号若推付费阅读，你会为其买单吗？</a></div><div class="meta">59个回答<span class="dot"></span>45人关注</div></div><div class="hot-question-item"><div class="title"><a href="https://wen.woshipm.com//question/detail/c5q6ar.html"><span class="fa fa-caret-right"></span>【悬赏问答】对于信息，用户是为了交流而获取，还是为了获取而交流？</a></div><div class="meta">32个回答<span class="dot"></span>39人关注</div></div><div class="hot-question-item"><div class="title"><a href="https://wen.woshipm.com//question/detail/cor6ar.html"><span class="fa fa-caret-right"></span>C2C产品，如何为大卖家流量倾斜的同时留住小卖家？</a></div><div class="meta">8个回答<span class="dot"></span>11人关注</div></div><div class="hot-question-item"><div class="title"><a href="https://wen.woshipm.com//question/detail/80dtes.html"><span class="fa fa-caret-right"></span>【每日一问】"共享爸爸"的营销，你是给"好评"还是"差评"？</a></div><div class="meta">12个回答<span class="dot"></span>6人关注</div></div><div class="hot-question-item"><div class="title"><a href="https://wen.woshipm.com//question/detail/p76kid.html"><span class="fa fa-caret-right"></span>【最佳悬赏】各位产品经理在做完现阶段所有需求后有一段空档期，这期间要干嘛？</a></div><div class="meta">44个回答<span class="dot"></span>58人关注</div></div><div class="hot-question-item"><div class="title"><a href="https://wen.woshipm.com//question/detail/040dge.html"><span class="fa fa-caret-right"></span>当你遇到这样的售后时，你会给予好评吗？</a></div><div class="meta">9个回答<span class="dot"></span>4人关注</div></div><div class="hot-question-item"><div class="title"><a href="https://wen.woshipm.com//question/detail/q1pivf.html"><span class="fa fa-caret-right"></span>【悬赏问答】钉钉一个B端产品，为什么广告老是针对C端人群呢？</a></div><div class="meta">36个回答<span class="dot"></span>31人关注</div></div></div></div></div>    </div>    </div>
+<footer class="site-footer">
+    <div class="container u-flex footer-sections">
+        <section class="info-section">
+            <div class="footer-title">关于</div>
+            人人都是产品经理（woshipm.com）是以产品经理、运营为核心的学习、交流、分享平台，集媒体、培训、社群为一体，全方位服务产品人和运营人，成立8年举办在线讲座500+期，线下分享会300+场，产品经理大会、运营大会20+场，覆盖北上广深杭成都等15个城市，在行业有较高的影响力和知名度。平台聚集了众多BAT美团京东滴滴360小米网易等知名互联网公司产品总监和运营总监，他们在这里与你一起成长。        </section>
+        <section class="link-section">
+        <div class="footer-title">链接</div>
+            <nav class="footer-nav">
+                <ul>
+                    <li><a href="https://www.lagou.com/gongsi/318344.html" target="_blank">加入我们</a></li>
+                    <li><a href="http://www.woshipm.com/it/1010671.html" target="_blank">投稿须知</a></li>
+                    <li><a href="https://wen.woshipm.com/question/detail/omkf.html" target="_blank">意见反馈</a></li>
+                    <li><a href="http://www.woshipm.com/disclaimer" target="_blank">免责声明</a></li>
+                </ul>
+            </nav>
+        </section>
+        <section class="partner-section">
+            <div class="footer-title">合作伙伴</div>
+            <ul class="blue-pic-ul">
+                <li><a href="https://www.qidianla.com/?woshipm" title="起点学院" target="_blank"><img src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/qidian.png" alt="起点学院" title="起点学院"></a></li>
+<li><a href="http://www.cyzone.cn/?woshipm" title="创业邦" target="_blank"><img src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/s99dragqAZYcQyaoKEQn.png" alt="创业邦" title="创业邦"></a></li>
+<li><a href="http://ke.qq.com/?from=95" target="_blank"><img src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/6-1.png" alt="腾讯课堂"></a></li>
+<li><a href="http://www.geetest.com/?woshipm" target="_blank"><img src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/3-3.png" alt="极验验证"></a></li>
+<li><a href="http://www.zhisheji.com/?woshipm" title="致设计" target="_blank"><img src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/4-2.png" alt="致设计" title="致设计"></a></li>
+            </ul>
+        </section>
+        <section class="qr-section" style="margin-left: auto;">
+        <div class="footer-title">APP下载</div>
+            <img src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/twr9dxFu31L06DVY160D.png">
+            <p>iPhone &amp; Android</p>
+        </section>
+    </div>
+    <div class="copyright">
+        <div class="container u-flex">
+        <div>旗下品牌: <a target="_blank" href="https://www.qidianla.com/">起点学院</a> | <a target="_blank" href="https://www.yunyingpai.com/">运营派</a> | <a target="_blank" href="http://www.zhaopins.com/">秒聘网</a> <br>
+©2010-2019 - 人人都是产品经理 - <a target="_blank" href="http://www.miibeian.gov.cn/">粤ICP备14037330号-1</a>-<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030502001309">粤公网安备 44030502001309号</a>
+<br>
+ <a target="_blank" href="http://image.woshipm.com/wp-files/2019/03/vR6mPdp9uXiiRjZedOBX.jpg">广播电视节目制作经营许可证（粤）字第03109号</a> 版权所有 © 深圳聚力创想信息科技有限公司</div>
+        <div style="margin-left:auto;text-align: right">企业内训/课程咨询和合作: 18682011582<br>其他合作/投诉/意见反馈: 18123776760</div>
+    </div>
+    </div>
+</footer>
+</div>
+<div class="back2top is-active"><span class="fa-angle-up fa"></span></div>
+<div class="u-hide"><script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fb85cbcc76e92e3fd79be8f2fed0f504f' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/h.js.下载" type="text/javascript"></script><a href="http://tongji.baidu.com/hm-web/welcome/ico?s=b85cbcc76e92e3fd79be8f2fed0f504f" target="_blank">网站统计</a></div>
+<script type="text/javascript" src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/wechat.js.下载"></script>
+<script type="text/javascript" src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/jquery.jplayer.min.js.下载"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var PURE = {"ajax_url":"http:\/\/www.woshipm.com\/wp-admin\/admin-ajax.php","restapi":"http:\/\/www.woshipm.com\/__api\/","nonce":"0acc146da2","home_url":"http:\/\/www.woshipm.com","is_user_logged_in":"","is_singular":"1","is_home":"","id":"1055272","token":"","secret":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/misc.js.下载"></script>
+<script type="text/javascript" src="./3个方面解析：电商订单系统设计 _ 人人都是产品经理_files/comment-reply.min.js.下载"></script>
+
+</body></html>

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)https://www.cnblogs.com/wmhtxt/p/9979226.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="origin">
+    <title>web  API种类 - 永冻 - 博客园</title>
+<meta property="og:description" content="常见形式 Web API 的简单分类总结 一、请求--响应API。 请求--响应类的API的典型做法是，通过基于HTTP的Web服务器暴露一个/套接口。API定义一些端点，客户端发送数据的请求到这些端">
+    <link type="text/css" rel="stylesheet" href="./web API种类 - 永冻 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./web API种类 - 永冻 - 博客园_files/bundle-Autumn.css">
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./web API种类 - 永冻 - 博客园_files/bundle-Autumn-mobile.css">
+    <link title="RSS" type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/wmhtxt/rss">
+    <link title="RSD" type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/wmhtxt/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/wmhtxt/wlwmanifest.xml">
+    <script src="./web API种类 - 永冻 - 博客园_files/amp4ads-host-v0.js.下载"></script><script src="./web API种类 - 永冻 - 博客园_files/pubads_impl_rendering_2019050901.js.下载"></script><script async="" src="./web API种类 - 永冻 - 博客园_files/analytics.js.下载"></script><script src="./web API种类 - 永冻 - 博客园_files/jquery-2.2.0.min.js.下载"></script>
+    <script>var currentBlogId=456726;var currentBlogApp='wmhtxt',cb_enable_mathjax=false;var isLogined=false;</script>
+    <script src="./web API种类 - 永冻 - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+<link rel="preload" href="./web API种类 - 永冻 - 博客园_files/f.txt" as="script"><script type="text/javascript" src="./web API种类 - 永冻 - 博客园_files/f.txt"></script><script src="./web API种类 - 永冻 - 博客园_files/pubads_impl_2019050901.js.下载" async=""></script><script src="chrome-extension://oofgjnalpjodkfmfomihdlchiiacnman/injectScripts.min.js"></script><link rel="prefetch" href="https://tpc.googlesyndication.com/safeframe/1-0-33/html/container.html"></head>
+<body>
+<a name="top"></a>
+
+
+<table id="blog_header" cellspacing="0" cellpadding="0" width="100%" border="0" class="banner" height="250" background="./web API种类 - 永冻 - 博客园_files/bg_banner.jpg">
+        <tbody><tr>
+            <td width="61">
+                &nbsp;
+            </td>
+            <td width="236" align="center">
+                
+<br><br><br><br><br><br><br>
+<div id="header">
+	<span>
+		<a id="Header1_HeaderTitle" href="https://www.cnblogs.com/wmhtxt/">心灵风暴</a><br><br>
+		
+	</span>
+</div>
+            </td>
+            <td style="padding-bottom: 30px" align="center" valign="bottom">
+                &nbsp;
+            </td>
+        </tr>
+</tbody></table>
+<table align="center" width="100%" cellspacing="0" cellpadding="0" border="0">
+    <tbody><tr>
+        <td width="60">
+            &nbsp;
+        </td>
+        <td id="sidebar" valign="top" s="">
+            <table align="center" width="100%" height="1400" cellspacing="0" cellpadding="5" border="0" bgcolor="white">
+                <tbody><tr>
+                    <td class="banner" valign="top" style="padding-top: 0px">
+                        
+                            
+<div class="news"><div id="blog-news"><div id="profile_block">昵称：<a href="https://home.cnblogs.com/u/wmhtxt/">永冻</a><br>园龄：<a href="https://home.cnblogs.com/u/wmhtxt/" title="入园时间：2018-09-03">8个月</a><br>粉丝：<a href="https://home.cnblogs.com/u/wmhtxt/followers/">1</a><br>关注：<a href="https://home.cnblogs.com/u/wmhtxt/followees/">2</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;50e7cd55-8e4b-4950-e78d-08d611472181&#39;)">+加关注</a></div><script>getFollowStatus('50e7cd55-8e4b-4950-e78d-08d611472181')</script></div></div><script type="text/javascript">loadBlogNews();</script></div>
+
+                            <div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="https://www.cnblogs.com/wmhtxt/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="https://www.cnblogs.com/wmhtxt/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="https://www.cnblogs.com/wmhtxt/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="https://www.cnblogs.com/wmhtxt/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="https://www.cnblogs.com/wmhtxt/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+
+</div></div><div id="sidebar_toptags" class="sidebar-block"></div><div id="sidebar_categories">
+		<h1 class="listtitle">随笔档案</h1>
+		
+				<ul class="list">
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_0" class="listitem" href="https://www.cnblogs.com/wmhtxt/archive/2018/12.html">2018年12月 (1)</a> </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_1" class="listitem" href="https://www.cnblogs.com/wmhtxt/archive/2018/11.html">2018年11月 (6)</a> </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_2" class="listitem" href="https://www.cnblogs.com/wmhtxt/archive/2018/10.html">2018年10月 (6)</a> </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_3" class="listitem" href="https://www.cnblogs.com/wmhtxt/archive/2018/09.html">2018年9月 (3)</a> </li>
+			
+				</ul>
+			
+	
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap" style="display: none;">
+<h3 class="catListTitle">最新评论</h3>
+<div class="RecentComment" id="RecentComments">
+	<div id="RecentCommentsBlock"></div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	<div id="TopViewPostsBlock"><ul><li><a href="https://www.cnblogs.com/wmhtxt/p/9979226.html">1. web  API种类(297)</a></li><li><a href="https://www.cnblogs.com/wmhtxt/p/9893037.html">2. DOM Tree  （百科）(57)</a></li><li><a href="https://www.cnblogs.com/wmhtxt/p/9979218.html">3. 应用程序接口(26)</a></li><li><a href="https://www.cnblogs.com/wmhtxt/p/9657356.html">4. 半程序(23)</a></li><li><a href="https://www.cnblogs.com/wmhtxt/p/9615191.html">5. 自我介绍(20)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap" style="display: none;">
+<h3 class="catListTitle">评论排行榜</h3>
+<div class="RecentComment" id="TopCommentsPosts">
+	<div id="TopFeedbackPostsBlock"></div>
+</div></div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap" style="display: none;">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div class="RecentComment">
+	<div id="TopDiggPostsBlock"></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+                        
+                        <br>
+                        <center>
+                            Powered by <a href="http://www.cnblogs.com/">博客园</a>
+                        </center>
+                    </td>
+                </tr>
+            </tbody></table>
+        </td>
+        <td valign="top" style="padding: 0">
+            <table align="center" width="100%" height="1400" cellspacing="0" cellpadding="5" border="0" bgcolor="white" class="index">
+                <tbody><tr>
+                    <td class="banner" valign="top">
+                        <center>
+                            <a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">博客园</a> <span id="sitehome_link_split">|</span> 
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/wmhtxt/">首页</a> <span id="bloghome_link_split">|</span> 
+<a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a> <span id="newpost_link_split">|</span> 
+<!--<a id="MyLinks1_NewArticleLink" class="menu" href="/EnterMyBlog.aspx?NewArticle=1">发新文章</a> | -->
+<a id="blog_nav_contact" accesskey="9" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/%E6%B0%B8%E5%86%BB">联系</a> <span id="contact_link_split">|</span>  
+<a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/wmhtxt/rss">订阅</a><a id="blog_nav_rss_image" href="https://www.cnblogs.com/wmhtxt/rss"><img src="./web API种类 - 永冻 - 博客园_files/xml.gif" alt="订阅"></a> <span id="rss_link_split">|</span> 
+<a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a>
+
+                        </center>
+                        
+        <div id="post_detail">
+<div class="block">
+	<h1 class="block_title"><a id="cb_post_title_url" href="https://www.cnblogs.com/wmhtxt/p/9979226.html">web  API种类</a></h1>
+	<div class="post">
+		<div class="postcontent">
+			<div id="cnblogs_post_body" class="blogpost-body"><p><a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/cgzl/p/9786801.html">常见形式 Web API 的简单分类总结</a></p>
+<div class="clear">&nbsp;</div>
+<div class="postBody">
+<div id="cnblogs_post_body" class="blogpost-body">
+<p>&nbsp;</p>
+<h1><strong>一、请求--响应API。</strong></h1>
+<p>请求--响应类的API的典型做法是，通过基于HTTP的Web服务器暴露一个/套接口。API定义一些端点，客户端发送数据的请求到这些端点，Web服务器处理这些请求，然后返回响应。响应的格式通常是JSON或XML。</p>
+<p>在这种类型的Web API里，比较流行的是这三种：<strong>REST</strong>，<strong>RPC</strong>和<strong>GraphQL</strong>。</p>
+<p>&nbsp;</p>
+<h2><strong>1.1 REST</strong></h2>
+<p>REST全称是Representational State Transfer&nbsp;表述性状态传递。REST可能是现在最流行的一种Web API。</p>
+<p>REST的核心就是<strong>资源</strong>，一个资源就是可以被标识的实体，它有名称和地址。</p>
+<p>REST API就是把数据以资源的形式暴露出来，并使用标准的HTTP方法来代表创建、读取、更新和删除资源等事务。</p>
+<p>&nbsp;</p>
+<p>REST API有一些<strong>规则和约束</strong>，这里我就简单的写一下（之前的文章有详细描述）：</p>
+<ul class="list-paddingleft-2">
+<li>
+<p>资源都是URL的一部分，例如/persons</p>
+</li>
+<li>
+<p>针对每个资源通常都会有两个URL被实现：“/persons”表示资源的集合，“/person/321”表示特定的一个资源</p>
+</li>
+<li>
+<p>在资源里，使用名词而不是动词，例如 /getUserInfo/123 这就不对了，应该是 /users/123</p>
+</li>
+<li>
+<p>HTTP方法表明了要执行的动作，不同的HTTP方法作用于同一个URL上可实现不同的功能：</p>
+</li>
+<ul class="list-paddingleft-2">
+<li>
+<p>创建 -- POST</p>
+</li>
+<li>
+<p>读取 -- GET</p>
+</li>
+<li>
+<p>整体更新 -- PUT</p>
+</li>
+<li>
+<p>局部更新 -- PATCH</p>
+</li>
+<li>
+<p>删除 -- DELETE</p>
+</li>
+</ul>
+<li>
+<p>&nbsp; 服务器会返回标准的HTTP状态码，来表示请求成功或者失败，以及原因。通常2xx表示成功，3xx表示资源被移动了，4xx表示客户端引起的错误，5xx表示服务器端引起的错误。</p>
+</li>
+</ul>
+<p>&nbsp;</p>
+<p>如果两个资源有<strong>主从关系</strong>，那么子资源最好不采用顶级资源的URL，而是采用主资源的子资源URL地址。例如Province和City就是主从关系，那么City资源的URL应该是：/provinces/{provinceId}/cities，/provinces/{provinceId}/cities/{cityId}</p>
+<p>&nbsp;</p>
+<p><strong>非CRUD操作</strong></p>
+<p>API难免会有一个非CRUD的操作，例如“存档”这个操作。这时候我们可以采取以下几种办法：</p>
+<ul class="list-paddingleft-2">
+<li>
+<p>把这个动作作为资源的一个字段。例如把“存档”作为输入参数传递到API</p>
+</li>
+<li>
+<p>作为子资源。例如 /repos/{repoId}/issues/{issueId}/archive</p>
+</li>
+<li>
+<p>直接使用动词。实在不行了，就用动词吧，例如 /search/params?......</p>
+</li>
+</ul>
+<p>&nbsp;</p>
+<h2><strong>1.2 RPC</strong></h2>
+<p>Remote Procedure Call。RPC是一种比较简单的API，客户端直接会执行另一个服务器上的代码。</p>
+<p>REST是关于资源的，而RPC就是关于动作的。</p>
+<p>在RPC里，客户端通常是把方法名和参数传递给服务器，然后服务器返回JSON或XML。</p>
+<p>&nbsp;</p>
+<p><strong>RPC的规则</strong>比较少：</p>
+<ul class="list-paddingleft-2">
+<li>
+<p>端点要包含被执行操作的名字</p>
+</li>
+<li>
+<p>使用合理的HTTP动词，GET用于读取，POST用于其它类型。</p>
+</li>
+</ul>
+<p>&nbsp;</p>
+<p>RPC适用于那种无法用CRUD封装的动作，或者其影响和资源无关的动作。</p>
+<p>&nbsp;</p>
+<p>RPC不仅限于HTTP，还有其它协议可以支持，例如Apache Thrift和gRPC。</p>
+<p>&nbsp;</p>
+<h2><strong>1.3 GraphQL</strong></h2>
+<p>GraphQL 是 API的查询语言。最近越来越火。它由Facebook于2012年开始开发，2015年被开源了。</p>
+<p>&nbsp;</p>
+<p>GraphQL允许客户端定义需要得到的数据结构，服务器精确的返回所需的数据结构，例如：</p>
+<p><img src="./web API种类 - 永冻 - 博客园_files/986268-20181014163451129-1533016592.png" alt=""></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>与REST和RPC不同，GraphQL API只需要一个端点；它也不需要使用不同的HTTP动词，它只使用POST，你需要在JSON body里面指定是要执行查询还是修改。</p>
+<p>&nbsp;</p>
+<p>相对REST和RPC，GraphQL有下面几个优势：</p>
+<ul class="list-paddingleft-2">
+<li>
+<p><strong>节省了多重的请求往返</strong>，GraphQL可以一次把所需的关联数据全部查询出来。不会存在例如N+1这样的问题</p>
+</li>
+<li>
+<p><strong>避免了API版本问题</strong>。你可以随时添加字段和类型，不会影响现有的查询。可以标记弃用。通过Log可以追踪出哪些字段被谁使用，如果字段没人再去使用，就可以移除它了。</p>
+</li>
+<li>
+<p><strong>Payload比较小</strong>。REST和RPC的响应都包含客户端发送一些不需要的数据。而使用GraphQL的话，客户端得到的响应就是它所请求的那些东西，不多不少。</p>
+</li>
+<li>
+<p><strong>强类型</strong>。GraphQL是强类型的，开发时有类型检查能保证查询的正确性和合理性。</p>
+</li>
+<li>
+<p><strong>内省(Introspection)</strong>。像REST，就需要安装Swagger等工具来帮助浏览API。而GraphQL本身就具备可发现性。它还带有一个浏览器内的IDE用来浏览GraphQL API。下图就是Github的GraphQL API：</p>
+</li>
+</ul>
+<p>&nbsp;</p>
+<p><img src="./web API种类 - 永冻 - 博客园_files/986268-20181014163501909-588711833.png" alt=""></p>
+<p>&nbsp;</p>
+<p>GraphQL的缺点就是它为服务器添加了许多复杂性，服务器需要额外的工作来处理这些复杂的查询。根据查询内容的不同，性能也是一个变数.</p>
+<p>&nbsp;</p>
+<h2>综上所述，那么什么时候应该用哪种Web API呢？</h2>
+<ul class="list-paddingleft-2">
+<li>
+<p>针对CRUD类的API，使用REST</p>
+</li>
+<li>
+<p>针对暴露很多动作的API，使用RPC</p>
+</li>
+<li>
+<p>当你需要查询的灵活性以及维护的连续性时，使用GraphQL</p>
+</li>
+</ul>
+<p>&nbsp;</p>
+<h1>二、事件驱动式 Web API</h1>
+<p>针对用请求-响应式API，如果服务的数据经常变化，那么响应就可能无法保持新鲜了。开发者如果想与变化的数据保持同步，就只能对API进行polling操作了。</p>
+<p>但是如果poll的频率较低，客户端仍有可能无法获得从上次poll到现在所有的数据事件。如果poll的频率较高，还特别浪费资源。</p>
+<p>&nbsp;</p>
+<p>所以我们需要实时的分享事件的数据，通常使用下面三种机制：<strong>WebHook</strong>，<strong>WebSocket</strong>，<strong>HTTP Streaming</strong>。</p>
+<p>&nbsp;</p>
+<h2>2.1&nbsp;<strong>WebHooks</strong></h2>
+<p>WebHook就是一个接收HTTP POST（或GET，PUT，DELETE）的URL。一个实现了WebHook的API提供商就是在当事件发生的时候会向这个配置好的URL发送一条信息。与请求-响应式不同，使用WebHook，你可以实时接受到变化。</p>
+<p>&nbsp;</p>
+<p>下面是Polling和Webhook的比较：</p>
+<p><img src="./web API种类 - 永冻 - 博客园_files/986268-20181014163551597-1325953215.png" alt=""></p>
+<p>&nbsp;</p>
+<p>WebHook非常适合于从一个服务器向另外一个服务器分享实时数据。</p>
+<p>&nbsp;</p>
+<p>但是实现WebHook，也引入了新的复杂性：</p>
+<ul class="list-paddingleft-2">
+<li>
+<p><strong>失败和重试</strong>。为了保证WebHook被成功的传输，你需要构建一个可以再发生错误时进行重试操作的系统。</p>
+</li>
+<li>
+<p><strong>安全性</strong>。对于安全的调用REST API，现在的方案都比较成熟；而对于WebHook来说，这方面依然在探索中前进。</p>
+</li>
+<li>
+<p><strong>防火墙</strong>。防火墙后运行的应用可以通过HTTP访问API，但是它们可能无法接收入站的流量。所以这是一个很大的问题。</p>
+</li>
+<li>
+<p><strong>噪声</strong>。通常每个WebHook调用代表了一个事件，但当短时间内发生了成千上万个事件的时候，再通过WebHook来传输，就可能会有噪音。</p>
+</li>
+</ul>
+<p>&nbsp;</p>
+<h2>2.2&nbsp;<strong>WebSocket</strong></h2>
+<p>WebSocket这个协议，它通过一个TCP协议建立一个双向全双工的流式通信。WebSocket通常用在客户端和服务器之间的通信，也可以用在服务器之间的通信。</p>
+<p><em>ASP.NET Core SignalR就是优先使用该协议</em>。</p>
+<p>&nbsp;</p>
+<p>WebSocket支持全双工（服务器和客户端可以同时双向通信），而且开销不高。经常使用的端口式80或443，这样就很容易穿过防火墙了。</p>
+<p>&nbsp;</p>
+<p>WebSocket特别适合于快速的，现场的路i数据和长连接。</p>
+<p>如果连接挂掉了，客户端会尝试重新初始化连接。但是WebSocket有一些扩展性的问题，因为如果在线的客户端太多，那么服务器端就需要维持这些客户端打开的连接。</p>
+<p><img src="./web API种类 - 永冻 - 博客园_files/986268-20181014163602548-298302668.png" alt=""></p>
+<p>&nbsp;</p>
+<h2>2.3&nbsp;<strong>HTTP Streaming</strong></h2>
+<p>使用请求-响应式API，客户端发送一个请求，服务器端返回一个响应，这个响应的长度是有限的。</p>
+<p>而使用HTTP Streaming，服务器端可以在一个由客户端打开的长生存的连接里持续的推送新数据。</p>
+<p><img src="./web API种类 - 永冻 - 博客园_files/986268-20181014163614561-2034784116.png" alt=""></p>
+<p>&nbsp;</p>
+<p>为了让数据通过一个可长时间存在的连接上进行传输，有两个方案：</p>
+<ul class="list-paddingleft-2">
+<li>
+<p>首先可以让服务器把Transfer-Encoding这个Header设为chunked。这表示客户端是按块接收数据的，块与块之间用换行符分割：“\r\n”。</p>
+</li>
+<li>
+<p>另一个选项是通过Server-Sent Events (SSE)来进行流数据。这个比较适合于浏览器内的客户端，因为这样它们就可以使用标准的EventSource API了。（SignalR在无法使用WebSocket的时候就会使用SSE）</p>
+</li>
+</ul>
+<p>&nbsp;</p>
+<p>HTTP Streaming用起来好像很容易，但是有个问题，是关于缓存的。客户端和代理经常会有缓存的限制。因为只有达到某个阈值之后，它们才会把数据渲染给应用。</p>
+<p>&nbsp;&nbsp;</p>
+<h2>综上，针对事件驱动式Web API：</h2>
+<ul class="list-paddingleft-2">
+<li>
+<p>如果想要进行服务器间的实时事件通信，可以选择WebHooks</p>
+</li>
+<li>
+<p>如果需要浏览器和服务器间的双向实时通信，可以选择WebSocket</p>
+</li>
+<li>
+<p>如果需要使用简单的HTTP进行单向通信，可以使用HTTP Streaming</p>
+</li>
+</ul>
+</div>
+</div></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(9979226,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;50e7cd55-8e4b-4950-e78d-08d611472181&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./web API种类 - 永冻 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./web API种类 - 永冻 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/wmhtxt/" target="_blank"><img src="./web API种类 - 永冻 - 博客园_files/sample_face.gif" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/wmhtxt/">永冻</a><br>
+            <a href="http://home.cnblogs.com/u/wmhtxt/followees">关注 - 2</a><br>
+            <a href="http://home.cnblogs.com/u/wmhtxt/followers">粉丝 - 1</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;50e7cd55-8e4b-4950-e78d-08d611472181&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(9979226,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+    <div class="buryit" onclick="votePost(9979226,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="https://www.cnblogs.com/wmhtxt/p/9979218.html" class="p_n_p_prefix">« </a> 上一篇：<a href="https://www.cnblogs.com/wmhtxt/p/9979218.html" title="发布于2018-11-18 20:26">应用程序接口</a><br><a href="https://www.cnblogs.com/wmhtxt/p/10063153.html" class="p_n_p_prefix">» </a> 下一篇：<a href="https://www.cnblogs.com/wmhtxt/p/10063153.html" title="发布于2018-12-04 11:34">字幕滚动</a><br></div>
+</div>
+
+
+		</div>
+		<div class="itemdesc">
+			发表于 <span id="post-date">2018-11-18 20:27</span> <a href="https://www.cnblogs.com/wmhtxt/">永冻</a> 阅读(<span id="post_view_count">297</span>) 评论(<span id="post_comment_count">0</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=9979226" rel="nofollow">编辑</a> <a href="https://www.cnblogs.com/wmhtxt/p/9979226.html#" onclick="AddToWz(9979226);return false;">收藏</a>
+		</div>
+	</div>
+	<div class="seperator">&nbsp;</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=456726,cb_entryId=9979226,cb_blogApp=currentBlogApp,cb_blogUserGuid='50e7cd55-8e4b-4950-e78d-08d611472181',cb_entryCreatedDate='2018/11/18 20:27:00';loadViewCount(cb_entryId);var cb_postType=1;var isMarkdown=false;</script>
+	
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="https://www.cnblogs.com/wmhtxt/p/9979226.html#" onclick="return RefreshPage();">刷新页面</a><a href="https://www.cnblogs.com/wmhtxt/p/9979226.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-工控&#39;)">【推荐】超50万C++/C#源码: 大型实时仿真组态图形源码</a><br><a href="https://www.bagevent.com/event/2195041?bag_track=13072958" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-看雪&#39;)">【活动】看雪2019安全开发者峰会，共话安全领域焦点</a><br><a href="https://ke.qq.com/adActivity.html?name=xiangxueketang2" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-享学&#39;)">【培训】Java程序员年薪40W，他1年走了别人5年的路</a><br></div>
+<div id="opt_under_post"></div>
+<script async="async" src="./web API种类 - 永冻 - 博客园_files/gpt.js.下载"></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+</script>
+<script>
+  googletag.cmd.push(function() {
+        googletag.defineSlot('/1090369/C1', [300, 250], 'div-gpt-ad-1546353474406-0').addService(googletag.pubads());
+        googletag.defineSlot('/1090369/C2', [468, 60], 'div-gpt-ad-1539008685004-0').addService(googletag.pubads());
+        googletag.pubads().enableSingleRequest();
+        googletag.enableServices();
+  });
+</script>
+<div id="cnblogs_c1" class="c_ad_block">
+    <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;" data-google-query-id="CKDj4PqkneICFQejvQod_n4ERA"><div id="google_ads_iframe_/1090369/C1_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C1_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C1_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border: 0px; vertical-align: bottom;" data-google-container-id="1" data-load-complete="true" src="./web API种类 - 永冻 - 博客园_files/saved_resource.html"></iframe></div></div>
+</div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>相关博文：</b><br>·  <a href="https://www.cnblogs.com/cgzl/p/9786801.html" target="_blank" onclick="clickRecomItmem(9786801)">常见形式WebAPI的简单分类总结</a><br>·  <a href="https://www.cnblogs.com/weinixiong/p/9979386.html" target="_blank" onclick="clickRecomItmem(9979386)">webAPI分类</a><br>·  <a href="https://www.cnblogs.com/wang-yaz/p/9237981.html" target="_blank" onclick="clickRecomItmem(9237981)">RESTful个人理解总结</a><br>·  <a href="https://www.cnblogs.com/lifei01/p/10611883.html" target="_blank" onclick="clickRecomItmem(10611883)">restframework规范</a><br>·  <a href="https://www.cnblogs.com/fuyouchen/p/9590508.html" target="_blank" onclick="clickRecomItmem(9590508)">ASPNETCore---REST&amp;HTTPGET</a><br></div></div>
+<div id="cnblogs_c2" class="c_ad_block">
+    <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;" data-google-query-id="CKHj4PqkneICFQejvQod_n4ERA"><div id="google_ads_iframe_/1090369/C2_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C2_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C2_0" width="468" height="60" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border: 0px; vertical-align: bottom;" data-google-container-id="2" data-load-complete="true" src="./web API种类 - 永冻 - 博客园_files/saved_resource(1).html"></iframe></div></div>
+</div>
+<div id="under_post_kb"><div class="itnews c_ad_block"><b>最新新闻</b>：<br> ·  <a href="https://news.cnblogs.com/n/625344/" target="_blank">这个季度，QQ的月活跃用户环比增长超过了微信</a><br> ·  <a href="https://news.cnblogs.com/n/625343/" target="_blank">科学家发现干细胞会进行自卫性质的“转换”</a><br> ·  <a href="https://news.cnblogs.com/n/625342/" target="_blank">腾讯2019年Q1财报：净利润272.1亿元人民币</a><br> ·  <a href="https://news.cnblogs.com/n/625341/" target="_blank">Vivo专利曝光：或有新机配备前置“猫耳”双摄</a><br> ·  <a href="https://news.cnblogs.com/n/625340/" target="_blank">Uber新工具：分享平均车速数据 方便疏导城市拥堵</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+ if(enablePostBottom()) {
+    codeHighlight();
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverT2();
+    deliverC1();
+    deliverC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);  
+}
+</script>
+</div>
+
+    
+                    </div></td>
+                </tr>
+            </tbody></table>
+        </td>
+    </tr>
+</tbody></table>
+
+
+
+
+</body></html>
