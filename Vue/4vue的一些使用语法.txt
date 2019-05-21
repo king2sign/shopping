@@ -1,0 +1,254 @@
+
+
+Vue使用的一些语法：
+	注意：v-xxx是个指令所以必须将它添加到一个元素上。
+	
+	data: {
+	  name: 'active',
+	  errorClass: 'text-danger'
+	}
+
+
+	v-text
+		解释：就是对某个标签中设置内容 和{{xx}}功能一样
+		例子：<div v-text="name"></div>
+			  <div>{{ name?"有名字":"有=没名字" }}</div>
+	v-html
+		解释：就是对某个标签中设置内容 和{{xx}}功能一样,还有一个能对里面的特俗内容解析成html标签
+		例子：<div v-text="name+'123<ins>liuzijiang</ins>'"></div>
+	
+	v-bind
+		解释：就是绑定html标签原有的一些属性信息
+		例子：<img v-for="(item,index) in 3" v-bind:src="require(`../../assets/head_${index}.png`)" alt="">
+				例子；
+						1：v-bind:class
+							例子A
+								CSS:
+									active{
+										height:800px;
+									}
+									active1{
+										height:200px;
+									}
+								
+								script:
+									var example1 = new Vue({
+									  el: '#example-1',
+									  data: {
+										isActive:true,
+										isActive2:false
+									  }
+									})
+								<div v-bind:class="{ active: isActive,active1:isActive2}"></div>
+								结果：当前isActive是true对应的class就能绑定active选择器,可以在对象中传入更多属性来动态切换多个 class
+							
+							例子B
+								我们可以把一个数组传给 v-bind:class，以应用一个 class 列表：
+								<div v-bind:class="[activeClass, errorClass]"></div>
+								data: {
+								  activeClass: 'active',
+								  errorClass: 'text-danger'
+								}
+							
+						
+						2: v-bind:style
+							例子A：
+								v-bind:style 的对象语法十分直观——看着非常像 CSS，但其实是一个 JavaScript 对象。CSS 属性名可以用驼峰式 (camelCase) 或短横线分隔 (kebab-case，记得用引号括起来) 来命名：
+								<div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }"></div>
+								data: {
+								  activeColor: 'red',
+								  fontSize: 30
+								}
+								
+							例子B：
+								直接绑定到一个样式对象通常更好，这会让模板更清晰：
+								<div v-bind:style="styleObject"></div>
+								data: {
+								  styleObject: {
+									color: 'red',
+									fontSize: '13px'
+								  }
+								}
+						3：v-bind:src
+								一、本地地址
+										<img v-for="(item,index) in 3" v-bind:src="require(`../../assets/head_${index}.png`)" alt="">
+								二、有链接的地址
+										v-bind:src="url"	
+										data{
+											url:
+											
+										}
+								
+						4：v-bind:href
+								有链接的地址
+								v-bind:href="url"
+								<a :href="url?'http://taobao.com':url">点击一下</a>			
+								data{
+									url:
+									
+								}
+		
+		
+		
+		
+		
+		
+		
+		
+	
+	v-cloak：
+		解释：解决页面加载时闪烁出现vue标签或者指令的问题
+		例子：
+			<div class="#app" v-cloak>
+				<p>{{value.name}}</p>
+			</div>
+			然后，在css里面要添加
+			[v-cloak] {
+				display: none;
+			}
+			在线例子：https://www.jianshu.com/p/0800f6bb52c8
+			
+	v-for
+		解释：循环后台返回回来的数据  obj 数组 集合 都能便利
+		例子：
+			提示：v-for="(value, name, index) in arrs" :key=index  提示：key对应的名称必须是()里面最后一个
+				  v-for="xxx1 in obj" :key="xxx1.id" 提示：就是对应的变量名.id	 
+			
+			例：
+				<ul >
+				  <li v-for="(stuMess, index) in stu" :key="index">
+					{{stuMess.name}}           
+					<ol v-for="(ageMess, index) in stuMess.age" :key="index">
+					  <li>{{ageMess}}<li>
+					</ol>
+				  </li>
+				</ul>
+			 
+	v-on：
+		解释：v-on 指令用于绑定HTML事件 ：v-on:click 缩写为 @click
+		例子:
+			1:<a v-on:click="get()">aa</a>
+			2:<a @click="get()">aa</a>
+			<input type="button" value="按钮" v-on:click="jia('my day')"/>
+			var vm = new Vue({
+			  el:".box",
+			  data:{
+				msg:1
+			  },
+			  methods:{
+				jia:function(x){
+				  console.log(x)
+				}
+			  }
+			})
+			在线例子:https://www.cnblogs.com/zhoubingyan/p/9047266.html
+		提示：	
+			事件修饰符
+			<!-- 阻止单击事件冒泡 -->
+			<a v-on:click.stop="doThis"></a>
+			<!-- 提交事件不再重载页面 -->
+			<form v-on:submit.prevent="onSubmit"></form>
+			<!-- 修饰符可以串联 -->
+			<a v-on:click.stop.prevent="doThat"></a>
+			<!-- 只有修饰符 -->
+			<form v-on:submit.prevent></form>
+			<!-- 添加事件侦听器时使用事件捕获模式 -->
+			<div v-on:click.capture="doThis">...</div>
+			<!-- 只当事件在该元素本身（比如不是子元素）触发时触发回调 -->
+			<div v-on:click.self="doThat">...</div>
+			<!-- 点击事件将只会触发一次 -->
+			<a v-on:click.once="doThis"></a>
+			
+			
+	v-model:
+		解释：使用v-model可以实现数据的绑定,Angular是双向数据绑定的，而我们的Vue是单项数据流的
+		注意：v-model是一个指令，限制在<input>、<select>、<textarea>、components中使用，
+			<div id="app">
+				<input v-model="message">
+				<p>The input value is : {{message}}</p> //当input中输入内容p标签就会快速感应到并更新最新input输入的值
+			</div>
+			<script>
+				var app = new Vue({
+					el: '#app',
+					data: {
+						message: 'Hello Word!'
+					}
+				})
+			</script>
+			那么输入框的初始值就是 Hello World! 。
+		提示：<input v-model="message">====<input v-bind:value="message" v-on:input="message = $event.target.value" />
+		在线例子：https://blog.csdn.net/transformer_wsz/article/details/80245962
+		
+		
+	v-once
+		解释：只渲染元素和组件一次，随后的渲染，使用了此指令的元素/组件及其所有的子节点，都会当作静态内容并跳过，这可以用于优化更新性能。
+		例子：
+			<p v-once>{{msg}}</p>  //msg不会改变
+			<p>{{msg}}</p>
+			<input type="text" v-model = "msg" name="">
+			提示：当修改input框的值时，使用了v-once指令的p元素不会随之改变，而第二个p元素时可以随之改变的
+			let vm = new Vue({
+				el : '#app',
+				data : {
+					msg : "hello"
+				}
+			});
+			
+	v-pre
+		解释：<!--# 如果想显示{{ }}标签，而不进行替换，使用v-pre即可调过这个元素和它的子元素的编译过程 #-->
+			  <span v-pre>{{ msg }}</span> 输出的是msg 而不是hello
+			  data : {
+				 msg : "hello"
+			  }
+			  
+	v-show
+		解释：是show的话false 会创建标签,只是创建并隐藏掉了,
+		      如果是用if的话false不会创建,相当于根本没有这个元素
+			  
+	v-if
+	v-else
+		解释：if的话false不会创建,相当于根本没有这个元素
+		注意：v-else 元素必须紧跟在带 v-if 或者 v-else-if 的元素的后面，否则它将不会被识别。
+		<div v-if="Math.random() > 0.5">
+		  Now you see me
+		</div>
+		<div v-else>
+		  Now you don't
+		</div>
+		
+	v-else-if
+		解释：类似于 v-else，v-else-if 也必须紧跟在带 v-if 或者 v-else-if 的元素之后。
+		例子：
+			v-else-if，顾名思义，充当 v-if 的“else-if 块”，可以连续使用：
+			<input type="text" v-model = "type" name="">
+			<div v-if="type === 'A'">
+			  A
+			</div>
+			<div v-else-if="type === 'B'">
+			  B
+			</div>
+			<div v-else-if="type === 'C'">
+			  C
+			</div>
+			<div v-else>
+			  Not A/B/C
+			</div>
+			
+	
+	
+	    <p>=====未勾选=====</p>
+
+		<ul>
+		  <li v-for="stu in students"   v-if="!stu.flag"  :key="stu.id">
+			 <input type="checkbox" >
+			  {{stu.title}}---<button>删除</button>
+		  </li>
+		</ul>
+
+		<p>=====已勾选=====</p>
+		<ul>
+		  <li v-for="stu in students"   v-if="stu.flag"  :key="stu.id">
+			 <input type="checkbox" :checked="stu.flag"  >
+			  {{stu.title}}---<button>删除</button>
+		  </li>
+		</ul> 

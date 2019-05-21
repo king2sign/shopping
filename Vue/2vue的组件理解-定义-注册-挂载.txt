@@ -1,0 +1,345 @@
+
+
+Vue组件理解?
+	描述：
+		组件是可以复用的,一个组件就相当于一个Vue实例,如果多个页面某谋道项目的场景,这样就可以把相同的场景封装成组件
+		到时候多个页面只需要再次调用这个组件接口,这样大大提高了代码的复用率 
+		
+	通俗：组件可以扩展 HTML 元素，封装可重用的代码。在较高层面上，组件是自定义元素 如：<liuZiJiang></liuZiJiang>
+	
+	
+	
+Vue模板组件的定义：https://www.jianshu.com/p/7b7736303f63
+	描述：创建一个组件一定情况下可以让其他Vue模块使用
+	      我一般就用4种
+	
+	
+	A：模板字面量
+		解释：将模块内容都拼装成一个字符串、
+		
+		特点：es6的模板字面量("反引号")允许你使用在一般的javascript字符串中无法做到的多行定义你的模板. 
+		      这种方式更易读, 而且在很多新的浏览器中都得到了支持, 但是为了安全, 你仍然应该编译为es5.
+			  不过, 这种方法也并不是完美的; 我发现大多数 IDE 仍然会通过语法高亮, 以及格式化tab和换行等问题使你痛苦.
+
+		
+		例子： Vue.component('my-checkbox', {
+					template: `<div class="checkbox-wrapper" @click="check">
+											<div :class="{ checkbox: true, checked: checked }"></div>
+											<div class="title"></div>
+										</div>`,
+					data() {
+						return { checked: false, title: 'Check me' }
+					},
+					methods: {
+						check() { this.checked = !this.checked; }
+					}
+				});
+			提示：目前不要看其他就看template对应的一个写法
+			
+	
+	
+	B：X-Templates
+		解释：通过这种方法, 你的模板被定义在index.html的一个script标签内script标签被标记为text/x-template并且在你的组件定义中通过id来引用.
+		
+		特点：允许你在适当的html标记中编写你的html标签, 但它的缺点是, 它把模板和组件定义的其他部分分离开了.
+			  通俗：也就是说写将模板组件内容写在了html中,与对应的模板组件所需的部分(数据,方法)分离了			
+		
+		例子：
+				HTML:
+					 <script type="text/x-template" id="checkbox-template">
+						<div class="checkbox-wrapper" @click="check">
+							<div :class="{ checkbox: true, checked: checked }"></div>
+							<div class="title"></div>
+						</div>
+					</script>
+				
+				script:
+					Vue.component('my-checkbox', {
+						template: '#checkbox-template',
+						data() {
+							return { checked: false, title: 'Check me' }
+						},
+						methods: {
+							check() { this.checked = !this.checked; }
+						}
+					});
+				提示：目前不要看其他内容就看template对应的一个写法
+				
+				
+				
+	C：inline-template(内联模板)
+		解释：
+			通过给组件添加inline-template属性, 你向vue表明, 组件的内容是它的模板, 而不
+			是把它作为分布式内容(参考 插槽slot)
+			这和x-template面临一样的问题, 但是优点是html模板内容是在正确的地方, 所以可以在页面加载时渲染而不是等待js执行.
+			
+		例子：
+			HTML:
+				<my-checkbox inline-template>
+					<div class="checkbox-wrapper" @click="check">
+						<div :class="{ checkbox: true, checked: checked }"></div>
+						<div class="title"></div>
+					</div>
+				</my-checkbox>
+				
+			script:
+				Vue.component('my-checkbox', {
+					data() {
+						return { checked: false, title: 'Check me' }
+					},
+					methods: {
+						check() { this.checked = !this.checked; }
+					}
+				});
+				提示：目前不要看其他内容就看template对应的一个写法
+	
+	
+	
+	D：HTML中template组件
+		解释：这种方式和inline-template、X-Templates定义的函数和特征差不多就是创建方式对应的关键字名称不同
+		
+		例子:
+			HTML:
+				<template id="Mydemo">
+					<h1>Hello Time</h1>
+				</template>
+
+			script:
+				Vue.component('account',{
+					template:"#Mydemo",
+				})
+				提示：目前不要看其他内容就看template对应的一个写法
+					
+			
+			
+	E：单文件(.vue)组件
+		解释：
+			只要你熟悉构建工具的设置, 单文件组件绝对是模板选择的王者.
+			他们带来两全其美的方法: 允许你编写html标记, 同时保持所有的每个组件定义在一个文件中.
+			尽管需要编译以及一些IDE不支持这种文件类型(.vue)的语法高亮外, 但仍然无法撼动其地位.
+	
+		例子：	
+			<template>
+			  <div class="checkbox-wrapper" @click="check">
+				<div :class="{ checkbox: true, checked: checked }"></div>
+				<div class="title"></div>
+			  </div>
+			</template>
+			<script>
+			  export default {
+				data() {
+				  return { checked: false, title: 'Check me' }
+				},
+				methods: {
+				  check() { this.checked = !this.checked; }
+				}
+			  }
+			</script>
+			
+
+			
+	
+	
+	
+Vue模板组件的注册：https://segmentfault.com/a/1190000011465462	
+		描述：就是将当前指定的注解给注册出去让其他组件可以用你注册好的组件
+			  注册2种
+		
+		注意：全局组件和局部组件一样，data也必须是一个函数：
+		
+		全局注册：
+			解释；相当于将当前定义好的组件暴露出去 让其他模块直接使用该暴露出去组件(2种方式)
+			
+			方式1：
+				描述：Vue.component(组件名,{方法})
+				注意：无需在其他页面引入在使用是直接使用即可
+				例子：
+					A:
+						注意：全局组件必须写在Vue实例创建之前，才在该根元素下面生效
+						<body>
+							<div id="app">
+								<my-component></my-component>
+							</div>
+							<div id="app1">
+								<my-component></my-component>
+							</div>
+							<script>
+							Vue.component("my-component",{
+								template:"<h1>我是全局组件</h1>"
+							});
+							new Vue({
+								el:"#app"
+							});
+							new Vue({
+								el:"#app1"
+							})
+							</script>
+						</body>
+						渲染结果：
+							<div id="app">
+								<h1>我是全局组件</h1>
+							</div>
+							<div id="app1">
+								<h1>我是全局组件</h1>
+							</div>
+				
+					B：
+						注意:模板里面第一级标签为根组件不能有1个以上的根组件 不然会报错
+						<body>
+							<div id="app">
+								<my-component></my-component>
+							</div>
+							<script>
+								new Vue({
+									el: "#app"
+								});
+								Vue.component("my-component", {
+									template: "<h1>我是全局组件</h1>" +
+									"<p>我是全局组件内标签</p>"
+								});
+								new Vue({
+									el: "#app1"
+								})
+							</script>
+						</body>
+						结果：这样子会报错，并且只会渲染第一个标签h1;、
+						
+			方式2：
+				提示：这就相当于创建组件并将组件暴露出去让其他页面引入使用
+				注意：一般需要引入该Vue文件并挂载到指定Vue实例下使用(算是一种模板注册)
+				例子：
+					Vue页面1
+						<template>
+							<div id="shoppingHead">
+								<ul>
+									<li  v-for="stu in students" :key="stu.id">
+										{{stu.title}}
+									</li>
+								</ul>
+
+								<button @click="showStudents">显示学生名字</button>
+								 <button @click="updateStudents">修改学生名字</button>
+							</div>
+						</template>
+						<script>
+							export default {
+								data(){
+									return{
+										students:[]
+									}
+								},
+								methods:{
+									showStudents(){
+										this.students=[{title:'水果'},{title:'裤子'},{title:'衣服'},{title:'鞋子'}]
+									},
+									updateStudents(){
+										this.students=[
+											{title:'小明'},{title:'小丽'},{title:'小红'},{title:'小五'}
+										]
+									}
+								}
+							}
+						</script>
+						
+				Vue页面2：
+					//引入头部组件 
+					import stuHead from "@/components/head"
+					export default {
+					  components:{
+						myStuHead:stuHead
+					  }
+					}
+		
+		
+		
+		局部注册：
+			解释：局部组件注册方式，直接在Vue实例里面注册,相当于只能在某一个实例使用该组件
+			
+			注意：
+				1.属性名为components，s千万别忘了;
+				2.套路比较深，所以建议模板定义在一个全局变量里，代码看起来容易一点，如下：（模板标签比较多的时候，这样子写更加简洁规整）
+				3:关于变量创建组件中的其他属性，可以和实例中的一样，但是data属性必须是一个函数：
+				
+				例子：
+					1:
+						<body>
+						<div id="app1">
+							<child-component></child-component>
+						</div>
+						<script>
+							new Vue({
+								el: "#app1",
+								components:{
+									"child-component":{
+										template:"<h1>我是局部组件</h1>"
+									}
+								}
+							});
+						</script>
+						
+					
+					2:
+						<body>
+							<div id="app1">
+								<child-component></child-component>
+							</div>
+							<script>
+								var child={
+									template:"<button @click='add2'>我是局部组件:{{m2}}</button>",
+									data:function(){
+										return {m2:1}
+									},
+									methods:{
+										add2:function(){
+											this.m2++
+										}
+									}
+								};
+								new Vue({
+									el: "#app1",
+									components:{
+										"child-component":child
+									}
+								})
+							</script>
+						</body>
+						
+		
+	
+Vue模板组件的挂载
+		提示：就是在某一个Vue实例中使用components进行挂载
+		
+		例子：	
+			new Vue(
+				el:"#标签id明",
+				components:{
+					"child-component":模板块
+										
+				}
+			)				
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+		
+	

@@ -1,0 +1,35 @@
+	vue实例中不写return的代码：
+	let app= newVue({
+		el:"#app",
+		data:{
+			
+		},
+		methods:{
+
+		}
+	})
+
+	在使用组件化的项目中data写return的代码：
+	export default{
+		data(){
+			return {
+
+			}
+		},
+		methods:{
+
+		}
+	}
+	
+	写renturn和不写return的区别：
+		1：不使用return包裹的数据会在项目的全局可见，会造成变量污染(只要该组件被挂载或间接挂载都会能引用到) 。
+
+		2：由于同一个组件可以被复用变成 组件1、组件2、使用return包裹后数据中变量只在当前组件中生效，当前组件1操作变量不会影响到组件2
+			提示：
+				**后者的data是一个方法，**也就是：
+
+				data:function(){
+					return{
+						
+					}
+				}

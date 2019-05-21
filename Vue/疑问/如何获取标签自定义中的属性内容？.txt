@@ -1,0 +1,30 @@
+获取标签自定义中的属性内容
+	解释：对标签中顶一个特有的属性并赋值一个动态数据、
+	定义格式：<div :data-自己属性明>我一个特殊的属性名并有对应的内容</div>
+	获取：将当前事件对于传递到方法中 利用：e.srcElement.dataset.自定义属性名获取
+	例子：
+		事件对象获取属性
+			html: <button  :data-stk="msg" @click="chaKanEvent($event)" >查看我获取msg中字段内容</button>
+			
+			script:
+				data () {
+					return {
+					  msg: '江西先锋软件职业技术学院吧'
+
+					}
+				  },
+				  methods:{
+					chaKanEvent(e){
+					  console.log(e.srcElement.dataset.stk);  //江西先锋软件职业技术学院吧
+					}
+				  }
+				  
+		原生DOM获取属性内容
+			html:
+				<button @click="chaKan2">查看我下面的p标签内容中对应的属性信</button>
+				<p :data-RNG='msg' ref="rng">对应的属性信</p>
+				
+			script:
+				chaKan2(){
+					console.log(this.$refs.rng.getAttribute('data-RNG'));
+				}

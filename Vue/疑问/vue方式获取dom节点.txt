@@ -1,0 +1,18 @@
+获取dom节点
+	提示：vue有自己的方式获取html的dom节点 
+	方式：
+		html: 某个标签上添加ref属性： ref="标志名称"
+		
+		script: 应用 this.$refs.标志名称 就获取到了原生的js节点
+	
+	例子：<div ref="div1">我是一个酷酷女孩</div>
+		  <button v-on:click="huoQu">获取节点</button>
+		  
+		  data(){
+		  },
+		  methods:{
+			huoQu(){
+				this.$refs.div1.style="background-color:red";
+				this.$refs.div1.textContent="1231231";
+			}
+		  }

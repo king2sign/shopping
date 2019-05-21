@@ -1,0 +1,180 @@
+前端框架：
+		jquery
+			节点操作简单，浏览器兼容
+			
+		angular
+			MVC模式，双向数据绑定，依赖注入
+			
+		react
+			virtual DOM（虚拟DOM，即为与DOM一样的对象，操作对象避免DOM的直接操作从而提高性能），性能上辗轧angular
+		
+		vue
+			结合angular和react的优点，MVVM模式，高性能高效率框架
+			
+				
+			
+Vue的描述：
+		1：Vue.js兼具angular.js和react.js的优点1,并剔除了他们的缺点
+		2：Vue.JS是一个javaScript MVVM库 是一套构建用户界面的渐进式框架,它是以数据驱动和组件化的思想构建的，采用自底向上增量开发的设计。
+		3: 相比于Angular.js，Vue.js提供了更加简洁、更易于理解的API，使得我们能够快速地上手并使用Vue.js；
+		   相比比起 React + Redux 相对复杂的架构，Vue.js 更加轻量级也更加容易上手，是初创项目的首选前端框架
+		  
+		   
+		Vue调试插件:
+			在vue调试方面，可以选择安装chrome插件vue Devtools。打开vue项目，在console控制台选择vue面板。在Devtools工具中，
+			可以选择组件，查看对应组件内的数据信息。也可以选择Vuex选项，查看该项目内Vuex的状态变量信息。 
+			
+
+		Vue UI组件库：
+			在vue组件库方面，个人不推荐使用UI组件库，毕竟自己造轮子的过程还是很有成就感的。
+			当然，如果更重视开发效率，并且选择了vue2.0作为前端框架，那么饿了么推出的Element组件就是一个很不错的选择。
+			其github项目（https://github.com/ElemeFE/element）更新比较频繁，虽然项目会有些不稳定，但是目前为止element就是最好的支持vue2.0的UI组件。
+			就像它的口号一样，“快速成型，就为让你少加班”。 
+			
+			
+		渐进式框架是什么意思？
+			含义：主张最少。
+			描述：每个框架都不可避免会有自己的一些特点,从而会对使用者有一定的要求,这些要求就是主张,
+				  主张有强有弱,如果主张太强会使用开发者在业务开发中会受一定的影响、阻隔
+			
+			使用Vue的好处：
+						 但它是渐进的，没有强主张，你可以在原有大系统的上面，把一两个组件改用它实现，当jQuery用；
+						 也可以整个用它全家桶开发，当Angular用；还可以用它的视图，搭配你自己设计的整个下层用
+						 
+		
+		MVVM库是什么意思？
+			含义：MVVM是Model-View-ViewModel的简写
+			描述：它本质上就是MVC 的改进版。MVVM 就是将其中的View 的状态和行为抽象化，让我们将视图 UI 和业务逻辑分开。
+				  当然这些事 ViewModel 已经帮我们做了，它可以取出 Model 的数据同时帮忙处理 View 中由于需要展示内容而涉及的业务逻辑。
+			特征：双向绑定。
+	
+	
+
+
+
+Vue的安装：
+		提示：如果你用cnpm命令无效先要去下载就是一条指令在dos窗口允许即可
+			  指令：npm install -g cnpm --registry=https://registry.npm.taobao.org
+			  好处：npm是去国外下载依赖包
+					cnpm是在国内下载依赖包
+					
+		1：必须要安装node.js(https://nodejs.org/en/ 选中LTS)
+				注意：
+					1：查看是否对node配置了环境变量 点击开始=》运行=》输入"cmd" => 输入命令"path" 如果看到有node相关的即可
+					2：查看版本node --version
+					
+		2: 搭建Vue的开发环境、安装vue的脚手架工具 官方命令(直接进入到dos窗口输入该命令)
+				cnpm install --global vue-cli /npm install --global vue-cli
+				
+		3：项目创建
+		
+				创建项目方式1(项目结构较多)
+				1：vue init webpack vue-demo01  创建项目 注意；cd进入到你自己对应的盘符里面
+					小步骤
+						1:Project description   项目描述可不写自己回车
+						2:Author				作者可不写直接回车
+						3:Vue build xxxlone		直接回车
+						4:Install vue-routrer?	目前选择 y即可回车
+						5:Use ESLine to lint your code? 代码检查工具选择N 如果是Y 以后少敲多敲空格会报错提示
+						6:Set up unit tests 	上下箭头选择
+						7:Set up e2exxx 		回车即可
+						8:Should we run `npm install` for you after the project has been created? (recommended) (Use arrow keys)
+						  翻译：我们应该在项目创建后为您运行' npm安装'吗?
+						  提示：选择Yes, use NPM即可回车
+						  
+						这样就创建好一个项目了 
+						
+				创建项目方式2(项目结构精简,省去很多选项还默认不选择代码检查工具)
+				1：vue init webpack-simple vue-demo01
+						小步骤：
+							1:Project description   项目描述可不写自己回车
+							2:Author				作者可不写直接回车
+							3:License MIT			直接回车即可
+							4:Use sass?				Y回车即可
+					创建即可完成
+			
+			
+			2：cd vue-demo01				进入到这个项目
+			
+			3：cnpm install	/ npm install	安装依赖包管理工具
+			   注意：创建项目一般会自动cnpm install所以可以省去这一步,但是中途创建好项目暂停了自动依赖下载‘
+					 这时你就要手动cd 到这个项目里面然后手动依赖安装
+					 
+			4：cnpm run dev					进入到这个项目,运行该vue项目
+		
+	
+	
+	
+	
+Vue的项目结构：
+		build:目录是一些webpack的文件,配置参数什么的,一般不用动
+			   ├── build-server.js                 运行本地构建服务器，可以访问构建后的页面
+			   ├── build.js                        生产环境构建脚本
+			   ├── dev-client.js                   开发服务器热重载脚本，主要用来实现开发阶段的页面自动刷新
+			   ├── dev-server.js                   运行本地开发服务器
+			   ├── utils.js                        构建相关工具方法
+			   ├── webpack.base.conf.js            wabpack基础配置
+			   ├── webpack.dev.conf.js             wabpack开发环境配置
+			   └── webpack.prod.conf.js            wabpack生产环境配置
+			
+			
+		
+		config：是Vue项目的基本配置文件 如-端口 、请求路径的配置 
+			   ├── dev.env.js                      开发环境变量
+			   ├── index.js                        项目配置文件
+			   ├── prod.env.js                     生产环境变量
+			   └── test.env.js                     测试环境变量
+		
+		
+		node_modules:是项目中安装的依赖模块  Vue项目用到的一些包 一般没有对手动加载 cnpm install
+		
+		
+		src:源码文件夹，基本上文件都应该放在这里。 
+			   ├── main.js                         入口js文件
+			   ├── app.vue                         根组件
+			   ├── components                      公共组件目录
+			   ├── assets                          资源目录，这里的资源会被wabpack构建
+			   ├── routes                          前端路由
+		
+		static: 纯静态资源，不会被wabpack构建。
+		
+		.babelrc：babel编译参数，vue开发需要babel编译 
+		
+		.editorconfig:看名字是编辑器配置文件，不晓得是哪款编辑器，没有使用过。
+		
+		.gitignore:用来过滤一些版本控制的文件，比如node_modules文件夹 
+		
+		index.html：文件入口
+		
+		package.json：项目文件，记载着一些命令和依赖还有简要的项目描述信息 
+		
+		README.md：介绍自己这个项目的，想怎么写怎么写。不会写就参照github上star多的项目，看人家怎么写的
+		
+		
+		提示：mian.js作用：
+				1：主要作用是初始化vue实例，并引入所需要的插件
+				
+				2：页面如何显示出那么多元素？这就用到src/main.js中新建的vue对象了。
+				   可以看到vue的el项值与index.html中div的id值相同。#app表示查询id值为app的dom项。
+				   
+				3：App.vue是我们的主组件，所有页面都是在App.vue下进行切换的。其实你也可以理解为所有的路由也是App.vue的子组件。
+				   所以我将router标示为App.vue的子组件。
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
