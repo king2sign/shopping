@@ -64,7 +64,7 @@ export 和export default 的区别
 				
 			demo2.vue
 				<script>
-					import liuzijiang from 'compon/demo1'  
+					import stuHead from "@/components/head"
 					//注意：要指定到对应的路径下才能引入对应的接口
 					//提示：引入的时候可以给这个模块取任意名字，例如 "liuzijiang"，且不需要用大括号括起来。
 				</script>
