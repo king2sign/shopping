@@ -1,0 +1,101 @@
+就是用于请求后台数据的方式
+
+    1：vue-resource
+        解释：是一种vue官方的插件、不过要用这个插件必须要先安装
+        使用:
+            1：下载插件(cnpm install vue-resource --save /npm install vue-resource --save )
+                    提示：--save要加上  他会自动添加版本信息添加到 package.json 这样下次 安装依赖包会自动把该插件安装上
+
+            2: 引入插件并使用 所有的插件引入都在main.js中（官方插件的使用方式）
+                    import vueResource from 'vue-resource'
+                    Vue.use(vueResource)
+
+            3：在组件里面直接使用
+                    get方式
+                         格式：格式：this.$http.get('url',{params:{使用参数}}).then(成功回调函数，失败回调函数);
+                         例子：
+                            let url="http://www.phonegap100.com/appapi.php" //使用params就会追加参数
+                            this.$http.get(url,{params:{a:"getPortalList",catid:'20',page:'1'}}).then((response)=>{
+                                console.log("请求成功处理的内容")
+                            },(err)=>{
+                                console.log("请求失败处理的内容")
+                            })
+                    post方式
+                        格式：格式：this.$http.post('url',{使用传参}).then(成功回调函数，失败回调函数);
+                        例子：
+                            let url="http://www.phonegap100.com/appapi.php" //不能使用params追加参数,直接一个参数对象即可
+                            this.$http.post(url,{a:"getPortalList",catid:'20',page:'1'},{emulateJSON: true}).then((response)=>{
+                                console.log("请求成功处理的内容")
+                            },(err)=>{
+                                console.log("请求失败处理的内容")
+                            })
+
+                            提示：
+                                一定要设置 {emulateJSON: true},不然跨域不成功. 
+                                如果Web服务器无法处理编码为application/json的请求，你可以启用emulateJSON选项。启用该选项后，请求会以application/x-www-form-urlencoded作为MIME type，就像普通的HTML表单一样
+
+                            详细描述： 
+                                emulateJSON(布尔值)
+                                默认值为：false,当值为true并且data为对象时，设置请求头Content-Type的值为application/x-www-form-urlencoded
+                                如果服务器无法处理编码为application/json的请求，可以启用emulateJSON选项。启用之后，请求会以application/x-www-form-urlencoded为MIME type，就像普通的HTML表单一样。
+                                this.$http.post中的第三个参数可写成全局(main.js)的：
+                                Vue.http.options.emulateJSON = false;
+                    jsonp方式：
+                        格式：this.$http.jsonp('url',{params:{使用参数}}).then(成功回调函数，失败回调函数);
+                             let url="http://www.phonegap100.com/appapi.php"
+                            this.$http.jsonp(url,{params:{a:"getPortalList",catid:'20',page:'2'}}).then((response)=>{
+                                console.log("请求成功处理的内容")
+                            },(err)=>{
+                                console.log("请求失败处理的内容")
+                            })
+
+
+
+    2：axios
+        提示：是一种第三方插件、不过要用的话也是必须要先安装
+        https://segmentfault.com/q/1010000008292792
+        使用：
+            1：下载插件(cnpm install axios --save)
+
+            2: 那个模块要用就在哪个模块引入,注意 不是在main.js里面引入实在某个页面模块引入
+                    import Axios  from 'axios'
+
+            3：在组件里面使用
+                    get方式
+                        let url="http://www.phonegap100.com/appapi.php" //使用params就会在&page=1&id=jiangxisheng
+                        Axios.get(url,{params:{id:"jiangxisheng"}}).then((response)=>{
+                             console.log("请求成功处理的内容")
+                        }).catch((error)=>{
+                            console.log("请求失败处理的内容")
+                        });
+
+                    post方式
+                        修改将get改为post即可
+
+
+
+                    跨域方式：
+                        解释：跨域post实例，用到了qs组件来避开ajax信使请求，并兼容Android。
+                        安装：
+                            1：cnpm install qs --save (安装)
+                            2：import qs  from 'qs' (引入
+
+                         例子：
+                            var params={
+                                a:"getPortalList",catid:'20',page:'2'
+                            }
+                            axios.post('http://www.xyz.com/request', qs.stringify(params))
+                            .then(response => {
+                              console.log(response);
+                            })
+                            .catch(err => {
+                              console.log(err);
+                            });
+
+
+
+
+
+
+
+

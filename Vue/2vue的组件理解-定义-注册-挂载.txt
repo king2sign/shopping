@@ -6,8 +6,7 @@ Vue组件理解?
 		到时候多个页面只需要再次调用这个组件接口,这样大大提高了代码的复用率 
 		
 	通俗：组件可以扩展 HTML 元素，封装可重用的代码。在较高层面上，组件是自定义元素 如：<liuZiJiang></liuZiJiang>
-	
-	
+
 	
 Vue模板组件的定义：https://www.jianshu.com/p/7b7736303f63
 	描述：创建一个组件一定情况下可以让其他Vue模块使用
@@ -251,7 +250,7 @@ Vue模板组件的注册：https://segmentfault.com/a/1190000011465462
 					}
 		
 		
-		
+
 		局部注册：
 			解释：局部组件注册方式，直接在Vue实例里面注册,相当于只能在某一个实例使用该组件
 			
@@ -316,7 +315,8 @@ Vue模板组件的挂载
 					"child-component":模板块
 										
 				}
-			)				
+			)
+		例子：就可以在HTML中引入你的自定义组件如：<child-component></child-component>
 	
 	
 	
