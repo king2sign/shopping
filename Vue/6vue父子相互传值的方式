@@ -62,11 +62,11 @@
             3：在自己组件中引入Vue实例将数据广播出去
                  如： import VueEvent from '@/model/VueEvent.js';
                      //在某个方法中广播想要自己的信息、方法
-                     VueEvent.$emit('to-home',this.msg) // VueEvent.$emit('to-home',"我的数据你接受到了")
+                     VueEvent.$emit('to-home',this.msg，xxx=>{函数}) // VueEvent.$emit('to-home',"我的数据你接受到了")
 
             4：在其它组件接受该广播信息
                  如： import VueEvent from '@/model/VueEvent.js';
-                      VueEvent.$on('to-home',function(data){
+                      VueEvent.$on('to-home',function(data,callback){
                          console.log(data);
                       })
 
