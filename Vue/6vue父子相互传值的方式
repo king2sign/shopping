@@ -1,0 +1,73 @@
+
+可以传递方法、及参数内容
+
+父子关系组件相互传值
+    A：子获取父的参数、方法方式(2种)
+            props
+                解释：在子组件中定义一个与data、methods参数平级的props数组,参数名就是父传递过来的动态参数名
+                例子：
+                    父组件：
+                        1：引入挂载子组件
+                        2：使用子组件并对子组件添加动态属性如：<my-child1 :dongTai1="值1" :dongTai2="值2" :fun1='父中的方法名'></my-child1>
+
+                    子组件
+                        1：定义一个props数组
+                        2：在该数组中接收父组件传递过来的 动态参数 如：
+                                data(){
+                                    return{
+                                    }
+                                },
+                                props:['dongTai1','dongTai2','fun1']
+
+                         3：调用就用this.动态参数名即可
+
+
+            this.$parent
+                  解释：无需再子组件定义props数组,只要父组件引入该子组件并挂载使用了即可
+                  例子：
+                     父组件：
+                        1：引入挂载子组件
+                        2：直接使用子组件无需添加动态属性如：<my-child1 ></my-child1>
+
+                     子组件：
+                        1：直接使用this.$parent.父组件中的参数名、方法名即可
+
+
+    B：父获取子的参数和方法
+                   解释：只要引入子组件并对子组件中定义引用名即可
+                   例子：
+                       父组件：
+                          1：引入挂载子组件
+                          2：在子组件中用ref定义引用名如：<my-child1 ref="child"></my-child1>
+                          3：使用this.$refs.引用名.子组件的参数、方法名即可
+                                如：
+                                    this.$refs.child.childMess
+                                    this.$refs.child.childFun()
+
+
+
+
+
+
+
+非父子关系组件传值
+        解释：相当于将自己的信息发送给不同关系的组件中
+        例子：
+            1：定义一个js 如:与componments平级创建一些model文件夹里面创建一个VueEvent.js
+            2：在这js里面定义一个Vue空实例
+                如：import Vue from 'vue';
+                    var VueEvent = new Vue()
+                    export default VueEvent;
+
+            3：在自己组件中引入Vue实例将数据广播出去
+                 如： import VueEvent from '@/model/VueEvent.js';
+                     //在某个方法中广播想要自己的信息、方法
+                     VueEvent.$emit('to-home',this.msg) // VueEvent.$emit('to-home',"我的数据你接受到了")
+
+            4：在其它组件接受该广播信息
+                 如： import VueEvent from '@/model/VueEvent.js';
+                      VueEvent.$on('to-home',function(data){
+                         console.log(data);
+                      })
+
+
