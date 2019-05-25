@@ -1,0 +1,14 @@
+在线：http://www.cnblogs.com/wangzhisdu/p/9700347.html
+
+疑问：import('@/view/single-page/home')  这里路径前面的“@”符号表示什么意思？
+
+解答：这里的@代表着src 具体看 webpack.base.conf.js中是什么配置
+      "@"符号是一种别名的写法，这里代表"src"路径。
+      文件内容部分显示：
+                      resolve: {
+                        extensions: ['.js', '.vue', '.json'],
+                        alias: {
+                          'vue$': 'vue/dist/vue.esm.js',
+                          '@': resolve('src'),
+                        }
+                      }

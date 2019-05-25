@@ -1,0 +1,11 @@
+在线：https://www.jianshu.com/p/a29cb1a7494c
+
+疑问？import router from './router'
+    ：我们在使用vue写项目的时候，会发现如果我导入一个文件，直接使用目录导入，目录下面放一个index.js，
+      那么会直接导入index.js这个文件，这个是什么原因呢？
+
+解答：
+    其实这个是webpack的一个默认配置，即：resolve.mainFiles ： ["index"],   
+    这个配置的默认是index.js， 如果你想导入其它默认的文件，可以自己配置，比如我想默认default.js，
+    可以这样配置：exports = {entry：'main.js',.......resolve：{    mainFiles：["index", "default"]  }}
+    注意：这个index必须要有，否则会报错
