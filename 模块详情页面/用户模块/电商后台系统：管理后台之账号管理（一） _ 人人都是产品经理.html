@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)http://www.woshipm.com/pd/580997.html -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>电商后台系统：管理后台之账号管理（一） | 人人都是产品经理</title>
+    <!--[if lt IE 9]>
+    <script src="http://www.woshipm.com/wp-content/themes/Kan/js/html5.js"></script>
+    <![endif]-->
+    <meta name="keywords" content="案例分析, 电商后台系统, 账号管理, "><meta name="description" content="之前的一篇文章，整体的介绍了电商后台系统（从三大方面，对电商后台系统进行了整体的介绍），之后将会对每个系统的每个细分模块进行说明。系统管理模块顾名思义，是对整个系统的设置和管理，是后台里面比较高的一个权限，一般只有少数管理员才会拥有。本文主要说明管理后台系统的"><link type="image/vnd.microsoft.icon" href="http://image.woshipm.com/wp-files/other/favicon.ico" rel="shortcut icon"><link rel="dns-prefetch" href="http://image.woshipm.com/">
+<link rel="stylesheet" id="misc-css" href="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/misc.css" type="text/css" media="screen">
+<style id="misc-inline-css" type="text/css">
+
+                .surface-content.header-fix{
+                    padding-top:60px;
+                }
+                .surface-content.header-fix .metabar{
+                    position:fixed;
+                    top:0;
+                    left:0;
+                    right:0;
+                }
+                
+</style>
+<link rel="stylesheet" id="fa-css" href="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/font-awesome.min.css" type="text/css" media="screen">
+<script type="text/javascript" src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/jquery-1.12.4.min.js.下载"></script>
+<link rel="canonical" href="http://www.woshipm.com/pd/580997.html">
+<script type="text/javascript">var algolia = {"debug":false,"application_id":"4OCSFS3SIM","search_api_key":"7bd75daaf81d0299565fce2232394dfd","powered_by_enabled":true,"query":"","autocomplete":{"sources":[],"input_selector":"input[name='s']:not('.no-autocomplete')"},"indices":{"searchable_posts":{"name":"w_searchable_posts","id":"searchable_posts","enabled":true,"replicas":[]}}};</script><script src="chrome-extension://oofgjnalpjodkfmfomihdlchiiacnman/injectScripts.min.js"></script></head>
+<body class="single u-backgroundColorLightBlue">
+<div class="surface-content header-fix">
+    <div class="metabar metabar--shadow u-clearfix">
+        <div class="container">
+            <div class="u-floatLeft">
+                <a href="http://www.woshipm.com/" class="logo-xmas">
+                    <img class="logo" src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/logo.png">
+                </a>
+            </div>
+            <div class="content u-floatLeft">
+                <nav class="header-nav"><ul id="menu-%e9%a1%b6%e9%83%a8%e5%af%bc%e8%88%aa" class="subnav-ul layoutSingleColumn layoutSingleColumn--wide"><li id="menu-item-155938" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-155938"><a href="http://www.woshipm.com/">首页</a></li>
+<li id="menu-item-155939" class="third menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-155939"><a href="http://www.woshipm.com/pd/580997.html#">分类浏览</a><span class="fa fa-angle-down"></span><ul class="sub-menu">	<li id="menu-item-155928" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-155928"><a href="http://www.woshipm.com/category/pmd">产品经理</a></li>
+	<li id="menu-item-155929" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-155929"><a href="http://www.woshipm.com/category/pd">产品设计</a></li>
+	<li id="menu-item-155927" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-155927"><a href="http://www.woshipm.com/category/ucd">交互体验</a></li>
+	<li id="menu-item-155930" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-155930"><a href="http://www.woshipm.com/category/operate">产品运营</a></li>
+	<li id="menu-item-155932" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-155932"><a href="http://www.woshipm.com/category/rp">原型设计</a></li>
+	<li id="menu-item-191466" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-191466"><a href="http://www.woshipm.com/category/evaluating">分析评测</a></li>
+	<li id="menu-item-155926" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-155926"><a href="http://www.woshipm.com/category/it">业界动态</a></li>
+	<li id="menu-item-155936" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-155936"><a href="http://www.woshipm.com/category/zhichang">职场攻略</a></li>
+	<li id="menu-item-184121" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-184121"><a href="http://www.woshipm.com/category/chuangye">创业学院</a></li>
+	<li id="menu-item-1016325" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1016325"><a href="http://www.woshipm.com/category/marketing">营销推广</a></li>
+	<li id="menu-item-906383" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-906383"><a href="http://www.woshipm.com/category/ai">人工智能</a></li>
+	<li id="menu-item-906382" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-906382"><a href="http://www.woshipm.com/category/blockchain">区块链</a></li>
+</ul>
+</li>
+<li id="menu-item-155940" class="vip menu-item menu-item-type-custom menu-item-object-custom menu-item-155940"><a href="http://www.woshipm.com/course">学习提升</a></li>
+<li id="menu-item-420537" class="niubi menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-420537"><a href="http://www.woshipm.com/categroy/active">活动讲座</a><span class="fa fa-angle-down"></span><ul class="sub-menu">	<li id="menu-item-158482" class="menu-item menu-item-type-gs_sim menu-item-object-gs_sim menu-item-158482"><ul class="metabar-activities"><li class="metabar-activity-item"><a class="e-title" href="http://www.woshipm.com/active/2421274.html">线上课程：非技术背景产品新人如何提高沟通效率？</a><div class="meta">全国-07月01日<span class="status">进行中</span></div></li><li class="metabar-activity-item"><a class="e-title" href="http://www.woshipm.com/active/2421121.html">AI产品人才成世界性稀缺资源，如何抓住时代机遇快速入门？</a><div class="meta">全国-07月03日<span class="status">进行中</span></div></li></ul><div class="metabar-activity-more u-textAlignCenter u-clearfix"><a href="http://www.woshipm.com/category/active">更多活动</a></div></li>
+</ul>
+</li>
+<li id="menu-item-279085" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-279085"><a target="_blank" href="http://wen.woshipm.com/">问答</a></li>
+<li id="menu-item-395532" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-395532"><a target="_blank" href="http://996.pm/7b1Zr">年费会员</a></li>
+<li id="menu-item-155941" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-155941"><a target="_blank" href="http://www.woshipm.com/books">书单</a></li>
+<li id="menu-item-500728" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-500728"><a href="http://www.woshipm.com/pd/580997.html#">百宝箱</a><span class="fa fa-angle-down"></span><ul class="sub-menu">	<li id="menu-item-395530" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-395530"><a target="_blank" href="http://dh.woshipm.com/">网址导航</a></li>
+	<li id="menu-item-590029" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-590029"><a target="_blank" href="http://www.woshipm.com/topics">知识体系</a></li>
+	<li id="menu-item-500729" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-500729"><a target="_blank" href="http://www.woshipm.com/tools">必备工具</a></li>
+	<li id="menu-item-852376" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-852376"><a target="_blank" href="http://www.woshipm.com/screen/index.html">设计规范</a></li>
+	<li id="menu-item-1019313" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1019313"><a target="_blank" href="https://www.yunyingpai.com/download">资料下载</a></li>
+	<li id="menu-item-501017" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-501017"><a target="_blank" href="http://www.yunyingpai.com/">运营派</a></li>
+	<li id="menu-item-1317021" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1317021"><a target="_blank" href="https://t.qidianla.com/">学员空间</a></li>
+	<li id="menu-item-500731" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-500731"><a target="_blank" href="https://www.apptu.cn/">朋友圈素材</a></li>
+</ul>
+</li>
+</ul></nav>
+            </div>
+            <div class="u-floatRight content">
+                                    <span class="item" data-action="popLogin"><svg class="svgIcon-use" width="18" height="17" viewBox="0 0 18 17"><path d="M17.831,3.950 L9.184,12.519 C9.113,12.590 9.024,12.641 8.927,12.667 L4.754,13.785 C4.705,13.798 4.655,13.805 4.603,13.805 C4.450,13.805 4.301,13.743 4.193,13.635 C4.047,13.489 3.992,13.275 4.048,13.078 L5.219,8.984 C5.246,8.891 5.296,8.805 5.366,8.736 L14.013,0.165 C14.122,0.058 14.267,-0.002 14.421,-0.002 C14.575,-0.002 14.720,0.058 14.829,0.165 L17.831,3.141 C17.940,3.249 18.000,3.393 18.000,3.545 C18.000,3.698 17.940,3.842 17.831,3.950 ZM8.156,11.689 L6.199,9.750 L5.436,12.419 L8.156,11.689 ZM14.421,1.378 L6.902,8.830 L9.088,10.997 L16.607,3.546 L14.421,1.378 ZM1.153,2.286 L1.153,14.895 C1.153,15.425 1.588,15.855 2.122,15.855 L14.732,15.855 C15.267,15.855 15.701,15.425 15.701,14.895 L15.701,10.476 L16.855,10.476 L16.855,14.895 C16.855,16.055 15.902,16.998 14.732,16.998 L2.122,16.998 C0.952,16.998 -0.000,16.055 -0.000,14.895 L-0.000,2.286 C-0.000,1.126 0.952,0.183 2.122,0.183 L9.326,0.183 L9.326,1.326 L2.122,1.326 C1.588,1.326 1.153,1.756 1.153,2.286 Z"></path></svg>投稿</span>
+                    <span class="item show-search"><svg class="svgIcon-use" width="16" height="16" viewBox="0 0 16 16"><path d="M15.800,14.481 L12.519,11.200 C12.504,11.184 12.487,11.170 12.471,11.156 C13.361,9.988 13.890,8.529 13.890,6.947 C13.890,3.110 10.780,-0.000 6.945,-0.000 C3.109,-0.000 -0.000,3.110 -0.000,6.947 C-0.000,10.785 3.109,13.895 6.945,13.895 C8.529,13.895 9.990,13.364 11.159,12.471 C11.172,12.487 11.186,12.503 11.201,12.518 L14.483,15.800 C14.786,16.104 15.329,16.056 15.693,15.692 C16.056,15.328 16.104,14.786 15.800,14.481 L15.800,14.481 ZM0.772,6.947 C0.772,3.537 3.535,0.771 6.945,0.771 C10.354,0.771 13.118,3.537 13.118,6.947 C13.118,8.621 12.453,10.138 11.373,11.250 C11.351,11.269 11.330,11.288 11.310,11.308 C11.289,11.329 11.269,11.351 11.250,11.373 C10.138,12.456 8.619,13.123 6.945,13.123 C3.535,13.123 0.772,10.358 0.772,6.947 L0.772,6.947 Z" class="cls-1"></path></svg>搜索</span>
+                    <div class="item app-qrcode"><svg class="svgIcon-use" width="12" height="18" viewBox="0 0 12 18"><path d="M10.599,17.999 L1.401,17.999 C0.626,17.999 -0.000,17.381 -0.000,16.616 L-0.000,1.382 C-0.000,0.617 0.626,-0.001 1.401,-0.001 L10.599,-0.001 C11.374,-0.001 12.000,0.627 12.000,1.382 L12.000,16.616 C12.000,17.381 11.374,17.999 10.599,17.999 ZM11.066,1.382 C11.066,1.128 10.857,0.922 10.599,0.922 L1.401,0.922 C1.142,0.922 0.934,1.128 0.934,1.382 L0.934,12.800 L11.066,12.800 L11.066,1.382 ZM11.066,13.811 L0.934,13.811 L0.934,16.626 C0.934,16.881 1.142,17.087 1.401,17.087 L10.599,17.087 C10.857,17.087 11.066,16.881 11.066,16.626 L11.066,13.811 ZM6.000,16.283 C5.483,16.283 5.066,15.871 5.066,15.361 C5.066,14.851 5.483,14.439 6.000,14.439 C6.516,14.439 6.934,14.851 6.934,15.361 C6.934,15.871 6.516,16.283 6.000,16.283 Z"></path></svg>APP<div class="app-qrcode-dropdown"><img class="app-qrcode-img" src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/footer-appdownload.png"></div></div>
+                    <span class="item" data-action="popLogin">注册 | 登录</span>
+                                            </div>
+        </div>
+    </div>
+    <div class="search-overlay">
+        <div class="container search-content">
+            <form class="search-form" action="http://www.woshipm.com/search-posts" target="_blank" method="get">
+                <input type="search" class="search-form-input" name="k" placeholder="请输入搜索关键词">
+                <button class="btn-search">
+                    <i class="fa fa-search"></i>
+                </button>            </form>
+            <div class="search-hot-words">
+                <h3 class="search-overlay-title"><svg class="svgIcon-use u-colorYellow" width="16" height="16" viewBox="0 0 20 22">
+                        <path d="M19.595,15.561 C18.224,19.972 14.151,21.765 10.797,21.972 C9.858,22.028 8.916,22.002 7.981,21.894 C3.718,21.402 -0.382,18.446 0.029,13.748 C0.223,11.528 1.519,8.904 2.466,6.987 L2.620,6.672 C2.756,6.400 3.029,6.236 3.319,6.254 C3.609,6.268 3.865,6.462 3.972,6.747 C4.106,7.109 4.318,7.534 4.543,7.984 C4.629,8.156 4.715,8.330 4.800,8.504 C6.731,6.456 7.296,3.554 7.602,0.687 C7.631,0.425 7.783,0.197 8.007,0.081 C8.233,-0.035 8.498,-0.026 8.716,0.107 C10.922,1.463 12.480,2.863 13.616,4.513 C13.922,4.959 14.199,5.426 14.445,5.913 C14.621,5.327 14.811,4.747 15.016,4.172 C15.110,3.928 15.312,3.749 15.555,3.695 C15.798,3.640 16.051,3.718 16.229,3.901 C20.136,7.930 20.484,12.700 19.595,15.561 ZM7.493,12.523 C7.493,12.149 7.202,11.847 6.844,11.847 C6.486,11.847 6.196,12.149 6.196,12.523 L6.196,13.784 L4.857,13.804 L4.857,12.559 C4.857,12.186 4.566,11.884 4.209,11.884 C3.851,11.884 3.560,12.186 3.560,12.559 L3.560,16.704 C3.560,17.077 3.851,17.379 4.209,17.379 C4.566,17.379 4.857,17.077 4.857,16.704 L4.857,15.156 L6.196,15.135 L6.196,16.667 C6.196,17.040 6.486,17.343 6.844,17.343 C7.202,17.343 7.493,17.040 7.493,16.667 L7.493,12.523 ZM10.632,11.813 C9.385,11.813 8.371,13.034 8.371,14.535 C8.371,16.036 9.386,17.258 10.632,17.258 C11.878,17.258 12.892,16.036 12.892,14.535 C12.892,13.034 11.878,11.813 10.632,11.813 ZM16.522,11.959 L13.574,11.959 C13.216,11.959 12.926,12.262 12.926,12.635 C12.927,12.816 12.996,12.988 13.118,13.115 C13.239,13.242 13.403,13.312 13.574,13.311 L14.399,13.311 L14.399,16.629 C14.399,17.002 14.690,17.304 15.048,17.304 C15.406,17.304 15.696,17.002 15.696,16.629 L15.696,13.311 L16.522,13.311 C16.692,13.312 16.856,13.242 16.978,13.115 C17.100,12.988 17.169,12.816 17.170,12.635 C17.170,12.262 16.880,11.959 16.522,11.959 ZM10.632,15.908 C10.109,15.908 9.669,15.279 9.669,14.535 C9.669,13.791 10.109,13.163 10.632,13.163 C11.153,13.163 11.595,13.791 11.595,14.535 C11.595,15.279 11.154,15.908 10.632,15.908 Z" class="cls-1"></path>
+                    </svg>热搜词</h3>
+                <div class="words-list">
+                    <a href="http://www.woshipm.com/tag/app" target="_blank" class="words-item">app</a><a href="http://www.woshipm.com/tag/o2o" target="_blank" class="words-item">O2O</a><a href="http://www.woshipm.com/tag/prd" target="_blank" class="words-item">PRD</a><a href="http://www.woshipm.com/tag/%e4%ba%92%e8%81%94%e7%bd%91%e9%87%91%e8%9e%8d" target="_blank" class="words-item">互联网金融</a><a href="http://www.woshipm.com/tag/%e4%ba%a4%e4%ba%92%e8%ae%be%e8%ae%a1" target="_blank" class="words-item">交互设计</a><a href="http://www.woshipm.com/tag/rp" target="_blank" class="words-item">原型设计</a><a href="http://www.woshipm.com/tag/%e5%95%86%e4%b8%9a%e6%a8%a1%e5%bc%8f" target="_blank" class="words-item">商业模式</a><a href="http://www.woshipm.com/tag/%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90" target="_blank" class="words-item">数据分析</a><a href="http://www.woshipm.com/tag/ue" target="_blank" class="words-item">用户体验</a><a href="http://www.woshipm.com/tag/%e7%ab%9e%e5%93%81%e5%88%86%e6%9e%90" target="_blank" class="words-item">竞品分析</a><a href="http://www.woshipm.com/tag/%e8%bf%90%e8%90%a5" target="_blank" class="words-item">运营</a><a href="http://www.woshipm.com/tag/%e9%9c%80%e6%b1%82%e5%88%86%e6%9e%90" target="_blank" class="words-item">需求分析</a>                </div>
+            </div>
+            <div class="search-features">
+                <h3 class="search-overlay-title"><svg class="svgIcon-use  u-colorPink" width="16" height="16" viewBox="0 0 22 22">
+                        <path d="M21.988,7.680 C21.978,7.317 21.969,6.921 21.963,6.490 C21.954,6.060 21.951,5.617 21.951,5.169 C21.932,4.117 21.917,2.952 21.898,1.674 C21.865,1.468 21.825,1.259 21.782,1.053 C21.739,0.847 21.631,0.647 21.459,0.457 C21.287,0.284 21.093,0.168 20.875,0.106 C20.660,0.045 20.466,0.017 20.294,0.017 L12.428,0.017 C12.394,-0.001 12.271,-0.005 12.065,0.005 C11.860,0.014 11.730,0.035 11.678,0.069 C11.574,0.103 11.457,0.165 11.328,0.251 C11.199,0.337 11.091,0.423 11.005,0.509 L0.576,10.993 C-0.183,11.891 -0.192,12.754 0.551,13.581 L8.568,21.631 C8.740,21.770 8.925,21.868 9.125,21.929 C9.324,21.991 9.527,22.012 9.733,21.994 C9.939,21.976 10.136,21.932 10.314,21.865 C10.495,21.797 10.646,21.702 10.765,21.579 C12.698,19.646 14.422,17.912 15.940,16.375 L17.855,14.433 C18.494,13.812 19.059,13.249 19.551,12.751 C20.042,12.250 20.445,11.845 20.755,11.534 L21.247,11.042 C21.281,11.009 21.336,10.935 21.416,10.821 C21.493,10.710 21.576,10.563 21.662,10.381 C21.748,10.200 21.825,9.997 21.895,9.773 C21.963,9.549 22.000,9.306 22.000,9.047 L22.000,8.583 C22.000,8.344 21.994,8.042 21.988,7.680 L21.988,7.680 L21.988,7.680 ZM8.479,14.845 L7.013,14.845 L7.290,12.908 L8.756,12.908 L8.479,14.845 L8.479,14.845 L8.479,14.845 ZM9.232,12.327 C9.161,12.376 9.084,12.413 9.001,12.438 C8.918,12.462 8.836,12.475 8.756,12.475 L7.188,12.475 L7.188,11.331 L8.037,11.331 L8.037,10.271 L7.087,10.317 L7.004,9.192 L8.037,9.137 L8.037,7.999 L6.967,7.999 L6.967,6.847 L8.037,6.847 L8.037,6.026 L9.465,6.026 L9.465,6.847 L10.452,6.847 L10.452,7.999 L9.465,7.999 L9.465,9.051 L10.406,9.005 L10.498,10.148 L9.466,10.203 L9.466,11.900 C9.466,11.992 9.444,12.075 9.401,12.146 C9.358,12.220 9.303,12.278 9.232,12.327 L9.232,12.327 L9.232,12.327 ZM9.742,14.845 L9.456,12.908 L10.931,12.908 L11.208,14.845 L9.742,14.845 L9.742,14.845 ZM12.041,14.845 L11.764,12.908 L13.230,12.908 L13.506,14.845 L12.041,14.845 L12.041,14.845 ZM13.860,12.115 C13.814,12.035 13.789,11.943 13.789,11.838 L13.789,8.009 L12.840,8.009 L12.757,9.281 L13.494,9.346 L13.384,10.489 L12.692,10.425 L12.600,11.937 C12.588,12.115 12.505,12.250 12.351,12.343 C12.197,12.435 12.041,12.481 11.881,12.481 L10.710,12.481 L10.609,11.340 L11.208,11.340 L11.272,10.299 L10.692,10.243 L10.802,9.091 L11.337,9.155 L11.411,8.012 L10.701,8.012 L10.701,6.859 L11.475,6.859 L11.530,6.011 L12.959,6.066 L12.904,6.859 L15.218,6.859 L15.218,11.353 L15.716,11.353 L15.716,12.487 L14.554,12.487 C14.462,12.487 14.370,12.472 14.281,12.444 C14.191,12.416 14.109,12.373 14.035,12.318 C13.961,12.263 13.906,12.195 13.860,12.115 L13.860,12.115 L13.860,12.115 ZM14.336,14.845 L14.060,12.908 L15.525,12.908 L15.802,14.845 L14.336,14.845 L14.336,14.845 L14.336,14.845 ZM19.373,4.830 C19.053,5.141 18.669,5.298 18.220,5.298 C17.772,5.298 17.390,5.141 17.080,4.830 C16.770,4.520 16.613,4.139 16.613,3.690 C16.613,3.241 16.770,2.860 17.080,2.550 C17.390,2.239 17.772,2.083 18.220,2.083 C18.669,2.083 19.053,2.239 19.373,2.550 C19.692,2.860 19.852,3.241 19.852,3.690 C19.852,4.139 19.692,4.520 19.373,4.830 L19.373,4.830 Z" class="cls-1">
+                    </path></svg>热门专题</h3>
+                                    <div class="search-feature-item">
+                        <a class="tool-img" href="http://www.woshipm.com/topic/program" target="_blank">
+                            <img rel="nofollow" src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/180x120">
+                            <h3>小程序该如何设计和运营？</h3>
+                        </a>
+                    </div>
+                                    <div class="search-feature-item">
+                        <a class="tool-img" href="http://www.woshipm.com/topic/grow" target="_blank">
+                            <img rel="nofollow" src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/180x120(1)">
+                            <h3>运营人的自我修养</h3>
+                        </a>
+                    </div>
+                                    <div class="search-feature-item">
+                        <a class="tool-img" href="http://www.woshipm.com/topic/promote" target="_blank">
+                            <img rel="nofollow" src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/180x120(2)">
+                            <h3>运营人如何提高自身竞争力？</h3>
+                        </a>
+                    </div>
+                            </div>
+        </div>
+    </div>    <div class="container u-clearfix single-wrapper u-marginBottom30">
+        <div class="u-width840 u-floatLeft">
+            <div class="u-marginTop30">
+                <article class="article-wrapper u-backgroundColorWhite u-rounded">
+                    <header class="article-header">
+                        <h2 class="article-title">电商后台系统：管理后台之账号管理（一）</h2>
+                    </header>
+                    <div class="postMetaLockup--authorWithBio u-flex">
+                        <div class="u-flex0">
+                            <a href="http://www.woshipm.com/u/55806" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/42x42" alt="" height="42" width="42" class="avatar"></a>
+                        </div>
+                        <div class="u-flex1 u-paddingLeft15 u-overflowHidden">
+                            <div class="">
+                                <a href="http://www.woshipm.com/u/55806" target="_blank">胡言</a><button class="button button--toggle button--primary button--follow" data-action="showLoginForm" data-id="55806"><span class="is-default">订阅专栏</span><span class="is-active">取消订阅</span></button>                            </div>
+                            <div class="des">胡言，不乱语
+满口，不胡言</div>
+                            <div class="postMetaInline postMetaInlineSupplemental post-meta-items">
+                                <span class="post-meta-item"><span class="fa fa-clock-o"></span>2017-02-05</span>
+                                <span class="post-meta-item"><span class="fa fa-eye"></span>9.8万</span>
+                                <span class="post-meta-item"><button title="收藏" class="button button--chromeless button--toggle button-post-580997" data-id="580997" data-action="popLogin"><span class="fa fa-star"></span><span class="count">608</span></button></span>
+                                <span class="post-meta-item"><button data-action="uplike" data-id="580997" class="button button--toggle button--chromeless">
+<span class="fa fa-thumbs-up"></span><span class="count">92</span>
+</button></span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="article-topAd">
+                        <a href="http://996.pm/zxkdL" target="_blank">不懂技术怎么做产品？15天在线学习，补齐产品经理必备技术知识，再也不被开发忽悠。了解一下&gt;</a>                    </div>
+                        <div id="postAudio" class="jp-jplayer" style="width: 0px; height: 0px;"><img id="jp_poster_0" style="width: 0px; height: 0px; display: none;"><audio id="jp_audio_0" preload="none" src="http://audio-pm.woshipm.com/cache/vava-580997.mp3"></audio></div>
+                        <div id="jp_container_1" class="jp-audio" role="application" aria-label="media player">
+                            <div class="jp-type-single">
+                                <div class="jp-gui jp-interface">
+                                    <div class="jp-controls">
+                                        <button class="jp-play" role="button" tabindex="0"><svg class="svgIcon-use" width="25" height="25" viewBox="0 0 25 25"><path d="M7 4v17.03a.5.5 0 0 0 .795.404l11.1-8.111a1 1 0 0 0 0-1.615l-11.1-8.112A.5.5 0 0 0 7 4z"></path></svg></button>
+                                        <button class="jp-pause" role="button" tabindex="0" style="display: none;"><svg class="svgIcon-use" width="25" height="25" viewBox="0 0 25 25"><g transform="translate(5 4)" fill-rule="evenodd"><rect width="6" height="17" rx="2"></rect><rect x="9" width="6" height="17" rx="2"></rect></g></svg></button>
+                                    </div>
+                                    <div class="u-flex1">
+                                        <div>释放双眼，带上耳机，听听看~！</div>
+                                        <div class="u-flexCenter">
+                                            <div class="u-flex0 u-marginRight10 jp-current-time js-currentTime" style="width:34px">00:00</div>
+                                            <div class="u-flex1">
+                                                <div class="js-progress" data-action="seek-audioPlayer">
+                                                    <div class="js-progressBar">
+                                                        <div class="js-play-bar" style="width: 0%;"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="u-flex0 u-marginLeft10 jp-duration">00:00</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="grap">
+                        <blockquote><p>之前的一篇文章，整体的介绍了电商后台系统（<a href="http://www.woshipm.com/pd/576400.html" target="_blank">从三大方面，对电商后台系统进行了整体的介绍</a>），之后将会对每个系统的每个细分模块进行说明。系统管理模块顾名思义，是对整个系统的设置和管理，是后台里面比较高的一个权限，一般只有少数管理员才会拥有。本文主要说明管理后台系统的系统管理模块。</p></blockquote>
+<p><img data-action="zoom" class="size-full wp-image-581008 aligncenter" src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/SSl1FmiEOZft0sejWbFM.jpg!v.jpg" alt="" width="680" height="320"></p>
+<p>做后台产品最主要的是要理解业务，然后根据业务去梳理流程和进行产品设计，这里我们先假设系统管理里面的几个主要业务如下：</p>
+<ol>
+<li>管理登录的账号以及每个账号的操作权限</li>
+<li>监控每个账号的登录情况和操作情况</li>
+<li>给使用后台系统的不同角色人员发送通知</li>
+<li>管理后台系统的菜单</li>
+</ol>
+<p>这一篇主要介绍第一个业务——账号管理。</p>
+<h2>一、账号管理的相关业务</h2>
+<p>账号管理的核心是对账号的权限管理，现在有比较成熟的权限管理模型，比如RBAC（Role-Based Access Control），也就是账号对应角色，角色对应权限的方案。这里的角色其实就是权限的集合，我们可以根据部门把角色提前创建好，比如创建角色会员运营、产品经理、售前客服等，为这些角色提前分配好权限，那么新开通的账号只需要与这些角色做关联就可以关联到对应的权限了。</p>
+<p>这里我们需要特别注意三个地方</p>
+<p><strong>第一个是权限怎么分？</strong></p>
+<p>方案：权限可以分成三种（1）菜单权限（2）页面权限（3）操作权限</p>
+<p><strong>第二个是，相同角色的人员，如果有个别权限不同，应该怎样分配？</strong></p>
+<p>方案：账号先选择角色，然后针对账号再选择对应的特殊权限</p>
+<p><strong>第三个是，公司的一些敏感信息应该怎么控制权限？</strong></p>
+<p>方案：把敏感字段当成一个权限来进行分配</p>
+<h2>二、开通账号流程</h2>
+<p>下面我们说明下给一个新账号设置权限的流程：</p>
+<p><img data-action="zoom" class="aligncenter" src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/C057iK9RvlSLGic76VMa.png!v.jpg" alt="" width="458" height="988"></p>
+<p>从流程上可以看出，我们需要先设置角色，然后给新账号关联对应的角色，如果账号有特殊权限或者相关字段的权限，需要单独设置特殊权限和相关字段。</p>
+<h2>三、账号管理功能点</h2>
+<p>根据业务和流程，我们把功能点做一个梳理如下：</p>
+<p><img data-action="zoom" class="aligncenter" src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/9jVHQfDq0stpxkt4zvao.png!v.jpg" alt="" width="592" height="722"></p>
+<h2>四、账号管理原型</h2>
+<p>原型的展示主要分三部分：头部、导航、内容区。导航分为三级导航，一级导航显示在头部，二级和三级导航显示在侧边栏。</p>
+<h3><strong>账号列表页面</strong></h3>
+<p>这是个列表页面，主要展示了跟账号相关的一些字段，以及记录开通账号的人和时间。可以对账号进行添加、修改、查询等操作。</p>
+<p><img data-action="zoom" class=" wp-image-581006 aligncenter" src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/sPAkHSPE5jDBdgK9ERlr.jpg!v.jpg" alt="" width="662" height="501"></p>
+<h3><strong>添加账号页面——选择角色</strong></h3>
+<p>这是一个设置页面，需要先填写账号的基本信息（这里的几个字段仅作参考），然后选择账号对应的角色，这里展示的角色需要提前设置好，一个账号可以选择多个角色，这种情况账号的权限就是多个角色权限的并集。</p>
+<p><img data-action="zoom" class="aligncenter" src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/YtWMv3GHigdcDOaogB09.png!v.jpg" alt="" width="682" height="460"></p>
+<h3><strong>添加账号页面——选择权限</strong></h3>
+<p>选择好角色后，会把角色对应的权限在这个页面都勾选上，如果账号有特殊权限，就直接在这个页面进行勾选。</p>
+<p>这里有个非常重要的地方，就是权限分类。这里分成三种（1）菜单权限（2）页面权限（3）操作权限；这里就需要开发GG每次在开发好一个功能后，把功能对应的权限分好类。如果刚开始没有这样做，后期维护起来会异常麻烦，不仅功能点会特别多，而且技术上面的很多命名还是只有对应的开发人员才看得懂，如果开发人员离职了，就需要重新看代码去理解，所以一定要刚开始就定一个规范，之后没开发好一个功能，就按照规范去执行。</p>
+<p><img data-action="zoom" class="aligncenter" src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/YIiXF8RZ7durOYepgru9.png!v.jpg" alt="" width="665" height="504"></p>
+<h3><strong>添加账号页面——选择字段</strong></h3>
+<p>把字段作为一个权限，是因为公司里面很多数据是比较敏感的，不需要这个数据的人员也是没有必要看到这个字段。</p>
+<p>这里的字段，也会根据选择的角色自动勾选上，如果有特殊的需求，可以在这里修改。</p>
+<p><img data-action="zoom" class="aligncenter" src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/0yA6kmhQT4rnvlxX7F3j.png!v.jpg" alt="" width="669" height="370"></p>
+<p>角色管理相关的原型和账号列表比较类似，这里就不重复放上来了。感兴趣的朋友可以自己做出整理。</p>
+<p>系统管理最重要的一个业务——账号管理这次就介绍到这里，下一篇会更新系统管理的其他业务，欢迎各位留言提出宝贵意见。</p>
+<p>&nbsp;</p>
+<p>作者：胡言，微信公众号：电商后台系统（dianshanghoutai）。</p>
+<p>本文由 @胡言 原创发布于人人都是产品经理。未经许可，禁止转载。</p>
+                    </div>
+                            <div class="article-bottomAd">
+            <a href="http://www.woshipm.com/pd/580997.html" target="_blank"></a>        </div>
+        <div class="taglist"><a href="http://www.woshipm.com/tag/%e6%a1%88%e4%be%8b%e5%88%86%e6%9e%90" rel="tag">案例分析</a><a href="http://www.woshipm.com/tag/%e7%94%b5%e5%95%86%e5%90%8e%e5%8f%b0%e7%b3%bb%e7%bb%9f" rel="tag">电商后台系统</a><a href="http://www.woshipm.com/tag/%e8%b4%a6%e5%8f%b7%e7%ae%a1%e7%90%86" rel="tag">账号管理</a></div>        <div class="support-author"><div class="support-title">给作者打赏，鼓励TA抓紧创作！</div><button class="button--pay" data-post-id="580997" data-author="55806" data-avatar="http://image.woshipm.com/wp-files/2015/11/蜗牛.png"><svg width="13" height="16" class="svgIcon--use" viewBox="0 0 13 16"><path d="M9.113,4.571 C9.951,3.771 10.895,2.742 10.685,2.057 C10.475,1.485 10.056,0.799 9.427,0.571 C8.903,0.342 8.379,0.456 7.750,0.799 C7.540,0.342 7.016,0.114 6.596,-0.001 C5.863,-0.001 5.234,0.228 4.814,0.914 C4.080,0.571 3.451,0.685 2.927,1.028 C2.613,1.256 2.298,1.713 2.298,2.628 C2.298,3.542 3.137,4.228 3.766,4.685 C2.508,5.599 -0.218,7.885 -0.008,12.228 C-0.218,15.656 2.613,15.999 2.613,15.999 L10.371,15.999 C11.314,15.885 12.991,14.971 12.991,12.571 L12.991,12.228 C13.201,7.771 10.371,5.371 9.113,4.571 L9.113,4.571 ZM8.932,11.835 L6.940,11.835 L6.940,13.207 C6.940,13.435 6.731,13.549 6.521,13.549 C6.311,13.549 6.102,13.435 6.102,13.207 L6.102,11.835 L4.110,11.835 C3.900,11.835 3.795,11.606 3.795,11.378 C3.795,11.149 3.900,10.921 4.110,10.921 L6.102,10.921 L6.102,10.121 L4.949,10.121 C4.739,10.121 4.634,9.892 4.634,9.664 C4.634,9.435 4.739,9.206 4.949,9.206 L5.892,9.206 L4.739,7.950 C4.634,7.835 4.739,7.606 4.949,7.492 C5.158,7.378 5.368,7.264 5.473,7.378 L6.521,8.635 L7.674,7.264 C7.779,7.149 7.989,7.264 8.198,7.378 C8.408,7.492 8.408,7.721 8.408,7.835 L7.150,9.321 L8.094,9.321 C8.303,9.321 8.408,9.549 8.408,9.778 C8.408,10.007 8.303,10.235 8.094,10.235 L6.940,10.235 L6.940,11.035 L8.932,11.035 C9.142,11.035 9.247,11.264 9.247,11.493 C9.247,11.606 9.037,11.835 8.932,11.835 L8.932,11.835 Z"></path></svg>
+赞赏</button><div class="pay-num">5人打赏</div><div class="donation-list"><div class="donation-item"><img class="avatar" src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/woshipm_def_head_2.jpg" height="32" width="32"></div><div class="donation-item"><img class="avatar" src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/touxiang-8.jpg!avatar" height="32" width="32"></div><div class="donation-item"><img class="avatar" src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/TTW_USER_201901_20190114140017_3521.jpg" height="32" width="32"></div><div class="donation-item"><img class="avatar" src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/TTW_USER_201611_20161128164117_2663.jpg" height="32" width="32"></div><div class="donation-item"><img class="avatar" src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/WD_U_201605_20160509103554_3902.jpg" height="32" width="32"></div></div></div>        <div class="post-actions u-clearfix">
+            <div class="u-floatLeft share-actions">
+                <button class="button button--gray button--circle button--wechat"><span class="fa fa-wechat"></span><span class="qrcode-wrapper"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/saved_resource"></span></button>
+                <a class="button button--gray button--circle button--weibo" target="_blank" href="http://service.weibo.com/share/share.php?appkey=2775287854&amp;title=%E7%94%B5%E5%95%86%E5%90%8E%E5%8F%B0%E7%B3%BB%E7%BB%9F%EF%BC%9A%E7%AE%A1%E7%90%86%E5%90%8E%E5%8F%B0%E4%B9%8B%E8%B4%A6%E5%8F%B7%E7%AE%A1%E7%90%86%EF%BC%88%E4%B8%80%EF%BC%89&amp;url=http://www.woshipm.com/pd/580997.html&amp;pic=http://image.woshipm.com/wp-files/2017/02/SSl1FmiEOZft0sejWbFM.jpg" "=""><span class="fa fa-weibo"></span></a>
+            </div>
+            <div class="u-floatRight">
+                <button title="收藏" class="button button--gray button--toggle button--recommend button-post-580997 " data-id="580997" data-action="popLogin"><span class="button-label is-default">收藏</span><span class="button-label is-active">已收藏</span> | <span class="count">608</span></button><button class="button button--toggle button--gray button--postlike" data-action="uplike" data-id="580997"><span class="button-label is-default">赞</span><span class="button-label is-active">已赞</span> | <span class="count">92</span></button>            </div>
+        </div>
+        </article>
+        <div class="postFooterInfo u-marginTop30 u-backgroundColorWhite u-rounded">
+            <div class="u-flex">
+                <div class="u-flex0">
+                    <a href="http://www.woshipm.com/u/55806" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/60x60" alt="" height="60" width="60" class="avatar"></a>
+                </div>
+                <div class="u-flex1 u-paddingLeft15 u-overflowHidden">
+                    <div class=""><span class="title"><a href="http://www.woshipm.com/u/55806" target="_blank">胡言</a></span><button class="button button--toggle button--primary button--follow" data-action="showLoginForm" data-id="55806"><span class="is-default">订阅专栏</span><span class="is-active">取消订阅</span></button></div>
+                    <div class="des">胡言，不乱语
+满口，不胡言</div>
+                </div>
+                <div class="u-flex0">
+                    <div class="authorInfo-item"><i>8篇</i>作品</div>
+                    <div class="authorInfo-item"><i>40.3万</i>总阅读量</div>
+                </div>
+            </div>
+        </div>
+        <div class="u-backgroundColorWhite comments-area">
+    <div class="comment-list-header"><span class="title">评论</span></div>
+    <div id="respond" class="respond respond-580997" role="form">
+        <form action="http://www.woshipm.com/wp-comments-post.php" method="post" id="commentform" data-post="580997" class="comment-form u-clearfix">
+                        <div class="textarea--unlogin" data-action="popLogin">欢迎留言讨论~！</div>
+                </form>
+    </div>
+            <div class="commentshow">
+            <ol class="comment-list">
+                        <li class="comment byuser comment-author-286207 even thread-even depth-1" id="li-comment-331282" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-331282" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/286207" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/WX_U_201706_20170627193626_6566.jpg" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/286207" target="_blank">午言三语</a><span class="des"></span></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>设置角色的原因是，减少管理员的工作能力，怎么弄都没问题，主要看组织发展和组织规模。当出现角色互斥时，就需要切换账号 <img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/icon_lol.gif" alt=":lol:" class="wp-smiley" style="height: 1em; max-height: 1em;"></p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2019-02-26T15:25:44+08:00">2019/02/26</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-331282&#39;, &#39;331282&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+        <li class="comment byuser comment-author-112531 odd alt thread-odd thread-alt depth-1" id="li-comment-254404" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-254404" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/112531" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/40x40" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/112531" target="_blank">童大大</a><span class="des">互联网产品经理</span></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>亲，你的角色、权限和字段都是并行的，这会有很大问题：角色就相当于是用户组的功能，而后面的权限和字段勾选才是对账号权限的控制，这样的状况下绝对会出现一个用户组下N种权限类型的账号~~何不先配置好每类角色下的权限，在由账号去勾选相应的权限呢！</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2018-02-24T14:19:30+08:00">2018/02/24</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-254404&#39;, &#39;254404&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            <ol class="children">
+        <li class="comment byuser comment-author-141934 even depth-2" id="li-comment-295574" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-295574" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/141934" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/40x40(1)" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/141934" target="_blank">青蛙王子</a><span class="color-noraml">回复</span><a href="http://www.woshipm.com/pd/580997.html#comment-254404">童大大</a></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>赞同，是这样的，如果有特色权限，可以设置不同的角色区分。</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2018-10-10T16:19:49+08:00">2018/10/10</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-295574&#39;, &#39;295574&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+        <li class="comment byuser comment-author-adleyhl odd alt depth-2" id="li-comment-330247" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-330247" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/50906" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/40x40(2)" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/50906" target="_blank">adleyhl</a><span class="color-noraml">回复</span><a href="http://www.woshipm.com/pd/580997.html#comment-254404">童大大</a></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>一个角色可以有多个账号，一个账号也可以有多个角色</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2019-02-21T09:47:35+08:00">2019/02/21</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-330247&#39;, &#39;330247&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+        <li class="comment byuser comment-author-637670 even thread-even depth-1" id="li-comment-253188" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-253188" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/637670" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/WX_U_201802_20180208153243_4240.jpg" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/637670" target="_blank">柯</a><span class="des"></span></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>亲的文章中缺少数据权限的处理。<br>
+另外，你的逻辑的本质是账号和菜单、页面、字段、按钮等最细颗粒度绑定，角色只是做一个合集便于创建用户的时候快速绑定权限用。这种逻辑有一个弊端，比如角色1开始的时候不包含菜单A，但是角色1下已经有100个用户了，此时，需要给角色1增加菜单A的权限，那么该角色1下的100个用户应该是无法自动获取菜单A的权限的吧，只有新创建的、绑定在角色1下的用户才能继承菜单A的权限吧。</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2018-02-08T15:36:42+08:00">2018/02/08</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-253188&#39;, &#39;253188&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            <ol class="children">
+        <li class="comment byuser comment-author-141934 odd alt depth-2" id="li-comment-295575" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-295575" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/141934" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/40x40(1)" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/141934" target="_blank">青蛙王子</a><span class="color-noraml">回复</span><a href="http://www.woshipm.com/pd/580997.html#comment-253188">柯</a></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>角色添加了新权限，用户是自动获得的。</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2018-10-10T16:20:51+08:00">2018/10/10</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-295575&#39;, &#39;295575&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+        <li class="comment byuser comment-author-159443 even thread-odd thread-alt depth-1" id="li-comment-240005" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-240005" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/159443" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/def_head.jpg" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/159443" target="_blank">小时候丢过</a><span class="des"></span></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>感谢分享，分心的很到位，简单明了！最近正在考虑账号系统，需要借鉴参考，mark一下留档 <img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/icon_redface.gif" alt=":oops:" class="wp-smiley" style="height: 1em; max-height: 1em;"></p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2017-11-16T11:02:11+08:00">2017/11/16</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-240005&#39;, &#39;240005&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+        <li class="comment byuser comment-author-220225 odd alt thread-even depth-1" id="li-comment-238467" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-238467" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/220225" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/APP_U_201703_20170325210702_9470.jpeg" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/220225" target="_blank">南柯</a><span class="des"></span></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>我看到一个一直想要的原型上的实现，就是类似浏览器网页切换的这个实现模板可以给一份嘛，可以把所有业务内容都删掉保留两三张示例页面就行，可以嘛。</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2017-11-07T16:26:19+08:00">2017/11/07</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-238467&#39;, &#39;238467&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+        <li class="comment byuser comment-author-260204 even thread-odd thread-alt depth-1" id="li-comment-232280" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-232280" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/260204" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/WX_U_201705_20170520170141_8328.jpg" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/260204" target="_blank">邓嘉华</a><span class="des"></span></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>问一下，字段的作用是什么 <img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/icon_cry.gif" alt=":cry:" class="wp-smiley" style="height: 1em; max-height: 1em;"></p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2017-09-25T15:24:42+08:00">2017/09/25</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-232280&#39;, &#39;232280&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            <ol class="children">
+        <li class="comment byuser comment-author-260204 odd alt depth-2" id="li-comment-232326" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-232326" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/260204" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/WX_U_201705_20170520170141_8328.jpg" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/260204" target="_blank">邓嘉华</a><span class="color-noraml">回复</span><a href="http://www.woshipm.com/pd/580997.html#comment-232280">邓嘉华</a></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>有谁能告诉我吗</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2017-09-25T18:29:26+08:00">2017/09/25</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-232326&#39;, &#39;232326&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+        <li class="comment byuser comment-author-robin-pm even depth-2" id="li-comment-239676" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-239676" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/74282" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/40x40(3)" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/74282" target="_blank">robin - pm</a><span class="color-noraml">回复</span><a href="http://www.woshipm.com/pd/580997.html#comment-232326">邓嘉华</a></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>就是权限控制到“字段”，例如“手机号”，“用户名”分别就是两个字段，如果没有权限，就在列表上不展示这两个字段。</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2017-11-14T16:12:56+08:00">2017/11/14</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-239676&#39;, &#39;239676&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+        <li class="comment byuser comment-author-18333608602 odd alt thread-even depth-1" id="li-comment-223425" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-223425" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/77533" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/40x40(4)" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/77533" target="_blank">别走啊我是妹纸</a><span class="des">北京星诺无限有限公司产品实习生</span></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>关于权限这块作者写的很全了，我再补充一个，还有一个数据范围权限，注意不是字段权限。也就是说所有的数据要分类，一个账号只能看见自己负责的部分数据</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2017-08-10T14:46:05+08:00">2017/08/10</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-223425&#39;, &#39;223425&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            <ol class="children">
+        <li class="comment byuser comment-author-380734 even depth-2" id="li-comment-290569" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-290569" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/380734" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/APP_U_201801_20180114104009_7748.jpeg" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/380734" target="_blank">熊光</a><span class="color-noraml">回复</span><a href="http://www.woshipm.com/pd/580997.html#comment-223425">别走啊我是妹纸</a></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>所以 这个数据范围权限如何实现呢</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2018-09-10T20:08:12+08:00">2018/09/10</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-290569&#39;, &#39;290569&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+        <li class="comment byuser comment-author-edward519 odd alt thread-odd thread-alt depth-1" id="li-comment-213182" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-213182" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/65030" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/40x40(5)" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/65030" target="_blank">逍遥津</a><span class="des"></span></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>有文章的后台原型文档网盘地址吗</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2017-06-04T17:18:46+08:00">2017/06/04</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-213182&#39;, &#39;213182&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            <ol class="children">
+        <li class="comment byuser comment-author-151001 even depth-2" id="li-comment-234873" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-234873" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/151001" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/40x40(6)" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/151001" target="_blank">产品范</a><span class="color-noraml">回复</span><a href="http://www.woshipm.com/pd/580997.html#comment-213182">逍遥津</a></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>当然不会给了，用脚想一想也是</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2017-10-17T09:26:42+08:00">2017/10/17</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-234873&#39;, &#39;234873&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+        <li class="comment byuser comment-author-yoray odd alt thread-even depth-1" id="li-comment-212489" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-212489" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/77151" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/40x40(7)" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/77151" target="_blank">背影</a><span class="des">PM狗</span></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>我的理解是角色就是权限的集合，没有必要选了角色后再重新选权限</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2017-05-31T17:08:55+08:00">2017/05/31</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-212489&#39;, &#39;212489&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            <ol class="children">
+        <li class="comment byuser comment-author-18333608602 even depth-2" id="li-comment-223424" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-223424" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/77533" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/40x40(4)" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/77533" target="_blank">别走啊我是妹纸</a><span class="color-noraml">回复</span><a href="http://www.woshipm.com/pd/580997.html#comment-212489">背影</a></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>小公司不用。大公司每个角色可能操作流程不一样。权限开放程度肯定不一样。如果每次遇到这种权限都新加一个角色，那就会有庞大的角色，不利于管理。</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2017-08-10T14:44:16+08:00">2017/08/10</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-223424&#39;, &#39;223424&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+        <li class="comment byuser comment-author-163084 odd alt depth-2" id="li-comment-250550" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-250550" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/163084" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/APP_U_201801_20180124203029_1145.jpeg" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/163084" target="_blank">花泽香肠</a><span class="color-noraml">回复</span><a href="http://www.woshipm.com/pd/580997.html#comment-223424">别走啊我是妹纸</a></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>大神想请教一下，如果针对单个账号的权限去做一个二次修改，那这样是不是打破了这个账号所属角色的原始权限集了，对于超级管理来说，不能快速知道哪些账号享有了超出角色授权范围的特殊权限，如果公司组织架构庞大，拥有特殊权利的账号过多，这样是不是也不利于管理呢？</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2018-01-24T20:28:44+08:00">2018/01/24</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-250550&#39;, &#39;250550&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+        <li class="comment byuser comment-author-45439 even thread-odd thread-alt depth-1" id="li-comment-197078" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-197078" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/45439" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/40x40(8)" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/45439" target="_blank">深蓝色萧邦</a><span class="des">心理学+经济学科班出身，全栈产品经理。</span></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>个人觉得：角色、权限、字段，不是并列的关系，所以这样做是否合理<br>
+不妨用：菜单、功能、字段，进行区分</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2017-02-27T16:02:25+08:00">2017/02/27</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-197078&#39;, &#39;197078&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            <ol class="children">
+        <li class="comment byuser comment-author-18333608602 odd alt depth-2" id="li-comment-223427" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-223427" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/77533" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/40x40(4)" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/77533" target="_blank">别走啊我是妹纸</a><span class="color-noraml">回复</span><a href="http://www.woshipm.com/pd/580997.html#comment-197078">深蓝色萧邦</a></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>合理的，主流都这么做。角色和菜单也不是一个概念。文章开头也说了RBAC。这个很符合大公司的业务流程。小公司就是角色+字段就可以了</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2017-08-10T14:49:05+08:00">2017/08/10</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-223427&#39;, &#39;223427&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+        <li class="comment byuser comment-author-15887263520 even thread-even depth-1" id="li-comment-196273" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-196273" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/92230" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/40x40(9)" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/92230" target="_blank">淡色阳光</a><span class="des"></span></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>十分喜欢这个系列的分享，期待后面的内容，如果可以的话，能加您好友吗 <img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/icon_exclaim.gif" alt=":!:" class="wp-smiley" style="height: 1em; max-height: 1em;"></p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2017-02-22T10:07:58+08:00">2017/02/22</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-196273&#39;, &#39;196273&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+        <li class="comment byuser comment-author-185718 odd alt thread-odd thread-alt depth-1" id="li-comment-195812" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-195812" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/185718" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/40x40(10)" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/185718" target="_blank">贝克曼</a><span class="des">微信公众号【贝克曼的产品修炼之路】</span></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>其实权限分成两块:功能权限和数据权限<br>
+功能权限可以细分菜单级，页面级，按纽级；<br>
+数据权限是对可访问数据范围或具体字段的控制，数据范围比如只能对某区域（地理区域或逻辑区域），具体字段如对会员数据，对身份证号等涉及隐私字段进行保护。</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2017-02-18T16:06:03+08:00">2017/02/18</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-195812&#39;, &#39;195812&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            <ol class="children">
+        <li class="comment byuser comment-author-18333608602 even depth-2" id="li-comment-223428" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-223428" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/77533" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/40x40(4)" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/77533" target="_blank">别走啊我是妹纸</a><span class="color-noraml">回复</span><a href="http://www.woshipm.com/pd/580997.html#comment-195812">贝克曼</a></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>有道理</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2017-08-10T14:49:22+08:00">2017/08/10</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-223428&#39;, &#39;223428&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+        <li class="comment byuser comment-author-74441 odd alt thread-even depth-1" id="li-comment-195648" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-195648" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/74441" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/APP_U_201808_20180829095056_5772.jpeg" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/74441" target="_blank">浩程君</a><span class="des">什么都会一点</span></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>个人感觉这个落点太多，不妨从电商的基本来谈，包括商品、订单、会员。再由商品引出库存、商品分类、SKU；由订单引出退换货、入库、出库、锁库等等。再由最基本的单人可管理的电商后台扩展到商家入驻、管理员权限、收银、门店等等。</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2017-02-17T11:25:53+08:00">2017/02/17</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-195648&#39;, &#39;195648&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            <ol class="children">
+        <li class="comment byuser comment-author-118054 even depth-2" id="li-comment-220613" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-220613" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/118054" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/PM_U_201608_20160810220600_6891.jpg" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/118054" target="_blank">(•̀ᴗ•́)و ̑̑兔斯基贝贝</a><span class="color-noraml">回复</span><a href="http://www.woshipm.com/pd/580997.html#comment-195648">浩程君</a></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>有何见解？也撰写文章给大家分享一下把</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2017-07-21T20:06:19+08:00">2017/07/21</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-220613&#39;, &#39;220613&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+        <li class="comment byuser comment-author-147696 odd alt thread-odd thread-alt depth-1" id="li-comment-195635" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-195635" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/147696" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/def_head.jpg" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/147696" target="_blank">墙根蜗牛</a><span class="des"></span></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>RBAC是目前大多数后台使用的权限控制模型，但是在实际中，权限这块最关键的还不是产品怎么设计</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2017-02-17T10:21:22+08:00">2017/02/17</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-195635&#39;, &#39;195635&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            <ol class="children">
+        <li class="comment byuser comment-author-18333608602 even depth-2" id="li-comment-223429" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-223429" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/77533" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/40x40(4)" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/77533" target="_blank">别走啊我是妹纸</a><span class="color-noraml">回复</span><a href="http://www.woshipm.com/pd/580997.html#comment-195635">墙根蜗牛</a></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>产品怎么设计肯定是根据平台的业务规模判定的</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2017-08-10T14:50:10+08:00">2017/08/10</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-223429&#39;, &#39;223429&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+        <li class="comment byuser comment-author-xiangqian odd alt thread-even depth-1" id="li-comment-195632" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-195632" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/70091" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/APP_U_201806_20180607151154_8188.jpeg" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/70091" target="_blank">项乾</a><span class="des"></span></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>梳理的很到位，赞一个👍</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2017-02-17T10:16:02+08:00">2017/02/17</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-195632&#39;, &#39;195632&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+        <li class="comment byuser comment-author-cc even thread-odd thread-alt depth-1" id="li-comment-195427" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-195427" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/74800" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/40x40(11)" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/74800" target="_blank">蘑菇cc</a><span class="des"></span></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>下一篇是角色管理吗？啥时候更新</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2017-02-16T14:04:24+08:00">2017/02/16</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-195427&#39;, &#39;195427&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            <ol class="children">
+        <li class="comment byuser comment-author-238435 odd alt depth-2" id="li-comment-216066" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-216066" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/238435" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/WX_U_201705_20170505113257_1273.jpg" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/238435" target="_blank">倔强</a><span class="color-noraml">回复</span><a href="http://www.woshipm.com/pd/580997.html#comment-195427">蘑菇cc</a></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>1</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2017-06-20T15:04:03+08:00">2017/06/20</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-216066&#39;, &#39;216066&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+        <li class="comment byuser comment-author-188416 even thread-even depth-1" id="li-comment-194539" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-194539" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/188416" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/40x40(12)" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/188416" target="_blank">大力出奇迹</a><span class="des"></span></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>您好，我想咨询一下角色的权限设置也是有菜单权限、页面权限、字段权限三种吗？如果是这样角色权限和账号权限的操作不是重复了？如果不是，那么角色的权限怎么设置呢？</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2017-02-09T11:07:30+08:00">2017/02/09</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-194539&#39;, &#39;194539&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            <ol class="children">
+        <li class="comment byuser comment-author-55806 bypostauthor odd alt depth-2" id="li-comment-194576" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-194576" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/55806" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/40x40(13)" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/55806" target="_blank">胡言</a><span class="post-c-a" title="文章作者">作者</span><span class="color-noraml">回复</span><a href="http://www.woshipm.com/pd/580997.html#comment-194539">大力出奇迹</a></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>角色相当于是权限的集合，设置好后，之后每开一个账号都是先关联角色。如果没有角色的设置，你每开一个账号都需要把权限勾选一遍。</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2017-02-09T14:56:04+08:00">2017/02/09</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-194576&#39;, &#39;194576&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+        <li class="comment byuser comment-author-188416 even depth-2" id="li-comment-194594" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-194594" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/188416" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/40x40(12)" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/188416" target="_blank">大力出奇迹</a><span class="color-noraml">回复</span><a href="http://www.woshipm.com/pd/580997.html#comment-194576">胡言</a></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>您看我这样理解对吗：添加一个账号若是关联到角色，则该账号的权限跟着角色走，不能再额外添加其他权限，要想给该账号添加其他权限，必须给其角色添加权限；若该账号不关联角色，则账号的权限自定义  <img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/icon_wink.gif" alt=";-)" class="wp-smiley" style="height: 1em; max-height: 1em;"></p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2017-02-09T16:09:32+08:00">2017/02/09</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-194594&#39;, &#39;194594&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+        <li class="comment byuser comment-author-a181936608 odd alt depth-2" id="li-comment-204693" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-204693" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/78930" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/40x40(14)" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/78930" target="_blank">黒丶夜</a><span class="color-noraml">回复</span><a href="http://www.woshipm.com/pd/580997.html#comment-194594">大力出奇迹</a></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>不是的，账号是本体，角色跟着账号走，且角色是由权限组成的。在系统中，可能相同的角色会拥有不同的权限，这时候只需要在配置角色的时候配置相对固定的权限，部分灵活的权限可以不配置，在添加账号的时候自由组合</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2017-04-14T14:56:05+08:00">2017/04/14</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-204693&#39;, &#39;204693&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+        <li class="comment byuser comment-author-184872 even depth-2" id="li-comment-212525" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-212525" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/184872" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/PM_U_201701_20170104200114_7449.jpg" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/184872" target="_blank">淡风林</a><span class="color-noraml">回复</span><a href="http://www.woshipm.com/pd/580997.html#comment-204693">黒丶夜</a></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>请问一下，相同角色拥有不同的权限，那么在修改角色的权限时，这个用户的权限也会随着角色权限变更而变更吗？</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2017-05-31T21:08:33+08:00">2017/05/31</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-212525&#39;, &#39;212525&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+        <li class="comment byuser comment-author-a181936608 odd alt depth-2" id="li-comment-212564" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-212564" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/78930" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/40x40(14)" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/78930" target="_blank">黒丶夜</a><span class="color-noraml">回复</span><a href="http://www.woshipm.com/pd/580997.html#comment-212525">淡风林</a></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>当然会，权限是最基本的配置，所以一搬不会轻易去动。</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2017-06-01T09:44:29+08:00">2017/06/01</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-212564&#39;, &#39;212564&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+        <li class="comment byuser comment-author-Eleven even depth-2" id="li-comment-264584" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-264584" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/326711" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/WX_U_201709_20170919090654_6835.jpg" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/326711" target="_blank">Eleven</a><span class="color-noraml">回复</span><a href="http://www.woshipm.com/pd/580997.html#comment-212564">黒丶夜</a></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>接上面的问题再请教，如果角色权限变更账号权限也变更的话，变更的方式是什么样的？账号权限跟角色权限一模一样吗？那这样的话，如果这个账号原来多勾选其他殊权限是不是得重新到账号中配置？</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2018-04-25T11:13:23+08:00">2018/04/25</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-264584&#39;, &#39;264584&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+        <li class="comment byuser comment-author-a181936608 odd alt depth-2" id="li-comment-265173" itemtype="http://schema.org/Comment" itemscope="" itemprop="comment">
+            <div id="comment-265173" class="comment-block">
+                    <div class="comment-avatar pm-relative">
+                        <a href="http://www.woshipm.com/u/78930" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/40x40(14)" alt="" height="40" width="40" class="avatar"></a>
+                                            </div>
+                <div class="comment-info">
+                    <div class="comment-meta">
+                                                                            <div class="comment-author" itemprop="author"><a href="http://www.woshipm.com/u/78930" target="_blank">黒丶夜</a><span class="color-noraml">回复</span><a href="http://www.woshipm.com/pd/580997.html#comment-264584">Eleven</a></div>
+                                  
+                       
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>举个栗子：你同时拥有PM和UI的角色，PM具有修改原型和修改流程图的权限，UI具有使用PS和修改图的权限。<br>
+1.当管理员把UI修改图这个权限取消后，所有拥有UI这个角色的账号在使用UI这个角色时都无法修改图了，这是变更角色权限；<br>
+2.当管理员把你这个账号中UI的权限去掉，你不能再使用UI这个角色了，这种叫做变更账号权限；<br>
+3.特殊权限可视为一个权限为一个角色。</p>
+                </div>
+
+                    <div class="u-clearfix comment-bottom"><span class="comment-time" itemprop="datePublished" datetime="2018-04-28T10:13:34+08:00">2018/04/28</span><span class="comment-reply-link u-floatRight u-cursorPointer" onclick="return addComment.moveForm(&#39;comment-265173&#39;, &#39;265173&#39;, &#39;respond&#39;, &#39;580997&#39;)"><span class="fa fa-comment"></span>回复</span></div>
+            </div>
+            </li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+            </ol>
+            <nav class="commentnav" data-fuck="580997">
+                            </nav>
+        </div>
+    </div>        <div class="u-backgroundColorWhite promote-posts-wrapper u-rounded">
+            <h2 class="comments-title">您可能感兴趣的文章</h2>
+            <div class="promote-posts">
+                                    <div class="promote-post-item">
+                        <a target="_blank" href="http://www.woshipm.com/data-analysis/2440917.html" style="background-image: url(http://image.woshipm.com/wp-files/2019/06/nAROGlOSNyaw2S53bhui.jpg)" class="promote-post-image">
+                        </a>
+                        <div class="promote-post-title"><a target="_blank" href="http://www.woshipm.com/data-analysis/2440917.html">大数据风控必看，挖掘学历数据中暗藏的还款意愿及还款能力</a></div>
+                    </div>
+                                    <div class="promote-post-item">
+                        <a target="_blank" href="http://www.woshipm.com/pmd/2435353.html" style="background-image: url(http://image.woshipm.com/wp-files/2019/06/EOrunX7LuaodXAJ20eZb.png)" class="promote-post-image">
+                        </a>
+                        <div class="promote-post-title"><a target="_blank" href="http://www.woshipm.com/pmd/2435353.html">产品经理的求职篇：如何顺利地拿多个Offer</a></div>
+                    </div>
+                                    <div class="promote-post-item">
+                        <a target="_blank" href="http://996.pm/YBWqW" style="background-image: url(http://image.woshipm.com/wp-files/2019/01/Lz4EJhGzHGpi0FErTGmN.jpg)" class="promote-post-image">
+                        </a>
+                        <div class="promote-post-title"><a target="_blank" href="http://996.pm/YBWqW">每天3块钱，补齐互联网专业知识，提升职场竞争力</a></div>
+                    </div>
+                                    <div class="promote-post-item">
+                        <a target="_blank" href="http://www.woshipm.com/newretail/2440098.html" style="background-image: url(http://image.woshipm.com/wp-files/2019/06/9y8TThE4dEZXJKld1hfj.jpg)" class="promote-post-image">
+                        </a>
+                        <div class="promote-post-title"><a target="_blank" href="http://www.woshipm.com/newretail/2440098.html">是时候对新零售做个反思了</a></div>
+                    </div>
+                                    <div class="promote-post-item">
+                        <a target="_blank" href="http://www.woshipm.com/pd/2440034.html" style="background-image: url(http://image.woshipm.com/wp-files/2019/06/8yA7X3U5RzXMIFvXVGI2.png)" class="promote-post-image">
+                        </a>
+                        <div class="promote-post-title"><a target="_blank" href="http://www.woshipm.com/pd/2440034.html">APP中的悬浮球设计总结</a></div>
+                    </div>
+                                    <div class="promote-post-item">
+                        <a target="_blank" href="http://www.woshipm.com/operate/2441378.html" style="background-image: url(http://image.woshipm.com/wp-files/2019/06/EYYIm2WdNs2NGFWlXuyU.png)" class="promote-post-image">
+                        </a>
+                        <div class="promote-post-title"><a target="_blank" href="http://www.woshipm.com/operate/2441378.html">用户增长只要做两件事（三）：如何做增长下的口碑传播</a></div>
+                    </div>
+                            </div>
+        </div>
+    </div>
+    </div>
+<div class="u-width335 u-floatRight js-sidebar">
+                       <div class="widget u-backgroundColorWhite">
+        <div class="inner">
+            <div class="widget-title"><span><svg class="svgIcon-use" width="20" height="20" viewBox="0 0 20 20"><path d="M6.551,8.213 L7.586,8.213 C7.586,9.594 8.667,10.713 10.000,10.713 C11.333,10.713 12.414,9.594 12.414,8.213 L13.448,8.213 C13.448,10.186 11.904,11.784 10.000,11.784 C8.096,11.784 6.551,10.186 6.551,8.213 ZM16.561,16.551 L17.597,19.999 L16.552,19.999 L16.207,18.928 L16.209,18.928 L15.277,15.706 C15.301,15.706 15.324,15.713 15.349,15.713 C17.347,15.713 18.966,14.034 18.966,11.963 C18.966,10.732 18.386,9.649 17.502,8.965 C17.110,11.828 15.232,14.189 12.701,15.189 L13.818,18.928 L13.815,18.928 L14.138,19.999 L13.103,19.999 L12.759,18.928 L11.275,14.511 C14.283,13.896 16.552,11.151 16.552,7.856 C16.552,4.108 13.618,1.070 10.000,1.070 C6.382,1.070 3.448,4.108 3.448,7.856 C3.448,11.151 5.717,13.896 8.724,14.511 L7.241,18.928 L6.896,19.999 L5.862,19.999 L6.182,18.928 L6.182,18.928 L7.298,15.190 C4.768,14.189 2.890,11.829 2.498,8.967 C1.615,9.650 1.035,10.733 1.035,11.963 C1.035,14.034 2.655,15.713 4.655,15.713 C4.679,15.713 4.702,15.706 4.726,15.706 L3.793,18.928 L3.448,19.999 L2.404,19.999 L3.441,16.551 C1.460,16.001 -0.000,14.144 -0.000,11.931 C-0.000,10.120 0.978,8.544 2.420,7.730 C2.486,3.449 5.851,-0.001 10.000,-0.001 C14.148,-0.001 17.513,3.449 17.580,7.729 C19.022,8.542 20.000,10.119 20.000,11.931 C20.000,14.144 18.541,16.001 16.561,16.551 Z"></path></svg>圈子</span></div>
+            <div class="widget-content">
+                <div class="contact-area">
+                    <ul class="code-ul">
+                        <li><span class="text">产品经理群</span><a target="_blank" href="https://jq.qq.com/?_wv=1027&amp;k=5xQgtz2"><i>+</i>加入</a></li>
+<li><span class="text">运营交流群</span><a target="_blank" href="https://jq.qq.com/?_wv=1027&amp;k=53ogl72"><i>+</i>加入</a></li>
+<li><span class="text">营销增长群</span><a target="_blank" href="https://jq.qq.com/?_wv=1027&amp;k=5TsDxlt"><i>+</i>加入</a></li>
+<li><span class="text">文案交流群</span><a target="_blank" href="https://jq.qq.com/?_wv=1027&amp;k=50j5r0V"><i>+</i>加入</a></li>
+<li><span class="text">Axure学习群</span><a target="_blank" href="https://jq.qq.com/?_wv=1027&amp;k=5TCFoC8"><i>+</i>加入</a></li>                    </ul>
+                    <dl class="code-dl">
+                        <dd>
+                            <img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/pm-erweima.jpg">
+                        </dd>
+                        <dt>关注微信公众号</dt>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="widget widget-ad fixed-sidebar-id"><a href="http://www.woshipm.com/pd/580997.html" target="_blank"></a></div><div class="widget u-backgroundColorWhite">
+        <div class="inner">
+            <div class="widget-title"><span><svg class="svgIcon-use" width="20" height="20" viewBox="0 0 20 20">
+  <path d="M20.000,9.999 C20.000,4.476 15.524,-0.001 9.999,-0.001 C4.477,-0.001 -0.000,4.476 -0.000,9.999 C-0.000,15.522 4.477,19.999 9.999,19.999 C12.267,19.999 14.342,19.227 16.021,17.957 C16.089,17.878 16.134,17.779 16.134,17.666 C16.134,17.422 15.937,17.223 15.692,17.223 C15.565,17.223 15.452,17.273 15.369,17.358 L15.365,17.358 C13.864,18.463 12.016,19.125 10.009,19.125 C5.009,19.125 0.954,15.069 0.954,10.069 C0.954,5.067 5.009,1.012 10.009,1.012 C15.011,1.012 19.065,5.067 19.065,10.069 C19.065,11.597 18.707,13.034 18.039,14.296 L18.039,14.304 C18.026,14.346 18.012,14.387 18.012,14.431 C18.012,14.677 18.212,14.876 18.456,14.876 C18.647,14.876 18.807,14.753 18.869,14.584 L18.869,14.588 C19.580,13.211 20.000,11.654 20.000,9.999 L20.000,9.999 L20.000,9.999 L20.000,9.999 ZM3.981,13.384 C3.704,13.384 3.480,13.160 3.480,12.883 L3.480,7.138 C3.480,6.861 3.704,6.637 3.981,6.637 C4.258,6.637 4.482,6.861 4.482,7.138 L4.482,12.883 C4.482,13.160 4.258,13.384 3.981,13.384 L3.981,13.384 ZM7.589,13.384 C7.313,13.384 7.088,13.160 7.088,12.883 L7.088,7.138 C7.088,6.861 7.313,6.637 7.589,6.637 C7.866,6.637 8.090,6.861 8.090,7.138 L8.090,12.883 C8.090,13.160 7.866,13.384 7.589,13.384 L7.589,13.384 ZM7.589,10.511 L3.981,10.511 C3.704,10.511 3.480,10.287 3.480,10.011 C3.480,9.734 3.704,9.510 3.981,9.510 L7.589,9.510 C7.865,9.510 8.090,9.734 8.090,10.011 C8.090,10.287 7.865,10.511 7.589,10.511 L7.589,10.511 ZM14.791,13.384 C14.515,13.384 14.291,13.160 14.291,12.883 L14.291,7.138 C14.291,6.861 14.515,6.637 14.791,6.637 C15.068,6.637 15.292,6.861 15.292,7.138 L15.292,12.883 C15.292,13.160 15.068,13.384 14.791,13.384 L14.791,13.384 ZM16.596,7.639 L12.988,7.639 C12.711,7.639 12.487,7.415 12.487,7.138 C12.487,6.861 12.711,6.637 12.988,6.637 L16.596,6.637 C16.872,6.637 17.097,6.861 17.097,7.138 C17.097,7.415 16.872,7.639 16.596,7.639 L16.596,7.639 ZM10.534,13.384 C9.426,13.384 8.524,12.482 8.524,11.374 L8.524,8.648 C8.524,7.539 9.426,6.637 10.534,6.637 C11.643,6.637 12.545,7.539 12.545,8.648 L12.545,11.374 C12.545,12.482 11.643,13.384 10.534,13.384 L10.534,13.384 ZM10.534,7.639 C9.978,7.639 9.526,8.092 9.526,8.648 L9.526,11.374 C9.526,11.930 9.978,12.382 10.534,12.382 C11.091,12.382 11.543,11.930 11.543,11.374 L11.543,8.648 C11.543,8.092 11.091,7.639 10.534,7.639 L10.534,7.639 Z"></path>
+</svg>热门文章</span></div><ul class="widget-post-list--withImage"><li class="widget-post-item--withImage">
+                    <div class="img">
+<a href="http://www.woshipm.com/pmd/2425616.html" target="_blank">
+<img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/100x60" width="100" height="60">
+</a>
+</div>
+<div class="title"><a href="http://www.woshipm.com/pmd/2425616.html">身为产品经理必过的那些关</a></div>
+<div class="meta">2019-06-05</div>
+                </li><li class="widget-post-item--withImage">
+                    <div class="img">
+<a href="http://www.woshipm.com/marketing/2421192.html" target="_blank">
+<img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/100x60(1)" width="100" height="60">
+</a>
+</div>
+<div class="title"><a href="http://www.woshipm.com/marketing/2421192.html">Kaws x Uniqlo 联名T遭疯抢后背的营销学分析</a></div>
+<div class="meta">2019-06-04</div>
+                </li><li class="widget-post-item--withImage">
+                    <div class="img">
+<a href="http://www.woshipm.com/pmd/2405704.html" target="_blank">
+<img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/100x60(2)" width="100" height="60">
+</a>
+</div>
+<div class="title"><a href="http://www.woshipm.com/pmd/2405704.html">听说你在做To B，这些坑是不是很熟悉？</a></div>
+<div class="meta">2019-06-03</div>
+                </li><li class="widget-post-item--withImage">
+                    <div class="img">
+<a href="http://www.woshipm.com/pmd/2411891.html" target="_blank">
+<img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/100x60(3)" width="100" height="60">
+</a>
+</div>
+<div class="title"><a href="http://www.woshipm.com/pmd/2411891.html">优秀产品经理的7种能力</a></div>
+<div class="meta">2019-06-03</div>
+                </li><li class="widget-post-item--withImage">
+                    <div class="img">
+<a href="http://www.woshipm.com/pd/2421063.html" target="_blank">
+<img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/100x60(4)" width="100" height="60">
+</a>
+</div>
+<div class="title"><a href="http://www.woshipm.com/pd/2421063.html">Hi，你的产品经得起推敲吗？</a></div>
+<div class="meta">2019-06-06</div>
+                </li></ul></div></div><div class="widget u-backgroundColorWhite">
+        <div class="inner">
+            <div class="widget-title"><span><svg class="svgIcon-use" width="20" height="20" viewBox="0 0 20 20">
+  <path d="M20.000,9.999 C20.000,4.476 15.524,-0.001 9.999,-0.001 C4.477,-0.001 -0.000,4.476 -0.000,9.999 C-0.000,15.522 4.477,19.999 9.999,19.999 C12.267,19.999 14.342,19.227 16.021,17.957 C16.089,17.878 16.134,17.779 16.134,17.666 C16.134,17.422 15.937,17.223 15.692,17.223 C15.565,17.223 15.452,17.273 15.369,17.358 L15.365,17.358 C13.864,18.463 12.016,19.125 10.009,19.125 C5.009,19.125 0.954,15.069 0.954,10.069 C0.954,5.067 5.009,1.012 10.009,1.012 C15.011,1.012 19.065,5.067 19.065,10.069 C19.065,11.597 18.707,13.034 18.039,14.296 L18.039,14.304 C18.026,14.346 18.012,14.387 18.012,14.431 C18.012,14.677 18.212,14.876 18.456,14.876 C18.647,14.876 18.807,14.753 18.869,14.584 L18.869,14.588 C19.580,13.211 20.000,11.654 20.000,9.999 L20.000,9.999 L20.000,9.999 L20.000,9.999 ZM3.981,13.384 C3.704,13.384 3.480,13.160 3.480,12.883 L3.480,7.138 C3.480,6.861 3.704,6.637 3.981,6.637 C4.258,6.637 4.482,6.861 4.482,7.138 L4.482,12.883 C4.482,13.160 4.258,13.384 3.981,13.384 L3.981,13.384 ZM7.589,13.384 C7.313,13.384 7.088,13.160 7.088,12.883 L7.088,7.138 C7.088,6.861 7.313,6.637 7.589,6.637 C7.866,6.637 8.090,6.861 8.090,7.138 L8.090,12.883 C8.090,13.160 7.866,13.384 7.589,13.384 L7.589,13.384 ZM7.589,10.511 L3.981,10.511 C3.704,10.511 3.480,10.287 3.480,10.011 C3.480,9.734 3.704,9.510 3.981,9.510 L7.589,9.510 C7.865,9.510 8.090,9.734 8.090,10.011 C8.090,10.287 7.865,10.511 7.589,10.511 L7.589,10.511 ZM14.791,13.384 C14.515,13.384 14.291,13.160 14.291,12.883 L14.291,7.138 C14.291,6.861 14.515,6.637 14.791,6.637 C15.068,6.637 15.292,6.861 15.292,7.138 L15.292,12.883 C15.292,13.160 15.068,13.384 14.791,13.384 L14.791,13.384 ZM16.596,7.639 L12.988,7.639 C12.711,7.639 12.487,7.415 12.487,7.138 C12.487,6.861 12.711,6.637 12.988,6.637 L16.596,6.637 C16.872,6.637 17.097,6.861 17.097,7.138 C17.097,7.415 16.872,7.639 16.596,7.639 L16.596,7.639 ZM10.534,13.384 C9.426,13.384 8.524,12.482 8.524,11.374 L8.524,8.648 C8.524,7.539 9.426,6.637 10.534,6.637 C11.643,6.637 12.545,7.539 12.545,8.648 L12.545,11.374 C12.545,12.482 11.643,13.384 10.534,13.384 L10.534,13.384 ZM10.534,7.639 C9.978,7.639 9.526,8.092 9.526,8.648 L9.526,11.374 C9.526,11.930 9.978,12.382 10.534,12.382 C11.091,12.382 11.543,11.930 11.543,11.374 L11.543,8.648 C11.543,8.092 11.091,7.639 10.534,7.639 L10.534,7.639 Z"></path>
+</svg>大家都在问</span></div>
+            <div class="widget-content hot-question-list js-hot-qlist"><div class="hot-question-item"><div class="title"><a href="https://wen.woshipm.com//question/detail/oe1ivf.html"><span class="fa fa-caret-right"></span>微信“看一看”模块下的“精选”文章从哪选来的？</a></div><div class="meta">4个回答<span class="dot"></span>0人关注</div></div><div class="hot-question-item"><div class="title"><a href="https://wen.woshipm.com//question/detail/dd1dge.html"><span class="fa fa-caret-right"></span>微信上线了「在看」个人主页功能，你怎么看？</a></div><div class="meta">13个回答<span class="dot"></span>21人关注</div></div><div class="hot-question-item"><div class="title"><a href="https://wen.woshipm.com//question/detail/t4aanj.html"><span class="fa fa-caret-right"></span>为什么美团和饿了么外卖下订单时选择不需要餐具，但商家还是配送了餐具？</a></div><div class="meta">14个回答<span class="dot"></span>11人关注</div></div><div class="hot-question-item"><div class="title"><a href="https://wen.woshipm.com//question/detail/or1dge.html"><span class="fa fa-caret-right"></span>【创业项目分析】https://www.kuaidajian.com请产品同学帮分析一下觉得我们这个项目能不能做起来？</a></div><div class="meta">36个回答<span class="dot"></span>37人关注</div></div><div class="hot-question-item"><div class="title"><a href="https://wen.woshipm.com//question/detail/5rllm9.html"><span class="fa fa-caret-right"></span>对于一个新产品，是像飞聊一样一出来就是个完整的产品，还是先MVP慢慢迭代？</a></div><div class="meta">2个回答<span class="dot"></span>1人关注</div></div><div class="hot-question-item"><div class="title"><a href="https://wen.woshipm.com//question/detail/gq66ar.html"><span class="fa fa-caret-right"></span>产品想要了解研发技术相关知识，上网课从学习web前端开始吗？2万学费，还是线上学习，值得不？</a></div><div class="meta">18个回答<span class="dot"></span>20人关注</div></div><div class="hot-question-item"><div class="title"><a href="https://wen.woshipm.com//question/detail/o9elm9.html"><span class="fa fa-caret-right"></span>不懂技术的产品到底适不适合做产品？</a></div><div class="meta">24个回答<span class="dot"></span>42人关注</div></div></div></div></div>    </div>    </div>
+<footer class="site-footer">
+    <div class="container u-flex footer-sections">
+        <section class="info-section">
+            <div class="footer-title">关于</div>
+            人人都是产品经理（woshipm.com）是以产品经理、运营为核心的学习、交流、分享平台，集媒体、培训、社群为一体，全方位服务产品人和运营人，成立8年举办在线讲座500+期，线下分享会300+场，产品经理大会、运营大会20+场，覆盖北上广深杭成都等15个城市，在行业有较高的影响力和知名度。平台聚集了众多BAT美团京东滴滴360小米网易等知名互联网公司产品总监和运营总监，他们在这里与你一起成长。        </section>
+        <section class="link-section">
+        <div class="footer-title">链接</div>
+            <nav class="footer-nav">
+                <ul>
+                    <li><a href="https://www.lagou.com/gongsi/318344.html" target="_blank">加入我们</a></li>
+                    <li><a href="http://www.woshipm.com/it/1010671.html" target="_blank">投稿须知</a></li>
+                    <li><a href="https://wen.woshipm.com/question/detail/omkf.html" target="_blank">意见反馈</a></li>
+                    <li><a href="http://www.woshipm.com/disclaimer" target="_blank">免责声明</a></li>
+                </ul>
+            </nav>
+        </section>
+        <section class="partner-section">
+            <div class="footer-title">合作伙伴</div>
+            <ul class="blue-pic-ul">
+                <li><a href="https://www.qidianla.com/?woshipm" title="起点学院" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/qidian.png" alt="起点学院" title="起点学院"></a></li>
+<li><a href="http://www.cyzone.cn/?woshipm" title="创业邦" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/s99dragqAZYcQyaoKEQn.png" alt="创业邦" title="创业邦"></a></li>
+<li><a href="http://ke.qq.com/?from=95" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/6-1.png" alt="腾讯课堂"></a></li>
+<li><a href="http://www.geetest.com/?woshipm" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/3-3.png" alt="极验验证"></a></li>
+<li><a href="http://www.zhisheji.com/?woshipm" title="致设计" target="_blank"><img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/4-2.png" alt="致设计" title="致设计"></a></li>
+            </ul>
+        </section>
+        <section class="qr-section" style="margin-left: auto;">
+        <div class="footer-title">APP下载</div>
+            <img src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/twr9dxFu31L06DVY160D.png">
+            <p>iPhone &amp; Android</p>
+        </section>
+    </div>
+    <div class="copyright">
+        <div class="container u-flex">
+        <div>旗下品牌: <a target="_blank" href="https://www.qidianla.com/">起点学院</a> | <a target="_blank" href="https://www.yunyingpai.com/">运营派</a> | <a target="_blank" href="http://www.zhaopins.com/">秒聘网</a> <br>
+©2010-2019 - 人人都是产品经理 - <a target="_blank" href="http://www.miibeian.gov.cn/">粤ICP备14037330号-1</a>-<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030502001309">粤公网安备 44030502001309号</a>
+<br>
+ <a target="_blank" href="http://image.woshipm.com/wp-files/2019/03/vR6mPdp9uXiiRjZedOBX.jpg">广播电视节目制作经营许可证（粤）字第03109号</a> 版权所有 © 深圳聚力创想信息科技有限公司</div>
+        <div style="margin-left:auto;text-align: right">企业内训/课程咨询和合作: 18682011582<br>其他合作/投诉/意见反馈: 18123776760</div>
+    </div>
+    </div>
+</footer>
+</div>
+<div class="back2top is-active"><span class="fa-angle-up fa"></span></div>
+<div class="u-hide"><script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fb85cbcc76e92e3fd79be8f2fed0f504f' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/h.js.下载" type="text/javascript"></script><a href="http://tongji.baidu.com/hm-web/welcome/ico?s=b85cbcc76e92e3fd79be8f2fed0f504f" target="_blank">网站统计</a></div>
+<script type="text/javascript" src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/wechat.js.下载"></script>
+<script type="text/javascript" src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/jquery.jplayer.min.js.下载"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var PURE = {"ajax_url":"http:\/\/www.woshipm.com\/wp-admin\/admin-ajax.php","restapi":"http:\/\/www.woshipm.com\/__api\/","nonce":"6bb6dd450e","home_url":"http:\/\/www.woshipm.com","is_user_logged_in":"","is_singular":"1","is_home":"","id":"580997","token":"OGthTmlpdTUyOHEydWxNUEZhSUxpZXF6QVo0YUZiTkw1dy9vUUlHQUE2OHppMkcwRjlVQVhUa1VtRE5RSGxuOFBGejhBMEcvdzZGRzE5SEhINnBpekhuTGprdUMyNEZMbkZMMkZ6aEVPNVdpakhFTlQvRmdGOGtWVmFsQ3NXQnY=","secret":"NzMwNzE5LCwxNTU3Mzk0MjkwMjQwLCxodHRwczovL3N0YXRpYy53b3NoaXBtLmNvbS9XWF9VXzIwMTgwN18yMDE4MDczMTAwMDIyMF8yNTI3LmpwZz9pbWFnZVZpZXcyLzIvdy84MCwsJUU1JUIwJThGJUU4JTlCJThCJUU1JUEzJUIz"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/misc.js.下载"></script>
+<script type="text/javascript" src="./电商后台系统：管理后台之账号管理（一） _ 人人都是产品经理_files/comment-reply.min.js.下载"></script>
+
+</body></html>

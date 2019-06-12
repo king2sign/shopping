@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">   
+    <title>电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客</title> 
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8,chrome=1">
+    <link href="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/public.css" type="text/css" rel="stylesheet">
+    <meta name="keywords" content="电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客,敖静之,库存管理,电商后台系统,管理后台">
+    <meta name="description" content="电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客,敖静之,">
+    <meta http-equiv="mobile-agent" content="format=html5; url=http://blog.sina.cn/dpool/blog/s/blog_1703bd88c0102x377.html?vt=4">
+<meta http-equiv="mobile-agent" content="format=wml; url=http://blog.sina.cn/dpool/blog/ArtRead.php?nid=1703bd88c0102x377&amp;vt=1">
+
+  <script id="sinaads-ck-script" charset="utf-8" src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/sinaads_ck.js.下载"></script><script src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/ssologin.js.下载" charset="utf-8" async=""></script><script src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/article_new.js.下载" charset="utf-8"></script><script src="chrome-extension://oofgjnalpjodkfmfomihdlchiiacnman/injectScripts.min.js"></script><script src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/sinaads.js.下载" charset="utf-8"></script><script src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/suda_s_v851c.js.下载" charset="utf-8"></script><iframe src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/ckctl.html" id="ckctlFrame" scrolling="no" style="height: 0px; width: 1px; overflow: hidden;"></iframe><script src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/collect.js.下载" charset="gb2312"></script><style type="text/css" id="stylefix">#bsPanelHolder,#sinaads_pdps54771{display:none;}</style><script src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/getSinaadsExParamsForBlog.js.下载" charset="utf-8"></script><script src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/blog_bottom_float.js.下载" charset="utf-8"></script></head>
+  <body><div id="sinaadToolkitBox1" class="sinaad-toolkit-box" style="position: fixed; width: 300px; height: 250px; z-index: 99999; display: none; left: 1219px; top: 456px;"><ins class="sinaads sinaads-fail" id="PDPS000000060681" data-ad-status="done" data-ad-pdps="PDPS000000060681"></ins></div><div id="sinaadToolkitBox0" class="sinaad-toolkit-box" style="position: fixed; width: 120px; height: 288px; z-index: 99999; display: block; left: 0px; top: 120px;"><div style="width: 120px; height: 18px; position: absolute; right: 0px; top: 270px; z-index: 10000; background: url(&quot;//d2.sina.com.cn/litong/zhitou/sinaads/60x18_1_close.gif&quot;) right center no-repeat rgb(235, 235, 235); margin: 0px; padding: 0px; cursor: pointer;"></div><div style="width: 120px; height: 270px; position: absolute; right: 0px; top: 0px;"><iframe adtypeturning="undefined" width="120px" height="270px" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" sandbox="allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" src="javascript:&#39;&lt;html&gt;&lt;body style=background:transparent;&gt;&lt;/body&gt;&lt;/html&gt;&#39;" id="sinaadtk_sandbox_id_0" style="float:left;" name="sinaadtk_sandbox_id_0" src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/saved_resource.html"></iframe></div></div>
+    <!--$sinatopbar-->
+    <div class="clearfix adTop" id="topAdvertise"><ins class="sinaads sinaads-done" data-ad-pdps="PDPS000000049439" style="display: block; overflow: hidden; text-decoration: none;" data-ad-status="done"><ins style="text-decoration:none;margin:0px auto;width:1000px;display:block;position:relative;overflow:hidden;"><a style="display:block;line-height:0;" href="http://saxn.sina.com.cn/dsp/click?t=MjAxOS0wNi0xMiAxMDoxOTozNS42MDUJMjE4Ljc5LjM2LjExCTU4LjM3LjEwNy4yNDRfMTU1Nzg4Mzc3NC4xMjQ2OTEJOWMwMWI2ZjgtNjhmOC00YzE5LWE2NmYtY2EyNTEwMDk5N2M5CTMzMzk0NDYJNTgzMjEyMDc5MV9QSU5QQUktQ1BDCTMxNTQzMDQJMzE3MjA0CTMuNDA2NTc5MkUtNAkxCXRydWUJUERQUzAwMDAwMDA0OTQzOQkzNzIwNDUxCVBDCWltYWdlCS0JMHw2emZSR05DYTBBTTVJdkNxWXVsRFhYfG51bGx8bnVsbHxianwzMzM5NDQ2fEw1UlpqdjdRNmZISmY4bWNORXladHwwfHx8fEJ8fDB8fHwwfC0xfDB8CQkxCS0JLQktCTAJNTguMzcuMTA3LjI0NF8xNTU3ODgzNzc0LjEyNDY5MQlQQ19JTUFHRQktCW5vcm1hbHx1dmZtLXJ0CQl1c2VyX3RhZzoyMTI3MDowLjB8dXNlcl9hZ2U6NjAzOjAuNjk0OXx1c2VyX2dlbmRlcjo1MDI6MS4wfHZfem9uZTozMjUwMDA6MC4wfGNyb3dkczp8X2Nyb3dkczoJMwkzMzgwMDAJNTAwMDAJLQkJMAkJNTlkOTBhYzktNGYwZi0zOWVjLWE2YjYtZGU3NDRmMTE5MGQxCTA=&amp;userid=58.37.107.244_1557883774.124691&amp;auth=cf802dc6a4b0e226&amp;p=iWZb6ziIPPCtY28zAAghz3r9v%2F795tVona4zTw%3D%3D&amp;url=http%3A%2F%2Fsaxn.sina.com.cn%2Fclick%3Fid%3D17%26t%3DODk2NjViZWItMzg4OC0zY2YwLWFkNjMtNmYzMzAwMDgyMWNmCTE3CVBEUFMwMDAwMDAwNDk0MzkJMzcyMDQ1MQkxCVJUQgktCVY1LjAuMF9fX0JYXzEwLjEzLjIyNC4xMzQJCQlwcm92aW5jZTozMjUwMDB8Y2l0eTozMjUwMDB8aXA6MjE4Ljc5LjM2LjExfGRldmljZWlkOnxjb29raWU6NTguMzcuMTA3LjI0NF8xNTU3ODgzNzc0LjEyNDY5MXxkaWQ6fHBsYXQ6cGN8dHM6MTU2MDMwNTk3NXx0ZjowfGFidGVzdDp8b3JpZ2luaXA6MTAuMTMuMjI0LjEzNHx0cmFmZmljOnBvcnRhbHxkeW5hbWljYWQ6fGNyZTp8YmFja2FkaW5kZXg6fGFjdGlvbjotMXx1cDotMXxkb3duOi0xfGNudG51bTotMXxwZGNvbnRyYWN0Oi18cGRkZXRhaWxpZDotfHByb2R1Y3RpZDotfHBkcGFja2FnZWlkOi0JNTlkOTBhYzktNGYwZi0zOWVjLWE2YjYtZGU3NDRmMTE5MGQx%26type%3D2%26url%3Dhttp%253A%252F%252Fteayellowpage.cn%252Fpc%252Fx3%252F%26sina_sign%3D6ed6c084ff3cec09&amp;sign=d022357f1a86c3a5" target="_blank" data-ss="5a3c68a1f753220d=ngis&amp;90cec3ff480c6de6D3%ngis_anis62%F252%3xF252%cpF252%nc.egapwolleyaetF252%F252%A352%ptthD3%lru62%2D3%epyt62%xQGM5ETMmRDN3UGZtYjY2EWLjVWOz0iZwYGNtkzYhBTOklTNJ0iOklWZnF2ajFGckBHftoDZpR3Y1R2byBHftoDZpxWahRXZkRGc81iO0NWYyRnbvNGZwxXMtoTb15GduNGfx0iOud3bkxXMtoDc1xXMtojbvlGdjFGf6gXZk5WakF2ajFmY8pTZyNGf6QWYjlWbh5WekxHbhRncvBnOjlmZmFmc0xHNzEjL0IjMuMTMuATM6AXaul2ZpJ3b8pDdzVGdiFGfwojZ0xXN3kTNwMDM2UTM6MHd8NGc6QXYsBHf6QWakxXM5YDNyEjL0czNzgDO3UTNx8FN0IjL3ATMuczMugTN6UWar92bjxnOklWZjlmdlRGfxEjL2MjL5cjL4EjM6AXa8BDMwUjMzoTe0l2Y8BDMwUjMzoTZj5Wa29mcwlQCJQzMx4CNyIjLzEjLwEzXYJ0Xf9FMuAjL1YVCtkgQUJVCxkQM1QDMyczMJkzM0kDNwADMwADMwMFUEBVC3ETCmNWMygDMwAzMzYmNtMjNkFWLwY2Yz0CO4gzMtIWZiVjN2kDOD3%t62%71D3%diF3%kcilcF2%nc.moc.anis.nxasF2%F2%A3%ptth=lru&amp;D3%D3%wTz4anoVt597F2%v9r3zhgAAz82YtCPPIiz6bZWi=p&amp;622e0b4a6cd208fc=htua&amp;196421.4773887551_442.701.73.85=diresu&amp;=ATCxQGM5ETMmRDN3UGZtYjY2EWLjVWOz0iZwYGNtkzYhBTOklTNJkAMJkQLJADMwATNJADMwgzMzkwMJozckd3byN2X8pzckd3byNGfw4CM6ADMwUjMzoTZu9mefZHfw4SM6IDM1ojclRmbld2XyV2c1xXO0kjNuAjOzAjN6U2Zh9lclNXd8BjLwoDM3ITMyozZhR3XyV2c1lQC0JXLtZmd1xHbh1mcv5WCtkQRHFUTJ91QQlQM5YDNyEjL0czNzgDO3UTNx8FN0IjL3ATMuczMugTNJATCtkQLJ0SCxkQC8BDfx0CfwwHf8BDf8JEf8xHfwwHdalXRONWb4YmSIZmNRdjdqplU1wEf2QDN5MzMzwnaixHbsVnb8xGb15GfYhFRsVXWxNkdJVTTBBTYD50RSZme2wHMJ0SCldWYtlWCDBVCxUDNwIzNzkQOzQTO0ADMwADMwAzUQREUJUWdyRXCxkANtUkM5cTN2ADNuMTC0AjM3EzMJQDMzQTNxMTCDB1QtkUQQ5USQ9VM5cDMyEjMzgTNJYDN0kzMzMTC5M2N5kDMwETNyE2YtYmN2EWL5EzY00COmhjNtgjZ2IWMwMWOJETO2QjMx4CN3czM4gzN1UTMfRDNy4yNwEjL3MjL4UTCxEjL2MjL5cjL4EjMJUDM24SNzoTOxoDMxAiMx0iNw0SOxAjM=t?kcilc/psd/nc.moc.anis.nxas//:ptth" onmousedown="return sinaadToolkit.url.fortp(this, event);"><img border="0" src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/d7d33185256d34804417218f463d3f59.jpg" style="width:1000px;height:90px;border:0" alt="广告"></a><div style="width: 26px; height: 13px; position: absolute; right: 1px; bottom: 1px; z-index: 99; background: url(&quot;//d2.sina.com.cn/litong/zhitou/sinaads/release/ad_logo_update_IAB.gif&quot;) no-repeat;"></div></ins></ins></div><div class="nsinatopbar" style="display: block; top: 0px; width: 100%; position: fixed;">
+      <div style="position:absolute;left:0;top:0;" id="trayFlashConnetion"><embed pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" src="http://sjs.sinajs.cn/blog7swf/scache.swf" width="1" height="1" style="undefined" id="scache" name="scache" bgcolor="#00ff00" quality="high" wmode="transparent" allowscriptaccess="always"></div>
+      <div class="ntopbar_main"><div id="_1231560305975463_panel" class="horn" style=""><div id="_1231560305975463_tj" class="horn_con" style="">推荐：<a id="_1231560305975463_noticeAd1" target="_blank" href="http://blog.sina.com.cn/s/blog_4c5ad7e10102y1ba.html" title="比Ins风更高级的穿搭风" suda-uatrack="key=blog_notice&amp;value=h_SLOT_58_84_N">比Ins风更高级的穿搭风</a><a id="_1231560305975463_noticeAd2" target="_blank" href="http://blog.sina.com.cn/s/blog_547645590102ynwa.html" title="每个中年土豪都在悄悄吃土" suda-uatrack="key=blog_notice&amp;value=h_SLOT_59_84_N">每个中年土豪都在悄悄吃土</a></div><div id="_1231560305975463_announce" class="horn_con" style="display:none;"><p id="_1231560305975463_announceCon">公告：<em>请您及时更换请请请您正在使用的模版将于2周后被下线，请您及时更换</em></p></div><a class="close" title="关闭" id="_1231560305975463_close" style="float:none;">×</a></div> 
+        <a id="login_bar_logo_link_350" class="ntopbar_logo" href="http://blog.sina.com.cn/" target="_blank" style="display: none;"></a>
+        <div class="ntopbar_floatL" style="display: none;">
+
+         <div class="ntopbar_search" id="traySearchBar"><div class="ntopbar_input" id="_2261560305975457_panel" style=""><form id="_2261560305975457_searchForm" method="get" target="_blank" action="http://search.sina.com.cn/"><input id="_2261560305975457_queryTxt" class="ntopbar_txt" type="text" name="q" autocomplete="off"><input id="_2261560305975457_submit" type="submit" onclick="v7sendLog(&#39;40_01_44&#39;)" class="ntopbar_searchBtn" value=""><input type="hidden" name="ie" value="utf-8"><input type="hidden" name="e" value="utf-8"><input id="_2261560305975457_range" type="hidden" name="range" value="article"><input id="_2261560305975457_t" type="hidden" name="t" value=""><input id="_2261560305975457_s" type="hidden" name="s" value="sup"><input id="_2261560305975457_by" type="hidden" name="by" value="all"><input id="_2261560305975457_type" type="hidden" name="type" value=""><input id="_2261560305975457_stype" type="hidden" name="stype" value="1"><input id="_2261560305975457_c" type="hidden" name="c" value="blog"></form></div></div>
+         <div class="ntopbar_ad" id="loginBarActivity" style="display:none;"></div>
+        
+        </div>
+         <div class="ntopbar_loading" style="display: none;"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/loading.gif">加载中…</div>
+        
+      <div id="_7541560305975371_panel" class="ntopbar_login" login="1" style=""><span class="link bk_home"><a href="http://www.sina.com.cn/" target="_blank" suda-uatrack="key=sinahome_from_blog&amp;value=sinahome_from_blogpage"><i class="SG_bkhome"></i>新浪首页</a></span><a class="login" onclick="v7sendLog(&#39;40_01_38&#39;);return false;" href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html###" action-type="tray-login-btn"><span>登录</span></a><a class="register" onclick="v7sendLog(&#39;40_01_39&#39;)" target="_blank" href="https://login.sina.com.cn/signup/signupmail.php?entry=blog&amp;srcuid=6177937548&amp;src=blogicp">注册</a></div></div>
+    </div><div id="______noticeTrayHolder" style="height: 52px;"></div>
+    <!--$end sinatopbar-->
+    <!--head-->
+    <div class="BNE_head" id="sinablogHead">
+      <div class="headBox">
+      
+        <h1 class="headTitle headTit">
+          <span class="tit"><a href="http://blog.sina.com.cn/u/6177937548" class="name"><span id="blognamespan">敖静之的博客</span></a></span>
+          
+        </h1>
+                
+      </div>
+    </div>
+    <!--/head-->
+    <div id="sinablogbody" class="BNE_template    ">
+           
+        <div class="BNE_main" id="module_920_SG_connBody">
+          <div id="articlebody">
+            <!-- 标题 -->
+            <div class="BNE_title">
+
+                                                <h1 class="h1_tit" id="t_1703bd88c0102x377">电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）</h1>
+                                                <div class="info">
+                  <span class="oper_info">
+                    <a href="javascript:;" class="lk_a lka_last" action-type="reblog" action-data="{srcBlog:1,blogId:&#39;1703bd88c0102x377&#39;}">转载<i class="icon i18_down_arr"></i></a>
+                                      </span>
+                  <span id="pub_time" class="time SG_txtc">2017-06-04 15:50:41</span>
+                </div>
+                <div class="tagbox">
+                        <span class="BNE_txtC tag_sp">标签：</span><a href="http://search.sina.com.cn/?c=blog&amp;q=%BF%E2%B4%E6%B9%DC%C0%ED&amp;by=tag" class="BNE_lkC lk_a">库存管理</a><a href="http://search.sina.com.cn/?c=blog&amp;q=%B5%E7%C9%CC%BA%F3%CC%A8%CF%B5%CD%B3&amp;by=tag" class="BNE_lkC lk_a">电商后台系统</a><a href="http://search.sina.com.cn/?c=blog&amp;q=%B9%DC%C0%ED%BA%F3%CC%A8&amp;by=tag" class="BNE_lkC lk_a">管理后台</a></div>               
+            </div>
+            <!--/标题-->
+            <!--转载-->
+                        <!--/转载-->
+            <!-- 内容区 -->
+            <div class="BNE_cont" id="sina_keyword_ad_area2">
+              <p>
+库存，是电商企业不能回避的问题，也是电商企业的命门。供应链管理上的问题，往往都会体现在库存上，要么是库存过多导致滞销，要么是库存过少导致断货。</p>
+<p><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/17060311021892301.jpg" real_src="http://pic.chinaz.com/2017/0603/17060311021892301.jpg" alt="" title=""></p>
+<p>库存管理，顾名思义就是管理商品的数量，大的方面我们可以分为销售库存和仓库库存。</p>
+<p>销售库存，也可以称之为前台库存，也就是面向用户纬度的库存数量。</p>
+<p>仓库库存，同样也可以称之为后台库存，就是面向仓库纬度的库存数量。</p>
+<p>销售库存和仓库库存，具体的细节我们放在后面文章中介绍。</p>
+<p>影响仓库库存的行为，最主要的就是入库、出库。</p>
+<p>入库就是增加了多少商品数量，常见的有采购入库、退货入库、调拨入库、生产入库、盘盈入库、其他入库等；</p>
+<p>出库就是减少了多少商品数量，常见的有销售出库、采购退货出库、调拨出库、盘亏出库、其他出库等。</p>
+<p>为了更好的说明商品出入库的内容，按照流程来，我们会先介绍一下仓库内的基础业务，包括货位介绍、调拨业务、盘点业务。</p>
+一、货位介绍<strong>1、业务</strong>
+<p>
+仓库为了更好的管理商品，一般都会将仓库分成一个一个货位。这样的话，每次商品入库，都会关联一个货位，商品出库的时候，分拣单上面就会关联商品的货位，这样仓库人员在配货的时候，就可以快速、高效的找到商品的位置。</p>
+<p>下面介绍一种货位的分配方式，也算提供一种思路：</p>
+<p><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/17060311021829290.jpg" real_src="http://pic.chinaz.com/2017/0603/17060311021829290.jpg" alt="" title=""></p>
+<p>
+上图是一个简单的配货区的平面图，一共可以分成几排，每一排我们分别命名为A、B、C、D、E、F、G、H，每一排都有很多货架，结合每一排的命名，我们给每个货架命名为A01、A02、A03、A04、A05、A06。</p>
+<p><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/17060311021991410.jpg" real_src="http://pic.chinaz.com/2017/0603/17060311021991410.jpg" alt="" title=""></p>
+<p>
+上图是一个简单的货架的展示图，这个货架我们命名为A01，一共可以分成四层，每一层我们命名为A01-1、A01-2、A01-3、A01-4，针对每一个货位，对应的我们命名为A01-1-01、A01、A01、A01。</p>
+<strong>2、原型</strong>
+<p><strong>货位列表</strong></p>
+<p>原型比较简单，这里就不做太多描述，就是一个配置页面，一个展示列表页面，包含最基本的仓库、货位、状态等信息即可满足。</p>
+<p><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/sg_trans.gif" real_src="http://pic.chinaz.com/2017/0603/17060311021986105.jpg" alt="" title=""></p>
+二、调拨<strong>1、业务</strong>
+<p>调拨主要用于仓库内库存数量的调整，把合适的商品，放在合适的仓库／位置，可以分为仓内调拨和仓间调拨。</p>
+<p>
+仓内调拨：也可以称为库位库存调拨，一般是仓库内部库存的调整。比如将货品从库存充足的货位调拨到库存不足的货位，方便拣货，同时方便管理货位库存。</p>
+<p>仓间调拨：也可以称为仓库库存调拨，一般是仓库之间库存的调整。比如将货品从杭州仓调拨到上海仓。</p>
+<strong>2、流程</strong>
+<p>
+调拨业务的流程，主要围绕调拨单的流转，牵涉到业务人员、调出仓库、调入仓库三方，从业务人员创建调拨单，到调拨信息流转到调出仓库创建调拨出库单，再到调拨信息流转到调入仓库创建调拨入库单结束。</p>
+<p>业务人员，根据实际需求创建调拨单，并且提交审核</p>
+<p>相关人员对调拨单进行审核，如果审核不通过，需要重新编辑提交</p>
+<p>
+调出仓库，根据审核通过的调拨单，创建调拨出库单，当然调拨出库单也可以根据实际情况选择调拨单中的某个或者某几个商品，并且填写实际的出库数量</p>
+<p>调入仓库，根据调拨单和出库单，创建调拨入库单，根据实际情况做入库操作</p>
+<p>财务结算调拨过程中产生的费用</p>
+<p><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/sg_trans.gif" real_src="http://pic.chinaz.com/2017/0603/17060311022032811.jpg" alt="" title=""></p>
+<strong>3、原型</strong>
+<p><strong>调拨开单</strong></p>
+<p>
+调拨开单是调拨业务在系统里面的第一步，需要先选择最基础的调出仓库和调入仓库，然后选择需要调拨的商品，商品到sku纬度，系统根据规则计算可以调拨的商品数量，维护本次调拨的实际商品数量，选择调入货位。</p>
+<p><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/sg_trans.gif" real_src="http://pic.chinaz.com/2017/0603/17060311022144776.jpg" alt="" title=""></p>
+<p><strong>调拨单管理</strong></p>
+<p>这里展示了所有的调拨单据，调拨单需要在这里进行审核后，才能进行后续的调出与调入操作。</p>
+<p>调拨单的状态：</p>
+编辑中：相当于草稿状态，可以对调拨单进行修改，然后提交审核已取消：单据被取消，相当于单据已经作废待审核：已经提交调拨申请，还没有通过审核已审核：调拨申请已经通过，可以进行出库操作待出库：调拨出库单已经生成，但是还没有审核通过部分出库：调拨单里面的部分商品已经出库完成已出库：调拨单里面的所有商品已经出库完成待入库：调拨入库单已经生成，但是还没有审核通过部分入库：调拨单里面的部分商品已经入库完成已完成：调拨单里面的全部商品已经入库完成
+<p><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/sg_trans.gif" real_src="http://pic.chinaz.com/2017/0603/17060311022144182.jpg" alt="" title=""></p>
+三、盘点<strong>1、业务</strong>
+<p>盘点是指对仓库内的实物库存数量进行全部或部分清点，以确实掌握该期间内货品状况，并因此加以改善，加强管理。</p>
+<p>
+一般的进销存系统，都提供了严格的出入库管理，所以理论上来说，系统的库存数量和仓库的实际库存数量是保持一致的。但是实际操作中，发货时候不可避免会有错漏发，或者不按流程操作的情况，这时候就会出现理论库存和仓库实际库存对不上的情况。</p>
+<p>
+盘点后，如果出现实际库存数据和理论库存数据不一致，会自动生成盘盈入库单和盘亏出库单来调整库存数量。定期盘点既保证了库存数据的准确性，避免超卖等现象，还能及时掌握库存运作出现的问题。</p>
+<p>
+定期盘点既保证了库存数据的准确性，还能及时掌握库存运作出现的问题，避免超卖等现象。盘点后如果库存数据不一致，会生成盘点盈亏单，卖家可以在库存管理界面查看库存变化，或者查看库存台账来检查什么环节造成的库存不准。</p>
+<strong>2、流程</strong>
+<p>
+业务主要围绕盘点单的流转，从业务方创建盘点单开始，到盘点录入，到盘点完成后，自动生成盘盈入库单和盘亏出库单对库存进行修正结束。</p>
+<p>业务人员，根据实际需求创建盘点单，并且提交审核</p>
+<p>相关人员对盘点单进行审核，如果审核不通过，需要重新编辑提交</p>
+<p>仓库人员，根据盘点单对商品进行盘点录入，录入实际的盘点数量</p>
+<p>根据盘点数量和库存数量的对比，生成盘盈入库单和盘亏出库单</p>
+<p>相关人员对盘盈入库单和盘亏出库单进行审核，对库存进行修正</p>
+<p><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/sg_trans.gif" real_src="http://pic.chinaz.com/2017/0603/17060311022288735.jpg" alt="" title=""></p>
+<strong>3、原型</strong>
+<p><strong>盘点开单</strong></p>
+<p>盘点开单是盘点操作的第一环，我们的盘点流程从这里开始，
+盘点开单主要用于选择盘点仓库、盘点货品等信息，点击保存/提交审核后即可生成盘点单，可以在盘点单管理界面显示生成的盘点单据。</p>
+<p><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/sg_trans.gif" real_src="http://pic.chinaz.com/2017/0603/17060311022298156.jpg" alt="" title=""></p>
+<p><strong>盘点单管理</strong></p>
+<p>主要用于对盘点单进行查询和管理，在这里我们可以对盘点单进行审核、盘点录入等各种操作。</p>
+<p>盘点单状态：</p>
+编辑中：相当于草稿状态，可以对盘点单进行修改，然后提交审核已取消：单据被取消，相当于单据已经作废待审核：已经提交盘点申请，还没有通过审核待盘点：盘点申请已经审核通过，但是还没有进行盘点录入，可以对盘点单进行盘点录入操作已完成：盘点录入完成，盘点结束
+<p><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/sg_trans.gif" real_src="http://pic.chinaz.com/2017/0603/17060311022325129.jpg" alt="" title=""></p>
+<p><strong>盘点录入</strong></p>
+<p>
+这里主要用于对盘点单进行商品真实数量的录入，业务人员清点完成后，填写实际的库存数量，保存后，盘点录入流程完成，系统会跟新原来的库存数据，如果录入数量与库存数量不一致，系统会自动生成盘盈入库单和盘亏出库单。</p>
+<p><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/sg_trans.gif" real_src="http://pic.chinaz.com/2017/0603/17060311022374393.jpg" alt="" title=""></p>
+<p>
+本篇主要介绍了仓库内的基础业务，包括货位介绍、调拨业务、盘点业务，之后几篇会相应的介绍直接影响库存数据的入库管理和出库管理，最后会整体介绍针对用户纬度的销售库存详情和针对仓库纬度的仓库库存详情。欢迎感兴趣的各位一起交流。</p>
+<strong>相关阅读</strong>
+<p>电商后台系统：管理后台之账号管理</p>
+<p>电商后台系统：管理后台篇之安全、菜单、通知管理</p>
+<p>电商后台系统：管理后台篇之采购管理</p>
+<p>文章作者系 @胡言 未经许可，禁止转载。</p>            </div>
+            <!--/内容区-->
+            <!-- 更多博文 -->
+                        <!--/更多博文 -->
+            <!-- 喜欢 -->
+            <div class="BNE_like" id="dbox_1703bd88c0102x377">
+              <a title="喜欢后让更多人看到" href="javascript:;" ti_title="" id="dbox2_1703bd88c0102x377" class="like_btn" mnum="4">4</a>
+              <span class="like_txt">喜欢</span>
+            </div>
+            <!--/喜欢 -->
+<div class="dashang" id="dashang"></div>
+            <!-- 阅读 评论 -->
+            <div class="clearfix BNE_opera">
+              <div class="BNE_txtA OL">
+                阅读<span id="r_1703bd88c0102x377" class="BNE_txtB">(764)</span>
+                <a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html#commentComment" class="BNE_lkA">评论</a><span id="c_1703bd88c0102x377" class="BNE_txtB">(0)</span>
+                <a href="javascript:;" class="BNE_lkA" onclick="$articleManage(&#39;1703bd88c0102x377&#39;,5);return false;">收藏</a><span id="f_1703bd88c0102x377" class="BNE_txtB">(0)</span>
+                <a href="javascript:;" id="quote_set_sign" class="BNE_lkA">转载</a><span id="z_1703bd88c0102x377" class="BNE_txtB">(1)</span>
+                <a href="javascript:;" onclick="report(&#39;1703bd88c0102x377&#39;);return false" id="q_1703bd88c0102x377" class="BNE_lkA">举报/Report</a>
+              </div>
+              <!--
+              <div class="BNE_txtC OR" id="share">
+                <span class="tit">分享</span>
+               
+                <div class="bshare-custom" style="display:inline;margin-left:5px;">
+                    <a title="分享到新浪微博" class="bshare-sinaminiblog" href="javascript:void(0);"></a>
+                    <a title="分享到微信" class="bshare-weixin" href="javascript:void(0);"></a>
+                    <a title="分享到QQ空间" class="bshare-qzone" href="javascript:void(0);"></a>
+                    <a title="分享到豆瓣" class="bshare-douban" href="javascript:void(0);"></a>
+                    <a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a>
+                </div>
+              </div>
+              -->
+            </div>
+            <div class="new-share clearfix" id="share">
+              <span class="share-title">分享</span>
+              <div class="bshare-custom" style="display:inline;margin-left:5px;">
+              <div class="share-pannel clearfix"><a class="bshare-sinaminiblog" target="__blank" title="分享到新浪微博" href="http://service.weibo.com/share/share.php?appkey=&amp;title=%E7%94%B5%E5%95%86%E5%90%8E%E5%8F%B0%E7%B3%BB%E7%BB%9F%EF%BC%9A%E7%AE%A1%E7%90%86%E5%90%8E%E5%8F%B0%E7%AF%87%E4%B9%8B%E5%BA%93%E5%AD%98%E7%AE%A1%E7%90%86%EF%BC%88%E8%B4%A7%E4%BD%8D%E3%80%81%E8%B0%83%E6%8B%A8%E3%80%81%E7%9B%98%E7%82%B9%EF%BC%89@%E6%96%B0%E6%B5%AA%E5%8D%9A%E5%AE%A2&amp;url=http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html&amp;pic=http://pic.chinaz.com/2017/0603/17060311021892301.jpg"></a><a class="bshare-qzone" target="__blank" title="分享到QQ空间" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http%3A%2F%2Fblog.sina.com.cn%2Fs%2Fblog_1703bd88c0102x377.html&amp;title=%E7%94%B5%E5%95%86%E5%90%8E%E5%8F%B0%E7%B3%BB%E7%BB%9F%EF%BC%9A%E7%AE%A1%E7%90%86%E5%90%8E%E5%8F%B0%E7%AF%87%E4%B9%8B%E5%BA%93%E5%AD%98%E7%AE%A1%E7%90%86%EF%BC%88%E8%B4%A7%E4%BD%8D%E3%80%81%E8%B0%83%E6%8B%A8%E3%80%81%E7%9B%98%E7%82%B9%EF%BC%89@%E6%96%B0%E6%B5%AA%E5%8D%9A%E5%AE%A2&amp;pics=http://pic.chinaz.com/2017/0603/17060311021892301.jpg&amp;summary=&amp;desc=%20%E5%BA%93%E5%AD%98%EF%BC%8C%E6%98%AF%E7%94%B5%E5%95%86%E4%BC%81%E4%B8%9A%E4%B8%8D%E8%83%BD%E5%9B%9E%E9%81%BF%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%8C%E4%B9%9F%E6%98%AF%E7%94%B5%E5%95%86%E4%BC%81%E4%B8%9A%E7%9A%84%E5%91%BD%E9%97%A8%E3%80%82%E4%BE%9B%E5%BA%94%E9%93%BE%E7%AE%A1%E7%90%86%E4%B8%8A%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%8C%E5%BE%80%E5%BE%80%E9%83%BD%E4%BC%9A%E4%BD%93%E7%8E%B0%E5%9C%A8%E5%BA%93%E5%AD%98%E4%B8%8A%EF%BC%8C%E8%A6%81%E4%B9%88%E6%98%AF%E5%BA%93%E5%AD%98%E8%BF%87...%20%20(%E6%9D%A5%E8%87%AA%20@%E5%A4%B4%E6%9D%A1%E5%8D%9A%E5%AE%A2)"></a><a class="bshare-douban" target="__blank" title="分享到豆瓣" href="https://www.douban.com/share/service?image=http://pic.chinaz.com/2017/0603/17060311021892301.jpg&amp;href=http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html&amp;name=%E7%94%B5%E5%95%86%E5%90%8E%E5%8F%B0%E7%B3%BB%E7%BB%9F%EF%BC%9A%E7%AE%A1%E7%90%86%E5%90%8E%E5%8F%B0%E7%AF%87%E4%B9%8B%E5%BA%93%E5%AD%98%E7%AE%A1%E7%90%86%EF%BC%88%E8%B4%A7%E4%BD%8D%E3%80%81%E8%B0%83%E6%8B%A8%E3%80%81%E7%9B%98%E7%82%B9%EF%BC%89@%E6%96%B0%E6%B5%AA%E5%8D%9A%E5%AE%A2&amp;text=%20%E5%BA%93%E5%AD%98%EF%BC%8C%E6%98%AF%E7%94%B5%E5%95%86%E4%BC%81%E4%B8%9A%E4%B8%8D%E8%83%BD%E5%9B%9E%E9%81%BF%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%8C%E4%B9%9F%E6%98%AF%E7%94%B5%E5%95%86%E4%BC%81%E4%B8%9A%E7%9A%84%E5%91%BD%E9%97%A8%E3%80%82%E4%BE%9B%E5%BA%94%E9%93%BE%E7%AE%A1%E7%90%86%E4%B8%8A%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%8C%E5%BE%80%E5%BE%80%E9%83%BD%E4%BC%9A%E4%BD%93%E7%8E%B0%E5%9C%A8%E5%BA%93%E5%AD%98%E4%B8%8A%EF%BC%8C%E8%A6%81%E4%B9%88%E6%98%AF%E5%BA%93%E5%AD%98%E8%BF%87...%20%20(%E6%9D%A5%E8%87%AA%20@%E5%A4%B4%E6%9D%A1%E5%8D%9A%E5%AE%A2)"></a><a class="bshare-weixin" title="分享到微信" href="javascript:void(0);"><div class="weixin-pannel"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/qr"><div class="txt"><p>打开微信“扫一扫”</p><p>打开网页后点击屏幕</p><p>右上角“分享”按钮</p></div></div></a></div></div>
+            </div>
+            <!--/阅读 评论 -->
+            <!-- 翻页 -->
+            <div class="BNE_page">
+              <div class="clearfix pageBox">
+            
+                  <span class="BNE_txtC prev">
+                  前一篇:<a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x35u.html" class="BNE_lkA"> [转载]和金发妹纸独处7日!&nbsp;新版...</a>
+                </span>                  <span class="BNE_txtC next">
+                  后一篇:<a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x38g.html" class="BNE_lkA">[转载]东方龙马&nbsp;：金融行业业务...</a>
+                </span>                 
+              </div>
+            </div>
+            <!--/翻页 -->
+                 <!-- 评论 -->
+    
+    <div class="BNE_review">
+      <div class="clearfix review_box">
+        <div class="BNE_main">
+                    <!-- 评论模块 -->
+          <div class="BNE_commentary">
+            <div class="commentary_window clearfix" id="commentComment">
+              <div class="cowiTit">
+                <h1 class="TitFl BNE_txtA">评论</h1>
+                <span class="TitFr BNE_txtC">重要提示：警惕虚假中奖信息</span>
+              </div>
+              <div id="commonComment">
+                <iframe class="textarea_com" id="postCommentIframe" frameborder="0" src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/blank2.html" scrolling="no" seamless="seamless" style="overflow-y: hidden;"></iframe>
+                <textarea id="commentArea" tabindex="1" style="display:none;"></textarea>
+              </div>
+              <div id="mobileComment" style="display:none;">
+                <textarea class="textarea_com" id="mbCommentTa"></textarea>   
+              </div>
+              <div class="faceblk" id="faceWrap" style="display:none;">
+                 <div id="smilesSortShow"></div>
+                 <ul id="smilesRecommended"><li><a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html#"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/E___0173EN00SIGT.gif" alt="灌水" title="灌水" height="50" width="50"></a></li><li><a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html#"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/E___0480ZH00SIGT.gif" alt="赞" title="赞" height="50" width="50"></a></li><li><a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html#"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/E___0305EN00SIGT.gif" alt="美好" title="美好" height="50" width="50"></a></li><li><a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html#"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/E___0022EN00SIGT.gif" alt="顶" title="顶" height="50" width="50"></a></li><li><a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html#"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/E___0088EN00SIGT.gif" alt="顶" title="顶" height="50" width="50"></a></li><li><a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html#"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/E___0472ZH00SIGT.gif" alt="顶" title="顶" height="50" width="50"></a></li><li><a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html#"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/E___0092EN00SIGT.gif" alt="开心" title="开心" height="50" width="50"></a></li><li><a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html#"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/E___0177EN00SIGT.gif" alt="路过" title="路过" height="50" width="50"></a></li></ul>
+              </div>
+              <div class="com_container">
+              <div class="com_btn">
+                      <span class="com_btn_num" id="blog_comments_num">0</span>条评论<span class="com_btn_a" id="show_blog_comments">展开<i class="com_btn_ico1"></i></span>
+                    </div>
+              <div class="com_commit">
+                <span class="confirmation_code">
+                  <span id="commentNick" style="display:none;"></span>
+                  <span id="commentlogin" style="display:none;"></span>
+                  <span id="geetest-box" class="txt">
+                  </span>
+          
+                </span>
+                <span><a class="submit_a" href="javascript:;" id="postcommentid">发评论</a></span>
+              </div>
+            </div>
+            </div>
+            <ul id="article_comment_list" style="display:none" class="com_list"></ul>
+          </div>
+        <div class="BNE_page" id="commentPaging" style="display:none;">
+          <div class="pageBox"></div>
+        </div>
+
+          <a href="javascript:void(0);" id="hide_blog_comments" style="display:none" class="BNE_retract">收起<i class="icon i28_arr_up"></i></a>
+          <!--/评论模块 -->
+                    <!-------相关阅读------>
+          <div class="BNE_blog_feed" id="tj_relatedReading">
+            <div class="blog_feed_tit">
+                <div class="feed_tit_a">相关阅读</div>
+              </div>
+              <p class="blog_feed_none" id="blog_relatefeed_none" style="display:none">没有找到相关文章...</p>
+              <ul class="blog_feed" id="blog_relatefeed">
+
+              <li><a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html" target="_blank" class="feed_pp" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_06&#39;)"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/50" class="feed_ppic" alt=""></a><div class="feed_content"><div class="feed_t"><a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html" target="_blank" class="feed_name" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_07&#39;)">柏青</a><a href="javascript:void(0);" class="addV" style="display:none;"><i class="icon i25_addV"></i></a><a href="http://blog.sina.com.cn/s/blog_68ff6f370102yqnx.html#cre=blogpagepc&amp;mod=f&amp;loc=1&amp;r=0&amp;rfunc=73&amp;tj=none" target="_blank" class="feed_tit" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_08&#39;)">2019年日本梅雨季节临近，衣物的最佳存放方式是什么？</a></div><p class="feed_digest"><a href="http://blog.sina.com.cn/s/blog_68ff6f370102yqnx.html#cre=blogpagepc&amp;mod=f&amp;loc=1&amp;r=0&amp;rfunc=73&amp;tj=none" target="_blank" class="feed_cont" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_09&#39;)">2019年日本的梅雨季节越来越近了，除晾洗涤物成了问题，冬季衣服的保管也需要格外注意。很多初到日本生活的人或许不甚了解，其实一些日本的洗衣店是提供「季节保管服务」的...</a><a href="http://blog.sina.com.cn/s/blog_68ff6f370102yqnx.html#cre=blogpagepc&amp;mod=f&amp;loc=1&amp;r=0&amp;rfunc=73&amp;tj=none" target="_blank" class="feed_detail" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_10&#39;)">[<span>详细</span>]</a><a href="javascript:void(0);" class="feed_imgcount" style="display:none;"><span class="feed_icon"></span>0张图</a></p><span href="javascript:void(0);" class="feed_meta">2019-05-31 13:41:33</span></div></li><li id="related_article_1"><a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html" target="_blank" class="feed_pp" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_06&#39;)"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/50(1)" class="feed_ppic" alt=""></a><div class="feed_content"><div class="feed_t"><a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html" target="_blank" class="feed_name" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_07&#39;)">dyz大燕子</a><a href="javascript:void(0);" class="addV" style="display:none;"><i class="icon i25_addV"></i></a><a href="http://blog.sina.com.cn/s/blog_4a6c8c8b0102ylur.html#cre=blogpagepc&amp;mod=f&amp;loc=2&amp;r=0&amp;rfunc=73&amp;tj=none" target="_blank" class="feed_tit" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_08&#39;)">京城：初夏晚霞红似火，扮靓世博园</a></div><p class="feed_digest"><a href="http://blog.sina.com.cn/s/blog_4a6c8c8b0102ylur.html#cre=blogpagepc&amp;mod=f&amp;loc=2&amp;r=0&amp;rfunc=73&amp;tj=none" target="_blank" class="feed_cont" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_09&#39;)">拍摄地点：北京世博园拍摄日期：2019年5月22日拍摄器材：佳能/5DMarkv镜头/16-35初夏的京城晚霞红似火，扮靓世博园...</a><a href="http://blog.sina.com.cn/s/blog_4a6c8c8b0102ylur.html#cre=blogpagepc&amp;mod=f&amp;loc=2&amp;r=0&amp;rfunc=73&amp;tj=none" target="_blank" class="feed_detail" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_10&#39;)">[<span>详细</span>]</a><a href="javascript:void(0);" class="feed_imgcount" style="display:none;"><span class="feed_icon"></span>0张图</a></p><div class="feed_img"><a href="http://blog.sina.com.cn/s/blog_4a6c8c8b0102ylur.html#cre=blogpagepc&amp;mod=f&amp;loc=2&amp;r=0&amp;rfunc=73&amp;tj=none" class="feed_img_a" target="_blank" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_11&#39;)"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/resize" alt=""></a><a href="http://blog.sina.com.cn/s/blog_4a6c8c8b0102ylur.html#cre=blogpagepc&amp;mod=f&amp;loc=2&amp;r=0&amp;rfunc=73&amp;tj=none" class="feed_img_a" target="_blank" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_11&#39;)"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/resize(1)" alt=""></a><a href="http://blog.sina.com.cn/s/blog_4a6c8c8b0102ylur.html#cre=blogpagepc&amp;mod=f&amp;loc=2&amp;r=0&amp;rfunc=73&amp;tj=none" class="feed_img_a" target="_blank" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_11&#39;)"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/resize(2)" alt=""></a></div><span href="javascript:void(0);" class="feed_meta">2019-05-24 12:21:44</span></div></li><li><a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html" target="_blank" class="feed_pp" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_06&#39;)"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/50(2)" class="feed_ppic" alt=""></a><div class="feed_content"><div class="feed_t"><a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html" target="_blank" class="feed_name" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_07&#39;)">郑博士</a><a href="javascript:void(0);" class="addV" style="display:none;"><i class="icon i25_addV"></i></a><a href="http://blog.sina.com.cn/s/blog_50350d150102ygrc.html#cre=blogpagepc&amp;mod=f&amp;loc=3&amp;r=0&amp;rfunc=73&amp;tj=none" target="_blank" class="feed_tit" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_08&#39;)">如何查出家中的不祥之物</a></div><p class="feed_digest"><a href="http://blog.sina.com.cn/s/blog_50350d150102ygrc.html#cre=blogpagepc&amp;mod=f&amp;loc=3&amp;r=0&amp;rfunc=73&amp;tj=none" target="_blank" class="feed_cont" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_09&#39;)">请朋友们看看坊间流传的十大招邪之物都是什么东西吧。回来了以后，接着，发生了很多无法解释的事情和情况。上周六去公司后面的山上去玩，我爬山悬崖，钻过树林见山顶上有一个石头房子，以为有人住，就走到跟前一看竟然是黄姓人的灵堂...</a><a href="http://blog.sina.com.cn/s/blog_50350d150102ygrc.html#cre=blogpagepc&amp;mod=f&amp;loc=3&amp;r=0&amp;rfunc=73&amp;tj=none" target="_blank" class="feed_detail" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_10&#39;)">[<span>详细</span>]</a><a href="javascript:void(0);" class="feed_imgcount" style="display:none;"><span class="feed_icon"></span>0张图</a></p><div class="feed_img"><a href="http://blog.sina.com.cn/s/blog_50350d150102ygrc.html#cre=blogpagepc&amp;mod=f&amp;loc=3&amp;r=0&amp;rfunc=73&amp;tj=none" class="feed_img_a feed_img_last" target="_blank" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_11&#39;)"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/resize(3)" alt=""></a></div><span href="javascript:void(0);" class="feed_meta">2019-06-11 09:26:48</span></div></li><li id="related_article_3"><a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html" target="_blank" class="feed_pp" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_06&#39;)"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/50(3)" class="feed_ppic" alt=""></a><div class="feed_content"><div class="feed_t"><a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html" target="_blank" class="feed_name" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_07&#39;)">懂懂笔记</a><a href="javascript:void(0);" class="addV" style="display:none;"><i class="icon i25_addV"></i></a><a href="http://blog.sina.com.cn/s/blog_593783dc0102yfqj.html#cre=blogpagepc&amp;mod=f&amp;loc=4&amp;r=0&amp;rfunc=73&amp;tj=none" target="_blank" class="feed_tit" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_08&#39;)">保险机构争相“收编”失败创业者的小秘密</a></div><p class="feed_digest"><a href="http://blog.sina.com.cn/s/blog_593783dc0102yfqj.html#cre=blogpagepc&amp;mod=f&amp;loc=4&amp;r=0&amp;rfunc=73&amp;tj=none" target="_blank" class="feed_cont" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_09&#39;)">前不久，一则“段子”在朋友圈霸屏，大概内容如下：据说创业者随着年龄的增长，职业转换路径是这样的：创业——PR——友邦——微商...</a><a href="http://blog.sina.com.cn/s/blog_593783dc0102yfqj.html#cre=blogpagepc&amp;mod=f&amp;loc=4&amp;r=0&amp;rfunc=73&amp;tj=none" target="_blank" class="feed_detail" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_10&#39;)">[<span>详细</span>]</a><a href="javascript:void(0);" class="feed_imgcount" style="display:none;"><span class="feed_icon"></span>0张图</a></p><div class="feed_img"><a href="http://blog.sina.com.cn/s/blog_593783dc0102yfqj.html#cre=blogpagepc&amp;mod=f&amp;loc=4&amp;r=0&amp;rfunc=73&amp;tj=none" class="feed_img_a" target="_blank" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_11&#39;)"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/resize(4)" alt=""></a><a href="http://blog.sina.com.cn/s/blog_593783dc0102yfqj.html#cre=blogpagepc&amp;mod=f&amp;loc=4&amp;r=0&amp;rfunc=73&amp;tj=none" class="feed_img_a feed_img_last" target="_blank" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_11&#39;)"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/resize(5)" alt=""></a></div><span href="javascript:void(0);" class="feed_meta">2019-05-27 11:50:21</span></div></li><li><a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html" target="_blank" class="feed_pp" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_06&#39;)"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/50(4)" class="feed_ppic" alt=""></a><div class="feed_content"><div class="feed_t"><a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html" target="_blank" class="feed_name" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_07&#39;)">叶子</a><a href="javascript:void(0);" class="addV" style="display:none;"><i class="icon i25_addV"></i></a><a href="http://blog.sina.com.cn/s/blog_1437ae6550102yvjx.html#cre=blogpagepc&amp;mod=f&amp;loc=5&amp;r=0&amp;rfunc=73&amp;tj=none" target="_blank" class="feed_tit" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_08&#39;)">【上海之巅俯拍】</a></div><p class="feed_digest"><a href="http://blog.sina.com.cn/s/blog_1437ae6550102yvjx.html#cre=blogpagepc&amp;mod=f&amp;loc=5&amp;r=0&amp;rfunc=73&amp;tj=none" target="_blank" class="feed_cont" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_09&#39;)">上海中心大厦是一座超高层地标式摩天大楼，其设计高度超过附近的上海环球金融中心。上海中心大厦项目面积433954平方米，建筑主体为119层，总高为632米，结构高度为580米...</a><a href="http://blog.sina.com.cn/s/blog_1437ae6550102yvjx.html#cre=blogpagepc&amp;mod=f&amp;loc=5&amp;r=0&amp;rfunc=73&amp;tj=none" target="_blank" class="feed_detail" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_10&#39;)">[<span>详细</span>]</a><a href="javascript:void(0);" class="feed_imgcount" style="display:none;"><span class="feed_icon"></span>0张图</a></p><div class="feed_img"><a href="http://blog.sina.com.cn/s/blog_1437ae6550102yvjx.html#cre=blogpagepc&amp;mod=f&amp;loc=5&amp;r=0&amp;rfunc=73&amp;tj=none" class="feed_img_a" target="_blank" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_11&#39;)"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/resize(6)" alt=""></a><a href="http://blog.sina.com.cn/s/blog_1437ae6550102yvjx.html#cre=blogpagepc&amp;mod=f&amp;loc=5&amp;r=0&amp;rfunc=73&amp;tj=none" class="feed_img_a" target="_blank" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_11&#39;)"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/resize(7)" alt=""></a><a href="http://blog.sina.com.cn/s/blog_1437ae6550102yvjx.html#cre=blogpagepc&amp;mod=f&amp;loc=5&amp;r=0&amp;rfunc=73&amp;tj=none" class="feed_img_a" target="_blank" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_11&#39;)"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/resize(8)" alt=""></a></div><span href="javascript:void(0);" class="feed_meta">2019-05-24 20:17:54</span></div></li><li><a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html" target="_blank" class="feed_pp" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_06&#39;)"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/50(5)" class="feed_ppic" alt=""></a><div class="feed_content"><div class="feed_t"><a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html" target="_blank" class="feed_name" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_07&#39;)">大饼穿搭札...</a><a href="javascript:void(0);" class="addV" style="display:none;"><i class="icon i25_addV"></i></a><a href="http://blog.sina.com.cn/s/blog_46d5159e010300yc.html#cre=blogpagepc&amp;mod=f&amp;loc=6&amp;r=0&amp;rfunc=73&amp;tj=none" target="_blank" class="feed_tit" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_08&#39;)">日常玩转中国风，哪些元素能让你时髦大不同？</a></div><p class="feed_digest"><a href="http://blog.sina.com.cn/s/blog_46d5159e010300yc.html#cre=blogpagepc&amp;mod=f&amp;loc=6&amp;r=0&amp;rfunc=73&amp;tj=none" target="_blank" class="feed_cont" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_09&#39;)">“本 期导 读唐装元素单品旗袍汉字、刺绣、金盏黄”哈喽，姑娘们饼饼的旅行游记、好物分享、生活感悟……关于饼的一切你想知道吗...</a><a href="http://blog.sina.com.cn/s/blog_46d5159e010300yc.html#cre=blogpagepc&amp;mod=f&amp;loc=6&amp;r=0&amp;rfunc=73&amp;tj=none" target="_blank" class="feed_detail" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_10&#39;)">[<span>详细</span>]</a><a href="javascript:void(0);" class="feed_imgcount" style="display:none;"><span class="feed_icon"></span>0张图</a></p><div class="feed_img"><a href="http://blog.sina.com.cn/s/blog_46d5159e010300yc.html#cre=blogpagepc&amp;mod=f&amp;loc=6&amp;r=0&amp;rfunc=73&amp;tj=none" class="feed_img_a" target="_blank" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_11&#39;)"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/resize(9)" alt=""></a><a href="http://blog.sina.com.cn/s/blog_46d5159e010300yc.html#cre=blogpagepc&amp;mod=f&amp;loc=6&amp;r=0&amp;rfunc=73&amp;tj=none" class="feed_img_a" target="_blank" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_11&#39;)"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/resize(10)" alt=""></a><a href="http://blog.sina.com.cn/s/blog_46d5159e010300yc.html#cre=blogpagepc&amp;mod=f&amp;loc=6&amp;r=0&amp;rfunc=73&amp;tj=none" class="feed_img_a" target="_blank" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_11&#39;)"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/resize(11)" alt=""></a></div><span href="javascript:void(0);" class="feed_meta">2019-05-21 17:04:56</span></div></li><li><a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html" target="_blank" class="feed_pp" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_06&#39;)"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/50(6)" class="feed_ppic" alt=""></a><div class="feed_content"><div class="feed_t"><a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html" target="_blank" class="feed_name" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_07&#39;)">-萧梦-</a><a href="javascript:void(0);" class="addV" style="display:none;"><i class="icon i25_addV"></i></a><a href="http://blog.sina.com.cn/s/blog_641038810102ylyz.html#cre=blogpagepc&amp;mod=f&amp;loc=7&amp;r=0&amp;rfunc=73&amp;tj=none" target="_blank" class="feed_tit" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_08&#39;)">此人因做了皇帝的乳母，而让子孙享尽荣华富贵，结果雍...</a></div><p class="feed_digest"><a href="http://blog.sina.com.cn/s/blog_641038810102ylyz.html#cre=blogpagepc&amp;mod=f&amp;loc=7&amp;r=0&amp;rfunc=73&amp;tj=none" target="_blank" class="feed_cont" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_09&#39;)">图片摘自百度与文字无关这位孙氏很幸运做了康熙的乳母，康熙因出天花，去城外避痘的时候，陪在幼年康熙身边的不是他的母亲，也不是他的父亲，而是这位乳母...</a><a href="http://blog.sina.com.cn/s/blog_641038810102ylyz.html#cre=blogpagepc&amp;mod=f&amp;loc=7&amp;r=0&amp;rfunc=73&amp;tj=none" target="_blank" class="feed_detail" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_10&#39;)">[<span>详细</span>]</a><a href="javascript:void(0);" class="feed_imgcount" style="display:none;"><span class="feed_icon"></span>0张图</a></p><div class="feed_img"><a href="http://blog.sina.com.cn/s/blog_641038810102ylyz.html#cre=blogpagepc&amp;mod=f&amp;loc=7&amp;r=0&amp;rfunc=73&amp;tj=none" class="feed_img_a" target="_blank" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_11&#39;)"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/resize(12)" alt=""></a><a href="http://blog.sina.com.cn/s/blog_641038810102ylyz.html#cre=blogpagepc&amp;mod=f&amp;loc=7&amp;r=0&amp;rfunc=73&amp;tj=none" class="feed_img_a feed_img_last" target="_blank" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_11&#39;)"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/resize(13)" alt=""></a></div><span href="javascript:void(0);" class="feed_meta">2019-05-23 09:26:24</span></div></li><li><a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html" target="_blank" class="feed_pp" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_06&#39;)"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/50(7)" class="feed_ppic" alt=""></a><div class="feed_content"><div class="feed_t"><a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html" target="_blank" class="feed_name" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_07&#39;)">夜夜野豹</a><a href="javascript:void(0);" class="addV" style="display:none;"><i class="icon i25_addV"></i></a><a href="http://blog.sina.com.cn/s/blog_167dcb2bc0102z0bg.html#cre=blogpagepc&amp;mod=f&amp;loc=8&amp;r=0&amp;rfunc=73&amp;tj=none" target="_blank" class="feed_tit" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_08&#39;)">30分钟6项低强度训练专门提升跑者耐力</a></div><p class="feed_digest"><a href="http://blog.sina.com.cn/s/blog_167dcb2bc0102z0bg.html#cre=blogpagepc&amp;mod=f&amp;loc=8&amp;r=0&amp;rfunc=73&amp;tj=none" target="_blank" class="feed_cont" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_09&#39;)">耐力是跑者必须不断加强的能力之一，跑者提升耐力的锻炼方法也是多种多样。下面的介绍的6项训练略显不同，属于低强度的的练习，但是每一项之间的间隔时间比较短...</a><a href="http://blog.sina.com.cn/s/blog_167dcb2bc0102z0bg.html#cre=blogpagepc&amp;mod=f&amp;loc=8&amp;r=0&amp;rfunc=73&amp;tj=none" target="_blank" class="feed_detail" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_10&#39;)">[<span>详细</span>]</a><a href="javascript:void(0);" class="feed_imgcount" style="display:none;"><span class="feed_icon"></span>0张图</a></p><div class="feed_img"><a href="http://blog.sina.com.cn/s/blog_167dcb2bc0102z0bg.html#cre=blogpagepc&amp;mod=f&amp;loc=8&amp;r=0&amp;rfunc=73&amp;tj=none" class="feed_img_a" target="_blank" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_11&#39;)"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/resize(14)" alt=""></a><a href="http://blog.sina.com.cn/s/blog_167dcb2bc0102z0bg.html#cre=blogpagepc&amp;mod=f&amp;loc=8&amp;r=0&amp;rfunc=73&amp;tj=none" class="feed_img_a" target="_blank" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_11&#39;)"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/resize(15)" alt=""></a><a href="http://blog.sina.com.cn/s/blog_167dcb2bc0102z0bg.html#cre=blogpagepc&amp;mod=f&amp;loc=8&amp;r=0&amp;rfunc=73&amp;tj=none" class="feed_img_a" target="_blank" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_11&#39;)"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/resize(16)" alt=""></a></div><span href="javascript:void(0);" class="feed_meta">2019-05-22 08:04:42</span></div></li><li><a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html" target="_blank" class="feed_pp" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_06&#39;)"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/50(8)" class="feed_ppic" alt=""></a><div class="feed_content"><div class="feed_t"><a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html" target="_blank" class="feed_name" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_07&#39;)">潘幸知-幸...</a><a href="javascript:void(0);" class="addV" style="display:none;"><i class="icon i25_addV"></i></a><a href="http://blog.sina.com.cn/s/blog_446890da0102yoy9.html#cre=blogpagepc&amp;mod=f&amp;loc=9&amp;r=0&amp;rfunc=73&amp;tj=none" target="_blank" class="feed_tit" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_08&#39;)">伊能静：花了19年才明白婚姻中的这个道理</a></div><p class="feed_digest"><a href="http://blog.sina.com.cn/s/blog_446890da0102yoy9.html#cre=blogpagepc&amp;mod=f&amp;loc=9&amp;r=0&amp;rfunc=73&amp;tj=none" target="_blank" class="feed_cont" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_09&#39;)">文/幸知在线特约作者 Miss柳5月19日凌晨，伊能静在微博上发布了一篇长文，是写给先生秦昊的生日表白信：“一年一年、一天一天、一时一刻，如果不去觉察，我们就这样如世间夫妻般过日子...</a><a href="http://blog.sina.com.cn/s/blog_446890da0102yoy9.html#cre=blogpagepc&amp;mod=f&amp;loc=9&amp;r=0&amp;rfunc=73&amp;tj=none" target="_blank" class="feed_detail" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_10&#39;)">[<span>详细</span>]</a><a href="javascript:void(0);" class="feed_imgcount" style="display:none;"><span class="feed_icon"></span>0张图</a></p><div class="feed_img"><a href="http://blog.sina.com.cn/s/blog_446890da0102yoy9.html#cre=blogpagepc&amp;mod=f&amp;loc=9&amp;r=0&amp;rfunc=73&amp;tj=none" class="feed_img_a" target="_blank" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_11&#39;)"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/resize(17)" alt=""></a><a href="http://blog.sina.com.cn/s/blog_446890da0102yoy9.html#cre=blogpagepc&amp;mod=f&amp;loc=9&amp;r=0&amp;rfunc=73&amp;tj=none" class="feed_img_a" target="_blank" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_11&#39;)"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/resize(18)" alt=""></a><a href="http://blog.sina.com.cn/s/blog_446890da0102yoy9.html#cre=blogpagepc&amp;mod=f&amp;loc=9&amp;r=0&amp;rfunc=73&amp;tj=none" class="feed_img_a" target="_blank" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_11&#39;)"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/resize(19)" alt=""></a></div><span href="javascript:void(0);" class="feed_meta">2019-05-21 16:06:10</span></div></li><li><a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html" target="_blank" class="feed_pp" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_06&#39;)"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/50(9)" class="feed_ppic" alt=""></a><div class="feed_content"><div class="feed_t"><a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html" target="_blank" class="feed_name" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_07&#39;)">自由评论</a><a href="javascript:void(0);" class="addV" style="display:none;"><i class="icon i25_addV"></i></a><a href="http://blog.sina.com.cn/s/blog_4bdbe3e00102yzws.html#cre=blogpagepc&amp;mod=f&amp;loc=10&amp;r=0&amp;rfunc=73&amp;tj=none" target="_blank" class="feed_tit" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_08&#39;)">徐邦印：空砍47分库里急需帮手</a></div><p class="feed_digest"><a href="http://blog.sina.com.cn/s/blog_4bdbe3e00102yzws.html#cre=blogpagepc&amp;mod=f&amp;loc=10&amp;r=0&amp;rfunc=73&amp;tj=none" target="_blank" class="feed_cont" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_09&#39;)">空砍47分 库里急需帮手      作者：新京报记者徐邦印原载：《新京报》2019年6月7日第A14版 连续5年总决赛之旅，这可能是库里和勇士遭遇的最艰难、最惨烈一役...</a><a href="http://blog.sina.com.cn/s/blog_4bdbe3e00102yzws.html#cre=blogpagepc&amp;mod=f&amp;loc=10&amp;r=0&amp;rfunc=73&amp;tj=none" target="_blank" class="feed_detail" onclick="v7sendLog&amp;&amp;v7sendLog(&#39;10_01_10&#39;)">[<span>详细</span>]</a><a href="javascript:void(0);" class="feed_imgcount" style="display:none;"><span class="feed_icon"></span>0张图</a></p><span href="javascript:void(0);" class="feed_meta">2019-06-07 23:56:53</span></div></li></ul>
+              <a href="javascript:void(0)" class="blog_feed_more" id="blog_relatefeed_more">加载中，请稍后<img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/feed_loading.gif" alt=""></a>
+          </div>
+          <!---/相关阅读---------->
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+    
+    <!--/评论 -->
+    
+          </div>
+        </div>
+                <div class="BNE_sub" id="column_1">
+          <div class="sub_container">
+            <!-- 个人信息 -->
+            <div class="BNE_info" id="module_901">
+                <div class="userinfo" id="info_locate_id">
+                    <div class="user_img" id="comp_901_head">
+                      <a href="http://blog.sina.com.cn/u/6177937548">
+                        <img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/180" id="comp_901_head_image" width="180" height="180" alt="鏁栭潤涔" title="鏁栭潤涔">
+                      </a>
+                    </div>
+                    <div class="user_tit">
+                        <span id="ownernick" class="BNE_txtE name">敖静之</span>
+                                            </div>
+                                        <div class="user_btn">
+                        <a href="http://blog.sina.com.cn/s/blog_1703bd88c0102x377.html#" class="BNE_btn BNE_hover" id="comp901_btn_follow" onclick="return false;"><cite><i class="icon i31_jia"></i>加关注</cite></a>
+                    </div>
+                                        <div class="user_list">
+                        <ul class="listul">
+                           <li>
+                             <span class="BNE_txtE">博客等级：</span>
+                             <span id="comp_901_grade" class="number"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/9.gif"></span>
+                           </li>
+                           <li><span class="BNE_txtE">博客积分：</span><span id="comp_901_score" class="score"><a href="http://control.blog.sina.com.cn/blog_rebuild/profile/controllers/points_action.php" title="积分"><strong>76</strong><img width="15" height="15" align="top" title="积分" alt="积分" src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/sg_trans.gif" class="SG_icon SG_icon11"></a></span></li>
+                           <li><span class="BNE_txtE">博客访问：</span><span id="comp_901_pv" class="pv"><strong>4,099</strong></span></li>
+                           <li><span class="BNE_txtE">关注人气：</span><span id="comp_901_attention" class="attention"><strong>1</strong></span></li>
+                           <li class="lisp" id="comp_901_badge"><span class="BNE_txtE">荣誉徽章：</span><a href="http://control.blog.sina.com.cn/blog_rebuild/profile/controllers/points_action.php" title="点亮荣誉勋章"><i title="点亮荣誉勋章" alt="点亮荣誉勋章" class="lisp_icon" style="background-image:url(http://simg.sinajs.cn/blog7style/images/common/badge/badge08.png);_background-image: url(http://simg.sinajs.cn/blog7style/images/common/badge/badge08.gif);"></i></a><a href="http://control.blog.sina.com.cn/blog_rebuild/profile/controllers/points_action.php" title="兑换图片博主服务"><i title="兑换图片博主服务" alt="兑换图片博主服务" class="lisp_icon" style="background-image:url(http://simg.sinajs.cn/blog7style/images/common/badge/badge11.png);_background-image: url(http://simg.sinajs.cn/blog7style/images/common/badge/badge11.gif);"></i></a><a href="http://control.blog.sina.com.cn/blog_rebuild/profile/controllers/points_action.php" title="兑换私密博文"><i title="兑换私密博文" alt="兑换私密博文" class="lisp_icon" style="background-image:url(http://simg.sinajs.cn/blog7style/images/common/badge/badge13.png);_background-image: url(http://simg.sinajs.cn/blog7style/images/common/badge/badge13.gif);"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div><ins class="sinaads sinaads-done" data-ad-pdps="PDPS000000033239" style="display: block; overflow: hidden; text-decoration: none; margin-top: 10px;" data-ad-status="done"><ins style="text-decoration:none;margin:0px auto;width:210px;display:block;position:relative;overflow:hidden;"><iframe adtypeturning="false" width="210px" height="220px" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" sandbox="allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" src="javascript:&#39;&lt;html&gt;&lt;body style=background:transparent;&gt;&lt;/body&gt;&lt;/html&gt;&#39;" id="sinaadtk_sandbox_id_1" style="float:left;" name="sinaadtk_sandbox_id_1" src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/saved_resource(1).html"></iframe></ins></ins><ins class="sinaads sinaads-done" data-ad-pdps="PDPS000000055124" style="display: block; overflow: hidden; text-decoration: none; margin-top: 10px;" data-ad-status="done"><ins style="text-decoration:none;margin:0px auto;width:210px;display:block;position:relative;overflow:hidden;"><iframe adtypeturning="false" width="210px" height="220px" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" sandbox="allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" src="javascript:&#39;&lt;html&gt;&lt;body style=background:transparent;&gt;&lt;/body&gt;&lt;/html&gt;&#39;" id="sinaadtk_sandbox_id_2" style="float:left;" name="sinaadtk_sandbox_id_2" src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/saved_resource(2).html"></iframe></ins></ins>
+            <!-- /个人信息 -->            
+          </div>            
+            <!-- 相关博文 -->
+            <div class="SideCrla" id="module_903">
+              <h2 comp_title="相关博文" class="crlaTit">相关博文</h2>
+              <ul class="crlaList">
+                  <li style="display:none;">
+                    <p id="atcTitLi_SLOT_41" class="Ltit" style="display:none"></p>
+                  </li>
+                  <li style="display:none;">
+                    <p id="atcTitLi_SLOT_42" class="Ltit" style="display:none"></p>
+                  </li>
+               <li><p class="Ltit"><a suda-uatrack="key=blog_xg&amp;value=h_blogxg" class="BNE_lkA" href="http://blog.sina.com.cn/s/blog_68ff6f370102yqnx.html#cre=blogpagepc&amp;mod=f&amp;loc=1&amp;r=0&amp;rfunc=100&amp;tj=none" target="_blank" title="2019年日本梅雨季节临近，衣物的最佳存放方式是什么？"><i class="icon i7_dot"></i>2019年日本梅雨季节临近，衣物的最佳存放方式是什么？</a></p><p class="Lname"><a suda-uatrack="key=blog_xg&amp;value=h_blogxg" class="BNE_lkB" href="http://blog.sina.com.cn/u/1761570615" target="_blank">柏青</a></p></li><li><p class="Ltit"><a suda-uatrack="key=blog_xg&amp;value=h_blogxg" class="BNE_lkA" href="http://blog.sina.com.cn/s/blog_4a6c8c8b0102ylur.html#cre=blogpagepc&amp;mod=f&amp;loc=2&amp;r=0&amp;rfunc=100&amp;tj=none" target="_blank" title="京城：初夏晚霞红似火，扮靓世博园"><i class="icon i7_dot"></i>京城：初夏晚霞红似火，扮靓世博园</a></p><p class="Lname"><a suda-uatrack="key=blog_xg&amp;value=h_blogxg" class="BNE_lkB" href="http://blog.sina.com.cn/u/1248627851" target="_blank">dyz大燕子</a></p></li><li><p class="Ltit"><a suda-uatrack="key=blog_xg&amp;value=h_blogxg" class="BNE_lkA" href="http://blog.sina.com.cn/s/blog_50350d150102ygrc.html#cre=blogpagepc&amp;mod=f&amp;loc=3&amp;r=0&amp;rfunc=100&amp;tj=none" target="_blank" title="郑博士：如何查出家中的不祥之物？"><i class="icon i7_dot"></i>郑博士：如何查出家中的不祥之物？</a></p><p class="Lname"><a suda-uatrack="key=blog_xg&amp;value=h_blogxg" class="BNE_lkB" href="http://blog.sina.com.cn/u/1345654037" target="_blank">郑博士</a></p></li><li><p class="Ltit"><a suda-uatrack="key=blog_xg&amp;value=h_blogxg" class="BNE_lkA" href="http://blog.sina.com.cn/s/blog_593783dc0102yfqj.html#cre=blogpagepc&amp;mod=f&amp;loc=4&amp;r=0&amp;rfunc=100&amp;tj=none" target="_blank" title="保险机构争相“收编”失败创业者的小秘密"><i class="icon i7_dot"></i>保险机构争相“收编”失败创业者的小秘密</a></p><p class="Lname"><a suda-uatrack="key=blog_xg&amp;value=h_blogxg" class="BNE_lkB" href="http://blog.sina.com.cn/u/1496810460" target="_blank">懂懂笔记</a></p></li><li><p class="Ltit"><a suda-uatrack="key=blog_xg&amp;value=h_blogxg" class="BNE_lkA" href="http://blog.sina.com.cn/s/blog_1437ae6550102yvjx.html#cre=blogpagepc&amp;mod=f&amp;loc=5&amp;r=0&amp;rfunc=100&amp;tj=none" target="_blank" title="【上海之巅俯拍】"><i class="icon i7_dot"></i>【上海之巅俯拍】</a></p><p class="Lname"><a suda-uatrack="key=blog_xg&amp;value=h_blogxg" class="BNE_lkB" href="http://blog.sina.com.cn/u/5427095125" target="_blank">叶子</a></p></li><li><p class="Ltit"><a suda-uatrack="key=blog_xg&amp;value=h_blogxg" class="BNE_lkA" href="http://blog.sina.com.cn/s/blog_46d5159e010300yc.html#cre=blogpagepc&amp;mod=f&amp;loc=6&amp;r=0&amp;rfunc=100&amp;tj=none" target="_blank" title="日常玩转中国风，哪些元素能让你时髦大不同？"><i class="icon i7_dot"></i>日常玩转中国风，哪些元素能让你时髦大不同？</a></p><p class="Lname"><a suda-uatrack="key=blog_xg&amp;value=h_blogxg" class="BNE_lkB" href="http://blog.sina.com.cn/u/1188369822" target="_blank">大饼穿搭札记</a></p></li><li><p class="Ltit"><a suda-uatrack="key=blog_xg&amp;value=h_blogxg" class="BNE_lkA" href="http://blog.sina.com.cn/s/blog_641038810102ylyz.html#cre=blogpagepc&amp;mod=f&amp;loc=7&amp;r=0&amp;rfunc=100&amp;tj=none" target="_blank" title="此人因做了皇帝的乳母，而让子孙享尽荣华富贵，结果雍正却抄了她的家"><i class="icon i7_dot"></i>此人因做了皇帝的乳母，而让子孙享尽荣华富贵，结果雍正却抄了她的家</a></p><p class="Lname"><a suda-uatrack="key=blog_xg&amp;value=h_blogxg" class="BNE_lkB" href="http://blog.sina.com.cn/u/1678784641" target="_blank">-萧梦-</a></p></li><li><p class="Ltit"><a suda-uatrack="key=blog_xg&amp;value=h_blogxg" class="BNE_lkA" href="http://blog.sina.com.cn/s/blog_167dcb2bc0102z0bg.html#cre=blogpagepc&amp;mod=f&amp;loc=8&amp;r=0&amp;rfunc=100&amp;tj=none" target="_blank" title="30分钟6项低强度训练专门提升跑者耐力"><i class="icon i7_dot"></i>30分钟6项低强度训练专门提升跑者耐力</a></p><p class="Lname"><a suda-uatrack="key=blog_xg&amp;value=h_blogxg" class="BNE_lkB" href="http://blog.sina.com.cn/u/6037484220" target="_blank">夜夜野豹</a></p></li><li><p class="Ltit"><a suda-uatrack="key=blog_xg&amp;value=h_blogxg" class="BNE_lkA" href="http://blog.sina.com.cn/s/blog_446890da0102yoy9.html#cre=blogpagepc&amp;mod=f&amp;loc=9&amp;r=0&amp;rfunc=100&amp;tj=none" target="_blank" title="伊能静深情告白：我花了19年，才明白婚姻中的这个道理"><i class="icon i7_dot"></i>伊能静深情告白：我花了19年，才明白婚姻中的这个道理</a></p><p class="Lname"><a suda-uatrack="key=blog_xg&amp;value=h_blogxg" class="BNE_lkB" href="http://blog.sina.com.cn/u/1147703514" target="_blank">潘幸知-幸知在线</a></p></li><li><p class="Ltit"><a suda-uatrack="key=blog_xg&amp;value=h_blogxg" class="BNE_lkA" href="http://blog.sina.com.cn/s/blog_4bdbe3e00102yzws.html#cre=blogpagepc&amp;mod=f&amp;loc=10&amp;r=0&amp;rfunc=100&amp;tj=none" target="_blank" title="徐邦印：空砍47分库里急需帮手"><i class="icon i7_dot"></i>徐邦印：空砍47分库里急需帮手</a></p><p class="Lname"><a suda-uatrack="key=blog_xg&amp;value=h_blogxg" class="BNE_lkB" href="http://blog.sina.com.cn/u/1272701920" target="_blank">自由评论</a></p></li></ul>
+               <div class="more">
+                  <a class="BNE_lkA" href="http://blog.sina.com.cn/" target="_blank">查看更多 <i class="icon i46_rsj"></i></a>
+               </div>
+            </div><div class="adSideList"><ins class="sinaads sinaads-fail" data-ad-pdps="PDPS000000057669" data-ad-status="done"></ins><script>(sinaads = window.sinaads || []).push({})</script></div>
+            <!-- 相关博文 -->
+            <!-- 推荐博文 -->
+            <div class="atcSideList" id="module_904">
+              <h2 class="atcTit">推荐博文</h2>
+              <div class="atcTitList relaList">
+                <ul class="">
+                                  </ul>
+                <div id="atcPicList"><!--[346,152,102] published at 2019-05-06 09:21:09 from #106 by system-->
+ <script language="javascript">document.domain="sina.com.cn";</script>
+
+<div class="relaPic SG_j_linedot1"> 
+	<ul>
+			<li>
+		<p><a href="http://blog.sina.com.cn/s/blog_4fd7d49f01031736.html?tj=1" target="_blank"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/hr0d-hmivixn3910563.jpg" width="80" height="58" alt="难得一见的蜀山之王" border="0"></a></p>
+		<p><a href="http://blog.sina.com.cn/s/blog_4fd7d49f01031736.html?tj=1" target="_blank">难得一见的蜀山之王</a></p>
+	</li>
+	<li>
+		<p><a href="http://blog.sina.com.cn/s/blog_67afa3290102ymvw.html?tj=1" target="_blank"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/wK0d-hnyuqhi2917867.jpg" width="80" height="58" alt="走过秋天的湖光山色" border="0"></a></p>
+		<p><a href="http://blog.sina.com.cn/s/blog_67afa3290102ymvw.html?tj=1" target="_blank">走过秋天的湖光山色</a></p>
+	</li>
+	<li>
+		<p><a href="http://blog.sina.com.cn/s/blog_4fe4dc6f0102zd2m.html?tj=1" target="_blank"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/dKip-hmhhnqt0930465.jpg" width="80" height="58" alt="女人要学会挖掘自己的美丽" border="0"></a></p>
+		<p><a href="http://blog.sina.com.cn/s/blog_4fe4dc6f0102zd2m.html?tj=1" target="_blank">女人要学会挖掘自己的美丽</a></p>
+	</li>
+	<li>
+		<p><a href="http://blog.sina.com.cn/s/blog_67083fc70102ywo3.html?tj=1" target="_blank"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/W8O6-hmhhnqt0924181.jpg" width="80" height="58" alt="爱情的样子" border="0"></a></p>
+		<p><a href="http://blog.sina.com.cn/s/blog_67083fc70102ywo3.html?tj=1" target="_blank">爱情的样子</a></p>
+	</li>
+	<li>
+		<p><a href="http://blog.sina.com.cn/s/blog_774dd74f0102z390.html?tj=1" target="_blank"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/GFI7-hmhswin4655514.jpg" width="80" height="58" alt="令少女魂牵梦绕的婚纱秀" border="0"></a></p>
+		<p><a href="http://blog.sina.com.cn/s/blog_774dd74f0102z390.html?tj=1" target="_blank">令少女魂牵梦绕的婚纱秀</a></p>
+	</li>
+	<li>
+		<p><a href="http://blog.sina.com.cn/s/blog_4c6b4ffa0102ydqv.html?tj=1" target="_blank"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/-sEx-hnyuqhi2814642.jpg" width="80" height="58" alt="作业太少的澳洲儿童" border="0"></a></p>
+		<p><a href="http://blog.sina.com.cn/s/blog_4c6b4ffa0102ydqv.html?tj=1" target="_blank">作业太少的澳洲儿童</a></p>
+	</li>
+
+	</ul>
+	<div class="clearfix"></div>
+</div>
+</div>
+                <div class="atcTit_more">
+                  <span class="SG_more"><a href="http://blog.sina.com.cn/" class="BNE_lkA">查看更多 <i class="icon i46_rsj"></i></a></span>
+                </div>
+              </div>
+            </div><div class="adSide" suda-uatrack="key=blog_article&amp;value=h_article53" id="hotShangPin"><ins class="sinaads sinaads-fail" data-ad-pdps="PDPS000000057414" style="display:block;" data-ad-status="done"></ins></div>       
+            <!-- 推荐博文 -->
+   
+        </div>
+    </div>
+   
+    <div id="swfbox" style="position:absolute;left:0px;top:0px;width:0px"></div>
+    <div id="diggerFla" style="position:absolute;left:0px;top:0px;width:0px"><embed pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" src="http://sjs.sinajs.cn/blog7swf/digger.swf" width="1" height="1" style="undefined" id="digger" name="digger" bgcolor="#00ff00" quality="high" wmode="transparent" allowscriptaccess="always"></div>
+    <div class="sinafooter">
+    <div class="sinablogfooter">     
+          <p class="SG_linka"><a href="http://help.sina.com.cn/" target="_blank">新浪BLOG意见反馈留言板</a>　电话：4000520066 提示音后按1键（按当地市话标准计费）　欢迎批评指正</p>
+       
+          <p class="SG_linka"><a href="http://corp.sina.com.cn/chn/" target="_blank">新浪简介</a> | <a href="http://corp.sina.com.cn/eng/" target="_blank">About Sina</a> | <a href="http://emarketing.sina.com.cn/" target="_blank">广告服务</a> | <a href="http://www.sina.com.cn/contactus.html" target="_blank">联系我们</a> | <a href="http://corp.sina.com.cn/chn/sina_job.html" target="_blank">招聘信息</a> | <a href="http://www.sina.com.cn/intro/lawfirm.shtml" target="_blank">网站律师</a> | <a href="http://english.sina.com/" target="_blank">SINA English</a> | <a href="http://members.sina.com.cn/apply/" target="_blank">会员注册</a> | <a href="http://help.sina.com.cn/" target="_blank">产品答疑</a> </p>
+          <p class="copyright SG_linka"> Copyright © 1996 - 2018 SINA Corporation,  All Rights Reserved</p>
+          <p class="SG_linka"> 新浪公司 <a href="http://www.sina.com.cn/intro/copyright.shtml" target="_blank">版权所有</a></p>
+        <a href="http://www.bj.cyberpolice.cn/index.jsp" target="_blank" class="gab_link"></a>
+    </div>
+    <div id="_61560305975742_panel" style="left: 1025px; top: 626px; z-index: 500; position: fixed; display: none;"><a id="_61560305975742_gotoTop" href="javascript:void(0);" class="BNE_feed_return"><span class="feed_return_ico"></span></a></div></div>    
+   
+        <script type="text/javascript">
+          var scope = {
+            $newTray:1,
+            $uid : "6177937548",
+            $setDomain:true,
+            $PRODUCT_NAME:"blog7",
+            $articleid:"1703bd88c0102x377",
+            $key :  "cf16baee88f61903be560e8d72d22da4",
+            $uhost : "",
+            $isCommentAllow:0,
+            component_lists:{
+              "1":{
+                "size":210,
+                "list":[901,903,904]
+              }
+            },
+            $private: {"pageset":0,"tj":0,"adver":0,"sms":0,"ad":0,"blogsize":0,"cms":0,"hidecms":0,"top":0,"invitationset":0,"p4p":0,"spamcms":0,"init7":1,"quote":0,"foot":0,"headpic":0,"isMsnLink":0,"msnfeed":"000","isMsnMove":0,"isprivate":"0","articleclass":"117"},
+            $pageid:"article_new",
+            $sort_id:117,
+            $cate_id:"",
+            $shareData:{"pic":"http:\/\/pic.chinaz.com\/2017\/0603\/17060311021892301.jpg","title":"\u7535\u5546\u540e\u53f0\u7cfb\u7edf\uff1a\u7ba1\u7406\u540e\u53f0\u7bc7\u4e4b\u5e93\u5b58\u7ba1\u7406\uff08\u8d27\u4f4d\u3001\u8c03\u62e8\u3001\u76d8\u70b9\uff09@\u65b0\u6d6a\u535a\u5ba2","content":" \u5e93\u5b58\uff0c\u662f\u7535\u5546\u4f01\u4e1a\u4e0d\u80fd\u56de\u907f\u7684\u95ee\u9898\uff0c\u4e5f\u662f\u7535\u5546\u4f01\u4e1a\u7684\u547d\u95e8\u3002\u4f9b\u5e94\u94fe\u7ba1\u7406\u4e0a\u7684\u95ee\u9898\uff0c\u5f80\u5f80\u90fd\u4f1a\u4f53\u73b0\u5728\u5e93\u5b58\u4e0a\uff0c\u8981\u4e48\u662f\u5e93\u5b58\u8fc7...  (\u6765\u81ea @\u5934\u6761\u535a\u5ba2)","url":"http:\/\/blog.sina.com.cn\/s\/blog_1703bd88c0102x377.html"},
+	    $summary:" 库存，是电商企业不能回避的问题，也是电商企业的命门。供应链管理上的问题，往往都会体现在库存上，要么是库存过多导致滞销，要么是库存过少导致断货。  库存管理，顾名思义就是管理商品的数量，大的方面我们可以分为销售库存和仓库库存。 销售库存，也可以称之为前台库存，"
+          };
+var $encrypt_code = "d8c9f338a996141eecf5492c77519d52";
+</script>
+<script type="text/javascript" src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/boot.js.下载"></script>
+<script type="text/javascript">__load_js();</script>
+<script type="text/javascript">__render_page();</script>
+<!--
+<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=b436f96b-ce3c-469f-93ca-9c0c406fcf10&amp;pophcol=2&amp;lang=zh"></script><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
+<script type="text/javascript" charset="utf-8">
+   bShare.addEntry({pic: "", title:"电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客", summary:"  库存，是电商企业不能回避的问题，也是电商企业的命门。供应链管理上的问题，往往都会体现在库存上，要么是库存过多导致滞销，要么是库存过少导致断货。  库存管理，顾名思义就是管理商品的数量，大的方面我们可以分为销售库存和仓库库存。 销售库存，也可以称之为前台库存，"});
+</script>-->
+<script type="text/javascript" src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/blog680-min.js.下载"></script>
+<script type="text/javascript">
+        var slotArr = ['atcTitLi_SLOT_41', 'atcTitLi_SLOT_42','loginBarActivity']; //广告位id
+        var sourceArr = ['SLOT_41','SLOT_42','SLOT_43,SLOT_47,SLOT_48'];  //广告资源id
+        SinaBlog680.staticBox(slotArr, sourceArr);
+</script>
+
+
+<div id="_3041560305975348_panel" class="e_layer_prompt" style="width: 458px; left: 529.5px; top: 172.267px; z-index: 5000; position: absolute; display: none;"><div id="_3041560305975348_titleBar" class="e_prompt_header" style="cursor: move;"><div class="e_prompt_tit" id="_3041560305975348_titleName">提示</div><a href="javascript:void(0);" class="e_prompt_close" id="_3041560305975348_btnClose">×</a></div><div id="_3041560305975348_content"><div class="e_prompt_cont"><div class="prompt_input"><label class="txt">请输入验证码</label><input class="code_input" type="text" name="checkword" id="xssSafeCodeDiag_checkword"><a href="javascript:scope.xssSafeCodeDiag.changeSafeCode();void(0);"><img id="xssSafeCodeDiag_safeimg" src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/yzm1.gif" class="img_code" alt="" width="58" height="20" align="absmiddle"></a><a class="replace_a" href="javascript:scope.xssSafeCodeDiag.changeSafeCode();void(0);">换一个</a></div><div class="prompt_btn"><a id="xssSafeCodeDiag_okbtn" href="javascript:scope.xssSafeCodeDiag.ok();void(0);" class="btn_style">确定</a><a id="xssSafeCodeDiag_cancelbtn" href="javascript:scope.xssSafeCodeDiag.cancel();void(0);" class="btn_style">取消</a></div></div></div></div><div style="border: 2px dashed rgb(188, 196, 208); position: absolute; display: none; background-color: transparent; left: 0px; top: 0px;"></div><div id="sinaads_pdps54771"> <ins class="sinaads sinaads-done" data-ad-pdps="PDPS000000054771" data-ad-status="done"></ins>  </div><iframe id="sinaads-ck-iframe" src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/sinaads_ck.html" style="display: none;"></iframe><div id="_7291560305975458_panel" class="mCatSearch" style="position: absolute; display: none; z-index: 512;"><ul><li action-type="tray-search" onclick="v7sendLog(&#39;40_01_43&#39;)" action-data="article" class="current">含“<span id="_7291560305975458_article"></span>”的博文</li><li action-type="tray-search" onclick="v7sendLog(&#39;40_01_43&#39;)" action-data="bloger">含“<span id="_7291560305975458_bloger"></span>”的博主</li><li action-type="tray-search" onclick="v7sendLog(&#39;40_01_43&#39;)" action-data="music">含“<span id="_7291560305975458_music"></span>”的音乐</li><li action-type="tray-search" onclick="v7sendLog(&#39;40_01_43&#39;)" action-data="video">含“<span id="_7291560305975458_video"></span>”的视频</li></ul></div><iframe style="border: none; z-index: -1; opacity: 0; position: absolute; width: 0px; height: 0px; display: none;" src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/saved_resource(3).html"></iframe><div class="tb_layer_Y tb_layer_w3" style="z-index: 511; position: absolute; display: none; width: 160px;"><div class="tb_layer_arrow"></div><div class="tb_layer_Y_main tip_ps" style="width: auto;"><a style="margin-top: 5px;" title="关闭" class="tb_friend_inputDel" href="javascript:void(0)"></a>							<div style="text-align:left;color:#999999">最近喜欢了的博主：</div>							<div style="white-space: nowrap;"><div style="text-align:center;"><img src="./电商后台系统：管理后台篇之库存管理（货位、调拨、盘点）_敖静之_新浪博客_files/loading.gif">加载中…</div></div></div></div><div id="reblog_1560305975501" class="turnList" style="display:none;position:absolute;z-index:20;"><ul class="oper_list"><li><a suda-uatrack="key=blog_article&amp;value=h_article17" action-type="click_reblog" action-data="{action:&#39;toBlog&#39;}" href="javascript:void(0);" title="转载到博客">博客</a></li><li style="display:none;"><a suda-uatrack="key=blog_article&amp;value=h_article17" action-type="click_reblog" action-data="{action:&#39;toBlog&#39;}" href="javascript:void(0);" title="转载原文">转载原文</a></li><li><a suda-uatrack="key=blog_article&amp;value=h_article17" action-type="click_reblog" action-data="{action:&#39;cwb&#39;}" href="javascript:;" title="发布长微博">长微博</a></li></ul></div><ins class="sinaads" data-ad-pdps="PDPS000000054727" style="display:block;"></ins><div style="left: -1000px; top: -1000px;position:absolute;" class="picSlideBtn" action-type="show-slide" action-data="http%3A%2F%2Fww4.sinaimg.cn%2Flarge%2F697db644jw1dw1s1zljvaj.jpg"><a href="javascript:void(0);">幻灯播放</a></div><div style="border: 2px dashed rgb(188, 196, 208); position: absolute; display: none; background-color: transparent; left: 0px; top: 0px;"></div><div id="_2571560305975719_panel" style="background-color: black; left: 0px; top: 0px; z-index: 1000; position: fixed; width: 1519px; height: 706px; opacity: 0.4; display: none;"></div><ins class="sinaads sinaads-fail" data-ad-pdps="PDPS000000051781" style="display: none;" data-ad-status="done"></ins><div style="overflow: hidden; height: 212px; position: absolute;"></div><ins class="sinaads sinaads-fail" data-ad-pdps="PDPS000000052950" style="display:block;" data-ad-status="done"></ins></body></html>
