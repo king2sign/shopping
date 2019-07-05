@@ -6,16 +6,16 @@
 <meta name="referrer" content="origin">
     <title>什么是分布式系统中的幂等性 - 风间影月 - 博客园</title>
 <meta property="og:description" content="最近很多人都在谈论幂等性，好吧，这回我也来聊聊这个话题，光看着俩字，一开始的确有点一头雾水，语文不好嘛，词太专业嘛，对吧 现如今我们的系统大多拆分为分布式SOA，或者微服务，一套系统中包含了多个子系统">
-    <link type="text/css" rel="stylesheet" href="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/blog-common.css">
-<link type="text/css" rel="stylesheet" href="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/273398.css">
-<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/bundle-LessIsMore-mobile.css">
+    <link type="text/css" rel="stylesheet" href="什么是分布式系统中的幂等性%20-%20风间影月%20-%20博客园_files/blog-common.css">
+<link type="text/css" rel="stylesheet" href="什么是分布式系统中的幂等性%20-%20风间影月%20-%20博客园_files/273398.css">
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="什么是分布式系统中的幂等性%20-%20风间影月%20-%20博客园_files/bundle-LessIsMore-mobile.css">
     <link title="RSS" type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/leechenxiang/rss">
     <link title="RSD" type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/leechenxiang/rsd.xml">
 <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/leechenxiang/wlwmanifest.xml">
-    <script src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/pubads_impl_rendering_2019050901.js.下载"></script><script async="" src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/analytics.js.下载"></script><script src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/jquery-2.2.0.min.js.下载"></script>
+    <script src="什么是分布式系统中的幂等性%20-%20风间影月%20-%20博客园_files/pubads_impl_rendering_2019050901.js.下载"></script><script async="" src="什么是分布式系统中的幂等性%20-%20风间影月%20-%20博客园_files/analytics.js.下载"></script><script src="什么是分布式系统中的幂等性%20-%20风间影月%20-%20博客园_files/jquery-2.2.0.min.js.下载"></script>
     <script>var currentBlogId=273398;var currentBlogApp='leechenxiang',cb_enable_mathjax=false;var isLogined=false;</script>
-    <script src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
-<link rel="preload" href="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/f.txt" as="script"><script type="text/javascript" src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/f.txt"></script><script src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/pubads_impl_2019050901.js.下载" async=""></script><script src="chrome-extension://oofgjnalpjodkfmfomihdlchiiacnman/injectScripts.min.js"></script><link rel="prefetch" href="https://tpc.googlesyndication.com/safeframe/1-0-33/html/container.html"></head>
+    <script src="什么是分布式系统中的幂等性%20-%20风间影月%20-%20博客园_files/blog-common.js.下载" type="text/javascript"></script>
+<link rel="preload" href="什么是分布式系统中的幂等性%20-%20风间影月%20-%20博客园_files/f.txt" as="script"><script type="text/javascript" src="什么是分布式系统中的幂等性%20-%20风间影月%20-%20博客园_files/f.txt"></script><script src="什么是分布式系统中的幂等性%20-%20风间影月%20-%20博客园_files/pubads_impl_2019050901.js.下载" async=""></script><script src="chrome-extension://oofgjnalpjodkfmfomihdlchiiacnman/injectScripts.min.js"></script><link rel="prefetch" href="https://tpc.googlesyndication.com/safeframe/1-0-33/html/container.html"></head>
 <body>
 <a name="top"></a>
 
@@ -115,7 +115,7 @@
 <p>对于做过支付的朋友，幂等，也可以称之为冲正，保证客户端与服务端的交易一致性，避免多次扣款。</p>
 <p>&nbsp;</p>
 <p>最后来看一下我们的订单流程，虽然不是很复杂，但是最后在支付环境是一定要实现幂等性的</p>
-<p><img src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/841496-20170327141803264-2007026807.png" alt=""></p>
+<p><img src="什么是分布式系统中的幂等性%20-%20风间影月%20-%20博客园_files/841496-20170327141803264-2007026807.png" alt=""></p>
 <p>&nbsp;</p></div><div id="MySignature" style="display: block;"><br>
 <a href="http://www.itzixi.com/" target="_blank"><font color="green">官网itzixi.com</font> </a>
 &nbsp;&nbsp;
@@ -144,11 +144,11 @@
 <font color="orange">--&gt; 同步更新</font>
 <br>
 
-<img src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/841496-20160802101247950-1079022337.jpg" title="我扫！我扫！我扫扫扫！">
+<img src="什么是分布式系统中的幂等性%20-%20风间影月%20-%20博客园_files/841496-20160802101247950-1079022337.jpg" title="我扫！我扫！我扫扫扫！">
 
-<a target="_blank" href="https://shang.qq.com/wpa/qunwpa?idkey=e9d4098b1ca9fb194762a46d6200f9afdc1ecf4c3af2282017e63b86997f7e60"><img border="0" src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/group.png" alt="BeJavaGod 学习交流群" title="BeJavaGod 学习交流群"></a>
+<a target="_blank" href="https://shang.qq.com/wpa/qunwpa?idkey=e9d4098b1ca9fb194762a46d6200f9afdc1ecf4c3af2282017e63b86997f7e60"><img border="0" src="什么是分布式系统中的幂等性%20-%20风间影月%20-%20博客园_files/group.png" alt="BeJavaGod 学习交流群" title="BeJavaGod 学习交流群"></a>
 
-<img src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/841496-20170717085353019-1695887414.jpg" alt="" width="180"></div>
+<img src="什么是分布式系统中的幂等性%20-%20风间影月%20-%20博客园_files/841496-20170717085353019-1695887414.jpg" alt="" width="180"></div>
 <div class="clear"></div>
 <div id="blog_post_info_block">
 <div id="BlogPostCategory">分类: <a href="https://www.cnblogs.com/leechenxiang/category/800254.html" target="_blank">J2EE</a>,<a href="https://www.cnblogs.com/leechenxiang/category/833680.html" target="_blank">工作日志</a>,<a href="https://www.cnblogs.com/leechenxiang/category/807078.html" target="_blank">架构</a></div>
@@ -157,12 +157,12 @@
         <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(6626629,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
             <a id="green_channel_follow" onclick="follow(&#39;ff8bfa18-2d8f-e511-9fc1-ac853d9f53cc&#39;);" href="javascript:void(0);">关注我</a>
     <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
-    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/icon_weibo_24.png" alt=""></a>
-    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/wechat.png" alt=""></a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="什么是分布式系统中的幂等性%20-%20风间影月%20-%20博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="什么是分布式系统中的幂等性%20-%20风间影月%20-%20博客园_files/wechat.png" alt=""></a>
 </div>
 <div id="author_profile">
     <div id="author_profile_info" class="author_profile_info">
-            <a href="http://home.cnblogs.com/u/leechenxiang/" target="_blank"><img src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/20160315173528.png" class="author_avatar" alt=""></a>
+            <a href="http://home.cnblogs.com/u/leechenxiang/" target="_blank"><img src="什么是分布式系统中的幂等性%20-%20风间影月%20-%20博客园_files/20160315173528.png" class="author_avatar" alt=""></a>
         <div id="author_profile_detail" class="author_profile_info">
             <a href="http://home.cnblogs.com/u/leechenxiang/">风间影月</a><br>
             <a href="http://home.cnblogs.com/u/leechenxiang/followees">关注 - 10</a><br>
@@ -363,7 +363,7 @@ Vecho<br><fieldset class="comment_quote"><legend><a href="https://www.cnblogs.co
 <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
 <div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-工控&#39;)">【推荐】超50万C++/C#源码: 大型实时仿真组态图形源码</a><br><a href="https://www.bagevent.com/event/2195041?bag_track=13072958" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-看雪&#39;)">【活动】看雪2019安全开发者峰会，共话安全领域焦点</a><br><a href="https://ke.qq.com/adActivity.html?name=xiangxueketang2" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-享学&#39;)">【培训】Java程序员年薪40W，他1年走了别人5年的路</a><br></div>
 <div id="opt_under_post"></div>
-<script async="async" src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/gpt.js.下载"></script>
+<script async="async" src="什么是分布式系统中的幂等性%20-%20风间影月%20-%20博客园_files/gpt.js.下载"></script>
 <script>
   var googletag = googletag || {};
   googletag.cmd = googletag.cmd || [];
@@ -413,7 +413,7 @@ Vecho<br><fieldset class="comment_quote"><legend><a href="https://www.cnblogs.co
 <!--done-->
 <div class="newsItem">
 <h3 class="catListTitle">公告</h3>
-	<div id="blog-news"><img src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/841496-20160416204603879-2096177495.jpg" alt="" width="180">
+	<div id="blog-news"><img src="什么是分布式系统中的幂等性%20-%20风间影月%20-%20博客园_files/841496-20160416204603879-2096177495.jpg" alt="" width="180">
 
 <div id="profile_block">Java学习交流QQ群：<a href="http://home.cnblogs.com/u/leechenxiang/">458372464</a><br>
 
@@ -429,13 +429,13 @@ github开源项目：<a href="https://github.com/leechenxiang/LeeCX" title="" ta
 
 <div id="profile_block">PMP 认证, SUN 认证, 微软认证<br>
 
-<img src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/841496-20160418004606645-1856930462.jpg" alt="" width="150">
+<img src="什么是分布式系统中的幂等性%20-%20风间影月%20-%20博客园_files/841496-20160418004606645-1856930462.jpg" alt="" width="150">
 
-<img src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/841496-20160802101247950-1079022337.jpg" alt="" width="150">
+<img src="什么是分布式系统中的幂等性%20-%20风间影月%20-%20博客园_files/841496-20160802101247950-1079022337.jpg" alt="" width="150">
 
-<a target="_blank" href="https://shang.qq.com/wpa/qunwpa?idkey=4db1030f9a10309f083ea7f042170b5e0b18c096c58e7ede0abbf7b36f8da71d"><img border="0" src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/group.png" alt="BeJavaGod 学习交流群" title="BeJavaGod 学习交流群"></a>
+<a target="_blank" href="https://shang.qq.com/wpa/qunwpa?idkey=4db1030f9a10309f083ea7f042170b5e0b18c096c58e7ede0abbf7b36f8da71d"><img border="0" src="什么是分布式系统中的幂等性%20-%20风间影月%20-%20博客园_files/group.png" alt="BeJavaGod 学习交流群" title="BeJavaGod 学习交流群"></a>
 
-<img src="./什么是分布式系统中的幂等性 - 风间影月 - 博客园_files/841496-20170717085353019-1695887414.jpg" alt="" width="150">
+<img src="什么是分布式系统中的幂等性%20-%20风间影月%20-%20博客园_files/841496-20170717085353019-1695887414.jpg" alt="" width="150">
 
 <div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;ff8bfa18-2d8f-e511-9fc1-ac853d9f53cc&#39;)">+加关注</a></div>
 </div>

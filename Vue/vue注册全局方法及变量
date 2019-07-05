@@ -1,0 +1,72 @@
+
+描述：这样的好处就是在Vue中的其他模块都能调用同一个方法,便于后期的统一布局,及对应的统一维护
+
+使用方式A：在main.js中使用 Vue.prototype方式设置全局方法和变量
+            步骤1：定义一个js文件,编写对应的变量及方法,及这个方法变量进行抛出
+                    例子： import Vue from 'vue'   //定义vue组件信息
+                           // =======定义全局加载数据框方法 开始======================
+                           const loading = null
+                           function startLoading(mess) {
+                             this.loading = Vue.prototype.$loading({
+                               lock: true,
+                               text: mess == null ? '努力加载中...' : mess,
+                               background: 'rgba(0,0,0,0.5)',
+                               spinner: 'el-icon-loading',
+                               // target: document.querySelector('.loading-area') // 设置加载动画区域
+                             })
+                           }
+                           function stopLoading() {
+                             this.loading.close()
+                           }
+
+                            export default { // 将方法和变量抛出
+                              startLoading,
+                              stopLoading
+                            }
+
+            步骤2：在main.js中引入这个文件
+                    例子：import common from './utils/common.js' // 引入页面公共的组件方法
+
+            步骤3：在main.js中对这个文件进行挂载
+                    例子：Vue.prototype.COMMON = common
+
+            步骤4：在其它Vue模板中怎么调用呢？
+                    例子：this.COMMON.对应的方法名/变量名 这样就可以了
+
+
+
+使用方式B：在main.js中使用Vue.use()来对应某一个自定义vue组件下的函数设置成全局函数
+          提示：使用vue.use（） 安装的组件类型必须为Function或者是Object
+                如果是一个对象,必须提供install方法
+                如果是一个函数，会被直接当作install函数执行
+
+
+           步骤1：创建一个自定义vue组件,并且对应的创建一个index.js文件
+                 vue就是一个平常的vue模板
+                 index.js里面就要引入该对应的vue组件信息
+
+           步骤2：对index.js进行操作
+                    A：通过import引入对应的vue组件
+                    B：定义一个 loading对象 其中install属性是一个方法方法中的vue是vue构造函数
+                        var loading={
+                               install:function(Vue){
+                                    //通Vue.component('xxx组件名',引入的组件对象)
+                               }
+                        }
+                     C：暴露出去 export default loading;
+
+            步骤3：在main.中引入
+                    A：用import 导入进来
+                    B：使用Vue.use(放进去)
+
+            步骤4:使用该组件 在其他组件使用自定义组件<xxx组件名></xxx组件名>
+
+
+
+
+
+
+
+
+
+

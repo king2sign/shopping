@@ -6,16 +6,16 @@
 <meta name="referrer" content="origin">
     <title>分布式服务接口的幂等性如何设计 - __Meng - 博客园</title>
 <meta property="og:description" content="假如你有个服务提供一个接口，结果这个服务部署在了5台机器上，接着有个接口就是付款接口。 然后用户在前端上操作的时候，不知道为啥，总之就是一个订单不小心发起了两次支付请求，然后这俩请求分散在了这个服务部">
-    <link type="text/css" rel="stylesheet" href="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/blog-common.css">
-<link id="MainCss" type="text/css" rel="stylesheet" href="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/bundle-iMetro_HD.css">
-<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/bundle-iMetro_HD-mobile.css">
+    <link type="text/css" rel="stylesheet" href="分布式服务接口的幂等性如何设计%20-%20__Meng%20-%20博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="分布式服务接口的幂等性如何设计%20-%20__Meng%20-%20博客园_files/bundle-iMetro_HD.css">
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="分布式服务接口的幂等性如何设计%20-%20__Meng%20-%20博客园_files/bundle-iMetro_HD-mobile.css">
     <link title="RSS" type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/mengchunchen/rss">
     <link title="RSD" type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/mengchunchen/rsd.xml">
 <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/mengchunchen/wlwmanifest.xml">
-    <script src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/osd.js.下载"></script><script src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/pubads_impl_rendering_2019050901.js.下载"></script><script async="" src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/analytics.js.下载"></script><script src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/jquery-2.2.0.min.js.下载"></script>
+    <script src="分布式服务接口的幂等性如何设计%20-%20__Meng%20-%20博客园_files/osd.js.下载"></script><script src="分布式服务接口的幂等性如何设计%20-%20__Meng%20-%20博客园_files/pubads_impl_rendering_2019050901.js.下载"></script><script async="" src="分布式服务接口的幂等性如何设计%20-%20__Meng%20-%20博客园_files/analytics.js.下载"></script><script src="分布式服务接口的幂等性如何设计%20-%20__Meng%20-%20博客园_files/jquery-2.2.0.min.js.下载"></script>
     <script>var currentBlogId=226222;var currentBlogApp='mengchunchen',cb_enable_mathjax=false;var isLogined=false;</script>
-    <script src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
-<link rel="preload" href="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/f.txt" as="script"><script type="text/javascript" src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/f.txt"></script><script src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/pubads_impl_2019050901.js.下载" async=""></script><script src="chrome-extension://oofgjnalpjodkfmfomihdlchiiacnman/injectScripts.min.js"></script><link rel="prefetch" href="http://tpc.googlesyndication.com/safeframe/1-0-33/html/container.html"></head>
+    <script src="分布式服务接口的幂等性如何设计%20-%20__Meng%20-%20博客园_files/blog-common.js.下载" type="text/javascript"></script>
+<link rel="preload" href="分布式服务接口的幂等性如何设计%20-%20__Meng%20-%20博客园_files/f.txt" as="script"><script type="text/javascript" src="分布式服务接口的幂等性如何设计%20-%20__Meng%20-%20博客园_files/f.txt"></script><script src="分布式服务接口的幂等性如何设计%20-%20__Meng%20-%20博客园_files/pubads_impl_2019050901.js.下载" async=""></script><script src="chrome-extension://oofgjnalpjodkfmfomihdlchiiacnman/injectScripts.min.js"></script><link rel="prefetch" href="http://tpc.googlesyndication.com/safeframe/1-0-33/html/container.html"></head>
 <body>
 <a name="top"></a>
 
@@ -24,7 +24,7 @@
 <div id="home">
 <div id="header">
 	<div id="blogTitle">
-	<a id="lnkBlogLogo" href="https://www.cnblogs.com/mengchunchen/"><img id="blogLogo" src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/logo.gif" alt="返回主页"></a>			
+	<a id="lnkBlogLogo" href="https://www.cnblogs.com/mengchunchen/"><img id="blogLogo" src="分布式服务接口的幂等性如何设计%20-%20__Meng%20-%20博客园_files/logo.gif" alt="返回主页"></a>
 		
 <!--done-->
 <h1><a id="Header1_HeaderTitle" class="headermaintitle" href="https://www.cnblogs.com/mengchunchen/">__Meng</a></h1>
@@ -70,7 +70,7 @@
 		</h1>
 		<div class="clear"></div>
 		<div class="postBody">
-			<div id="cnblogs_post_body" class="blogpost-body"><p><span style="font-size: 18px; font-family: verdana, geneva;">　　<img src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/720994-20181206161951225-1670608401.png" alt=""></span></p>
+			<div id="cnblogs_post_body" class="blogpost-body"><p><span style="font-size: 18px; font-family: verdana, geneva;">　　<img src="分布式服务接口的幂等性如何设计%20-%20__Meng%20-%20博客园_files/720994-20181206161951225-1670608401.png" alt=""></span></p>
 <p>&nbsp;</p>
 <p><span style="font-size: 18px; font-family: verdana, geneva;">　　假如你有个服务提供一个接口，结果这个服务部署在了5台机器上，接着有个接口就是付款接口。</span></p>
 <p><span style="font-size: 18px; font-family: verdana, geneva;">　　然后用户在前端上操作的时候，不知道为啥，总之就是一个订单不小心发起了两次支付请求，然后这俩请求分散在了这个服务部署的不同的机器上，结果造成一个订单扣款扣两次。</span></p>
@@ -95,12 +95,12 @@
         <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(10077366,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
             <a id="green_channel_follow" onclick="follow(&#39;85f07e01-33ac-e411-b908-9dcfd8948a71&#39;);" href="javascript:void(0);">关注我</a>
     <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
-    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/icon_weibo_24.png" alt=""></a>
-    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/wechat.png" alt=""></a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="分布式服务接口的幂等性如何设计%20-%20__Meng%20-%20博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="分布式服务接口的幂等性如何设计%20-%20__Meng%20-%20博客园_files/wechat.png" alt=""></a>
 </div>
 <div id="author_profile">
     <div id="author_profile_info" class="author_profile_info">
-            <a href="http://home.cnblogs.com/u/mengchunchen/" target="_blank"><img src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/20171022215125.png" class="author_avatar" alt=""></a>
+            <a href="http://home.cnblogs.com/u/mengchunchen/" target="_blank"><img src="分布式服务接口的幂等性如何设计%20-%20__Meng%20-%20博客园_files/20171022215125.png" class="author_avatar" alt=""></a>
         <div id="author_profile_detail" class="author_profile_info">
             <a href="http://home.cnblogs.com/u/mengchunchen/">__Meng</a><br>
             <a href="http://home.cnblogs.com/u/mengchunchen/followees">关注 - 6</a><br>
@@ -147,7 +147,7 @@
 <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
 <div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-工控&#39;)">【推荐】超50万C++/C#源码: 大型实时仿真组态图形源码</a><br><a href="https://www.bagevent.com/event/2195041?bag_track=13072958" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-看雪&#39;)">【活动】看雪2019安全开发者峰会，共话安全领域焦点</a><br><a href="https://ke.qq.com/adActivity.html?name=xiangxueketang2" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-享学&#39;)">【培训】Java程序员年薪40W，他1年走了别人5年的路</a><br></div>
 <div id="opt_under_post"></div>
-<script async="async" src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/gpt.js.下载"></script>
+<script async="async" src="分布式服务接口的幂等性如何设计%20-%20__Meng%20-%20博客园_files/gpt.js.下载"></script>
 <script>
   var googletag = googletag || {};
   googletag.cmd = googletag.cmd || [];
@@ -161,11 +161,11 @@
   });
 </script>
 <div id="cnblogs_c1" class="c_ad_block">
-    <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;" data-google-query-id="CISt_c2rneICFZ0dKgodRc8OZg"><div id="google_ads_iframe_/1090369/C1_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C1_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C1_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" data-google-container-id="1" style="border: 0px; vertical-align: bottom;" data-load-complete="true" src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/saved_resource.html"></iframe></div></div>
+    <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;" data-google-query-id="CISt_c2rneICFZ0dKgodRc8OZg"><div id="google_ads_iframe_/1090369/C1_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C1_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C1_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" data-google-container-id="1" style="border: 0px; vertical-align: bottom;" data-load-complete="true" src="分布式服务接口的幂等性如何设计%20-%20__Meng%20-%20博客园_files/saved_resource.html"></iframe></div></div>
 </div>
 <div id="under_post_news"><div class="itnews c_ad_block"><b>相关博文：</b><br>·  <a href="https://www.cnblogs.com/mengchunchen/p/10007537.html" target="_blank" onclick="clickRecomItmem(10007537)">如何保证消息不被重复消费（如何保证消息消费时的幂等性）</a><br>·  <a href="https://www.cnblogs.com/sea520/p/10117729.html" target="_blank" onclick="clickRecomItmem(10117729)">关于接口幂等性的一些总结</a><br>·  <a href="https://www.cnblogs.com/yingchen/p/7274813.html" target="_blank" onclick="clickRecomItmem(7274813)">幂等性</a><br>·  <a href="https://www.cnblogs.com/firstdream/p/7089735.html" target="_blank" onclick="clickRecomItmem(7089735)">幂等设计</a><br>·  <a href="https://www.cnblogs.com/DreamRecorder/p/9243278.html" target="_blank" onclick="clickRecomItmem(9243278)">接口设计的幂等性考虑</a><br></div></div>
 <div id="cnblogs_c2" class="c_ad_block">
-    <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;" data-google-query-id="CIWt_c2rneICFZ0dKgodRc8OZg"><div id="google_ads_iframe_/1090369/C2_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C2_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C2_0" width="468" height="60" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" data-google-container-id="2" style="border: 0px; vertical-align: bottom;" data-load-complete="true" src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/saved_resource(1).html"></iframe></div></div>
+    <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;" data-google-query-id="CIWt_c2rneICFZ0dKgodRc8OZg"><div id="google_ads_iframe_/1090369/C2_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C2_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C2_0" width="468" height="60" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" data-google-container-id="2" style="border: 0px; vertical-align: bottom;" data-load-complete="true" src="分布式服务接口的幂等性如何设计%20-%20__Meng%20-%20博客园_files/saved_resource(1).html"></iframe></div></div>
 </div>
 <div id="under_post_kb"><div class="itnews c_ad_block"><b>最新新闻</b>：<br> ·  <a href="https://news.cnblogs.com/n/625346/" target="_blank">国产内存揭秘：源于奇梦达一千多万份DRAM内存技术资料</a><br> ·  <a href="https://news.cnblogs.com/n/625345/" target="_blank">北京地铁实施新规：五类不文明行为将纳入个人信用</a><br> ·  <a href="https://news.cnblogs.com/n/625344/" target="_blank">这个季度，QQ的月活跃用户环比增长超过了微信</a><br> ·  <a href="https://news.cnblogs.com/n/625343/" target="_blank">科学家发现干细胞会进行自卫性质的“转换”</a><br> ·  <a href="https://news.cnblogs.com/n/625342/" target="_blank">腾讯2019年Q1财报：净利润272.1亿元人民币</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
 <div id="HistoryToday" class="c_ad_block"><b>历史上的今天:</b><br>2017-12-06 <a href="https://www.cnblogs.com/mengchunchen/p/7994370.html">653. Two Sum IV - Input is a BST</a><br></div>
@@ -197,9 +197,9 @@
 <!--done-->
 <div class="newsItem">
 <h3 class="catListTitle">公告</h3>
-	<div id="blog-news"><div style="text-align: center; margin: 0; padding: 0; width: 200px"><br><img src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/0q8a4tvc9f4.gif" width="1" height="1" alt=""><a href="http://www.revolvermaps.com/?target=enlarge&amp;i=0q8a4tvc9f4&amp;color=ff0000&amp;m=7">Large Visitor Globe</a></div>
+	<div id="blog-news"><div style="text-align: center; margin: 0; padding: 0; width: 200px"><br><img src="分布式服务接口的幂等性如何设计%20-%20__Meng%20-%20博客园_files/0q8a4tvc9f4.gif" width="1" height="1" alt=""><a href="http://www.revolvermaps.com/?target=enlarge&amp;i=0q8a4tvc9f4&amp;color=ff0000&amp;m=7">Large Visitor Globe</a></div>
 
-<a href="https://info.flagcounter.com/0gof"><img src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/saved_resource" alt="Flag Counter" border="0"></a>
+<a href="https://info.flagcounter.com/0gof"><img src="分布式服务接口的幂等性如何设计%20-%20__Meng%20-%20博客园_files/saved_resource" alt="Flag Counter" border="0"></a>
 
 <div id="profile_block">昵称：<a href="https://home.cnblogs.com/u/mengchunchen/">__Meng</a><br>园龄：<a href="https://home.cnblogs.com/u/mengchunchen/" title="入园时间：2015-02-04">4年3个月</a><br>粉丝：<a href="https://home.cnblogs.com/u/mengchunchen/followers/">38</a><br>关注：<a href="https://home.cnblogs.com/u/mengchunchen/followees/">6</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;85f07e01-33ac-e411-b908-9dcfd8948a71&#39;)">+加关注</a></div><script>getFollowStatus('85f07e01-33ac-e411-b908-9dcfd8948a71')</script></div></div><script type="text/javascript">loadBlogNews();</script>
 </div>
@@ -447,4 +447,4 @@ Copyright ©2019 __Meng
 
 
 
-<iframe id="google_osd_static_frame_7187430354151" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;" src="./分布式服务接口的幂等性如何设计 - __Meng - 博客园_files/saved_resource(2).html"></iframe></body></html>
+<iframe id="google_osd_static_frame_7187430354151" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;" src="分布式服务接口的幂等性如何设计%20-%20__Meng%20-%20博客园_files/saved_resource(2).html"></iframe></body></html>

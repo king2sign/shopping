@@ -6,16 +6,16 @@
 <meta name="referrer" content="origin">
     <title>理解HTTP幂等性，分布式事物 - jason.bai - 博客园</title>
 <meta property="og:description" content="理解HTTP幂等性 基于HTTP协议的Web API是时下最为流行的一种分布式服务提供方式。无论是在大型互联网应用还是企业级架构中，我们都见到了越来越多的SOA或RESTful的Web API。为什么">
-    <link type="text/css" rel="stylesheet" href="./理解HTTP幂等性，分布式事物 - jason.bai - 博客园_files/blog-common.css">
-<link id="MainCss" type="text/css" rel="stylesheet" href="./理解HTTP幂等性，分布式事物 - jason.bai - 博客园_files/bundle-CodingLife.css">
-<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./理解HTTP幂等性，分布式事物 - jason.bai - 博客园_files/bundle-CodingLife-mobile.css">
+    <link type="text/css" rel="stylesheet" href="理解HTTP幂等性，分布式事物%20-%20jason.bai%20-%20博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="理解HTTP幂等性，分布式事物%20-%20jason.bai%20-%20博客园_files/bundle-CodingLife.css">
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="理解HTTP幂等性，分布式事物%20-%20jason.bai%20-%20博客园_files/bundle-CodingLife-mobile.css">
     <link title="RSS" type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/baizhanshi/rss">
     <link title="RSD" type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/baizhanshi/rsd.xml">
 <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/baizhanshi/wlwmanifest.xml">
-    <script src="./理解HTTP幂等性，分布式事物 - jason.bai - 博客园_files/amp4ads-host-v0.js.下载"></script><script src="./理解HTTP幂等性，分布式事物 - jason.bai - 博客园_files/pubads_impl_rendering_2019050901.js.下载"></script><script async="" src="./理解HTTP幂等性，分布式事物 - jason.bai - 博客园_files/analytics.js.下载"></script><script src="./理解HTTP幂等性，分布式事物 - jason.bai - 博客园_files/jquery-2.2.0.min.js.下载"></script>
+    <script src="理解HTTP幂等性，分布式事物%20-%20jason.bai%20-%20博客园_files/amp4ads-host-v0.js.下载"></script><script src="理解HTTP幂等性，分布式事物%20-%20jason.bai%20-%20博客园_files/pubads_impl_rendering_2019050901.js.下载"></script><script async="" src="理解HTTP幂等性，分布式事物%20-%20jason.bai%20-%20博客园_files/analytics.js.下载"></script><script src="理解HTTP幂等性，分布式事物%20-%20jason.bai%20-%20博客园_files/jquery-2.2.0.min.js.下载"></script>
     <script>var currentBlogId=223665;var currentBlogApp='baizhanshi',cb_enable_mathjax=false;var isLogined=false;</script>
-    <script src="./理解HTTP幂等性，分布式事物 - jason.bai - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="./理解HTTP幂等性，分布式事物 - jason.bai - 博客园_files/default.min.css"><link rel="preload" href="./理解HTTP幂等性，分布式事物 - jason.bai - 博客园_files/f.txt" as="script"><script type="text/javascript" src="./理解HTTP幂等性，分布式事物 - jason.bai - 博客园_files/f.txt"></script><script src="./理解HTTP幂等性，分布式事物 - jason.bai - 博客园_files/pubads_impl_2019050901.js.下载" async=""></script><script src="chrome-extension://oofgjnalpjodkfmfomihdlchiiacnman/injectScripts.min.js"></script><link rel="prefetch" href="https://tpc.googlesyndication.com/safeframe/1-0-33/html/container.html"></head>
+    <script src="理解HTTP幂等性，分布式事物%20-%20jason.bai%20-%20博客园_files/blog-common.js.下载" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="理解HTTP幂等性，分布式事物%20-%20jason.bai%20-%20博客园_files/default.min.css"><link rel="preload" href="理解HTTP幂等性，分布式事物%20-%20jason.bai%20-%20博客园_files/f.txt" as="script"><script type="text/javascript" src="理解HTTP幂等性，分布式事物%20-%20jason.bai%20-%20博客园_files/f.txt"></script><script src="理解HTTP幂等性，分布式事物%20-%20jason.bai%20-%20博客园_files/pubads_impl_2019050901.js.下载" async=""></script><script src="chrome-extension://oofgjnalpjodkfmfomihdlchiiacnman/injectScripts.min.js"></script><link rel="prefetch" href="https://tpc.googlesyndication.com/safeframe/1-0-33/html/container.html"></head>
 <body>
 <a name="top"></a>
 
@@ -24,7 +24,7 @@
 <div id="home">
 <div id="header">
 	<div id="blogTitle">
-	<a id="lnkBlogLogo" href="https://www.cnblogs.com/baizhanshi/"><img id="blogLogo" src="./理解HTTP幂等性，分布式事物 - jason.bai - 博客园_files/logo.gif" alt="返回主页"></a>			
+	<a id="lnkBlogLogo" href="https://www.cnblogs.com/baizhanshi/"><img id="blogLogo" src="理解HTTP幂等性，分布式事物%20-%20jason.bai%20-%20博客园_files/logo.gif" alt="返回主页"></a>
 		
 <!--done-->
 <h1><a id="Header1_HeaderTitle" class="headermaintitle" href="https://www.cnblogs.com/baizhanshi/">@jason</a></h1>
@@ -85,7 +85,7 @@ so far ,so good</h2>
 <pre><code class="hljs go"><span class="hljs-keyword">bool</span> withdraw(account_id, amount)
 </code></pre>
 <p>withdraw的语义是从account_id对应的账户中扣除amount数额的钱；如果扣除成功则返回true，账户余额减少amount；如果扣除失败则返回false，账户余额不变。值得注意的是：和本地环境相比，我们不能轻易假设分布式环境的可靠性。一种典型的情况是withdraw请求已经被服务器端正确处理，但服务器端的返回结果由于网络等原因被掉丢了，导致客户端无法得知处理结果。如果是在网页上，一些不恰当的设计可能会使用户认为上一次操作失败了，然后刷新页面，这就导致了withdraw被调用两次，账户也被多扣了一次钱。如图1所示：</p>
-<p><img src="./理解HTTP幂等性，分布式事物 - jason.bai - 博客园_files/20110810171503575.png" alt="non-idempotent"></p>
+<p><img src="理解HTTP幂等性，分布式事物%20-%20jason.bai%20-%20博客园_files/20110810171503575.png" alt="non-idempotent"></p>
 <p>图1</p>
 <p>这个问题的解决方案一是采用分布式事务，通过引入支持分布式事务的中间件来保证withdraw功能的事务性。分布式事务的优点是对于调用者很简单，复杂性都交给了中间件来管理。缺点则是一方面架构太重量级，容易被绑在特定的中间件上，不利于异构系统的集成；另一方面分布式事务虽然能保证事务的ACID性质，而但却无法提供性能和可用性的保证。</p>
 <p>另一种更轻量级的解决方案是幂等设计。我们可以通过一些技巧把withdraw变成幂等的，比如：</p>
@@ -94,7 +94,7 @@ so far ,so good</h2>
 </code></pre>
 <p>create_ticket的语义是获取一个服务器端生成的唯一的处理号ticket_id，它将用于标识后续的操作。idempotent_withdraw和withdraw的区别在于关联了一个ticket_id，一个ticket_id表示的操作至多只会被处理一次，每次调用都将返回第一次调用时的处理结果。这样，idempotent_withdraw就符合幂等性了，客户端就可以放心地多次调用。</p>
 <p>基于幂等性的解决方案中一个完整的取钱流程被分解成了两个步骤：1.调用create_ticket()获取ticket_id；2.调用idempotent_withdraw(ticket_id, account_id, amount)。虽然create_ticket不是幂等的，但在这种设计下，它对系统状态的影响可以忽略，加上idempotent_withdraw是幂等的，所以任何一步由于网络等原因失败或超时，客户端都可以重试，直到获得结果。如图2所示：</p>
-<p><img src="./理解HTTP幂等性，分布式事物 - jason.bai - 博客园_files/201106042051069339.png" alt="idempotent"></p>
+<p><img src="理解HTTP幂等性，分布式事物%20-%20jason.bai%20-%20博客园_files/201106042051069339.png" alt="idempotent"></p>
 <p>图2</p>
 <p>和分布式事务相比，幂等设计的优势在于它的轻量级，容易适应异构环境，以及性能和可用性方面。在某些性能要求比较高的应用，幂等设计往往是唯一的选择。</p>
 <h2>HTTP的幂等性</h2>
@@ -125,12 +125,12 @@ so far ,so good</h2>
         <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(6860061,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
             <a id="green_channel_follow" onclick="follow(&#39;89f4d3fb-64e2-e411-b908-9dcfd8948a71&#39;);" href="javascript:void(0);">关注我</a>
     <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
-    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./理解HTTP幂等性，分布式事物 - jason.bai - 博客园_files/icon_weibo_24.png" alt=""></a>
-    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./理解HTTP幂等性，分布式事物 - jason.bai - 博客园_files/wechat.png" alt=""></a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="理解HTTP幂等性，分布式事物%20-%20jason.bai%20-%20博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="理解HTTP幂等性，分布式事物%20-%20jason.bai%20-%20博客园_files/wechat.png" alt=""></a>
 </div>
 <div id="author_profile">
     <div id="author_profile_info" class="author_profile_info">
-            <a href="http://home.cnblogs.com/u/baizhanshi/" target="_blank"><img src="./理解HTTP幂等性，分布式事物 - jason.bai - 博客园_files/20150414132534.png" class="author_avatar" alt=""></a>
+            <a href="http://home.cnblogs.com/u/baizhanshi/" target="_blank"><img src="理解HTTP幂等性，分布式事物%20-%20jason.bai%20-%20博客园_files/20150414132534.png" class="author_avatar" alt=""></a>
         <div id="author_profile_detail" class="author_profile_info">
             <a href="http://home.cnblogs.com/u/baizhanshi/">jason.bai</a><br>
             <a href="http://home.cnblogs.com/u/baizhanshi/followees">关注 - 6</a><br>
@@ -177,7 +177,7 @@ so far ,so good</h2>
 <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
 <div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-工控&#39;)">【推荐】超50万C++/C#源码: 大型实时仿真组态图形源码</a><br><a href="https://www.bagevent.com/event/2195041?bag_track=13072958" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-看雪&#39;)">【活动】看雪2019安全开发者峰会，共话安全领域焦点</a><br><a href="https://ke.qq.com/adActivity.html?name=xiangxueketang2" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-享学&#39;)">【培训】Java程序员年薪40W，他1年走了别人5年的路</a><br></div>
 <div id="opt_under_post"></div>
-<script async="async" src="./理解HTTP幂等性，分布式事物 - jason.bai - 博客园_files/gpt.js.下载"></script>
+<script async="async" src="理解HTTP幂等性，分布式事物%20-%20jason.bai%20-%20博客园_files/gpt.js.下载"></script>
 <script>
   var googletag = googletag || {};
   googletag.cmd = googletag.cmd || [];
@@ -191,11 +191,11 @@ so far ,so good</h2>
   });
 </script>
 <div id="cnblogs_c1" class="c_ad_block">
-    <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;" data-google-query-id="CO3D86SjneICFc91YAodHosHlQ"><div id="google_ads_iframe_/1090369/C1_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C1_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C1_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border: 0px; vertical-align: bottom;" data-google-container-id="1" data-load-complete="true" src="./理解HTTP幂等性，分布式事物 - jason.bai - 博客园_files/saved_resource.html"></iframe></div></div>
+    <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;" data-google-query-id="CO3D86SjneICFc91YAodHosHlQ"><div id="google_ads_iframe_/1090369/C1_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C1_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C1_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border: 0px; vertical-align: bottom;" data-google-container-id="1" data-load-complete="true" src="理解HTTP幂等性，分布式事物%20-%20jason.bai%20-%20博客园_files/saved_resource.html"></iframe></div></div>
 </div>
 <div id="under_post_news"><div class="itnews c_ad_block"><b>相关博文：</b><br>·  <a href="https://www.cnblogs.com/panxuejun/p/8600300.html" target="_blank" onclick="clickRecomItmem(8600300)">理解http幂等性</a><br>·  <a href="https://www.cnblogs.com/weidagang2046/archive/2011/06/04/idempotence.html" target="_blank" onclick="clickRecomItmem(2063696)">理解HTTP幂等性</a><br>·  <a href="https://www.cnblogs.com/yeahwell/p/4249253.html" target="_blank" onclick="clickRecomItmem(4249253)">理解HTTP幂等性</a><br>·  <a href="https://www.cnblogs.com/longshiyVip/p/5423428.html" target="_blank" onclick="clickRecomItmem(5423428)">理解HTTP幂等性</a><br>·  <a href="https://www.cnblogs.com/pekkle/p/6568732.html" target="_blank" onclick="clickRecomItmem(6568732)">理解HTTP幂等性</a><br></div></div>
 <div id="cnblogs_c2" class="c_ad_block">
-    <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;" data-google-query-id="CO7D86SjneICFc91YAodHosHlQ"><div id="google_ads_iframe_/1090369/C2_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C2_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C2_0" width="468" height="60" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border: 0px; vertical-align: bottom;" data-google-container-id="2" data-load-complete="true" src="./理解HTTP幂等性，分布式事物 - jason.bai - 博客园_files/saved_resource(1).html"></iframe></div></div>
+    <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;" data-google-query-id="CO7D86SjneICFc91YAodHosHlQ"><div id="google_ads_iframe_/1090369/C2_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C2_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C2_0" width="468" height="60" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border: 0px; vertical-align: bottom;" data-google-container-id="2" data-load-complete="true" src="理解HTTP幂等性，分布式事物%20-%20jason.bai%20-%20博客园_files/saved_resource(1).html"></iframe></div></div>
 </div>
 <div id="under_post_kb"><div class="itnews c_ad_block"><b>最新新闻</b>：<br> ·  <a href="https://news.cnblogs.com/n/625341/" target="_blank">Vivo专利曝光：或有新机配备前置“猫耳”双摄</a><br> ·  <a href="https://news.cnblogs.com/n/625340/" target="_blank">Uber新工具：分享平均车速数据 方便疏导城市拥堵</a><br> ·  <a href="https://news.cnblogs.com/n/625339/" target="_blank">realme国内首秀 脉冲式升降摄像头realme X 1499元起</a><br> ·  <a href="https://news.cnblogs.com/n/625337/" target="_blank">中国企业出海印度，如何提高生存率？</a><br> ·  <a href="https://news.cnblogs.com/n/625336/" target="_blank">擅自访问内部信息或被开除？谷歌高管内部邮件惹怒员工</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
 <div id="HistoryToday" class="c_ad_block"></div>
