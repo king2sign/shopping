@@ -1,0 +1,119 @@
+
+Spring Cloud整合 Nacos作为配置中心
+
+前提你要：安装的naco服务器安装好启动后 通过浏览器可以 localhost:8848/nacos 登录到naco客户端页面上默认账号 nacos 密码nacos 
+
+
+服务注册：
+		引入包 前提一件引入了 Springboot 及SpringBoot cloud包的依赖 
+				
+			<!--配置将服务配置到配置中心依赖包-->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+			</dependency>
+
+			<!--用于服务发现配置 -->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+			</dependency>
+
+
+		在后端的某一个服务下配置注册到Nacos注册中心上方式
+			1： 在该服务下resources种创建一个bootstrap.yml 
+				解释:bootstrap.yml是用于对SpringCloud配置中心配置的使用bootstrap首先加载一些配置，这部分是高优先级不会被后续覆盖的。
+					通常是用做加载配置中心配置。不要在这里配置其他属性
+					
+				
+				某个服务下bootstrap.yml中的通常配置：
+					server:
+					  port: 9001 #配置对应当前服务的端口号
+
+					spring:
+					  application:
+						name: @artifactId@ #引入的名字就是当前工程中pom文件对应的<artifactId>xxxxx</artifactId>
+					  cloud:
+						nacos:
+						  discovery:
+							server-addr: gino2019-nacos:8848 #获取发货对应的nacos服务地址
+						  config: #对当前服务的额外参数配置 
+							server-addr: ${spring.cloud.nacos.discovery.server-addr} #指定哪个服务的注册中心进行配置
+							file-extension: yml #配置文件名的后缀名 (这样注册中心创建对应的配置文件就能对该服务生效)
+							shared-dataids: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension} #获取配置中心中的共享配置文件,只有注册中心中有该文件（application-dev.yml）就会对该服务配置生效
+					  profiles:
+						active: dev
+						
+						
+				提示：在 Nacos Spring Cloud 中，dataId 的完整格式如下：
+							${prefix}-${spring.profile.active}.${file-extension}			
+							描述1: prefix 默认为 spring.application.name 的值，也可以通过配置项 spring.cloud.nacos.config.prefix来配置。
+							描述2: 当 spring.profile.active 为空时，对应的连接符 - 也将不存在 ${prefix}.${file-extension}
+							描述3：file-exetension 为配置内容的数据格式，可以通过配置项 spring.cloud.nacos.config.file-extension 来配置。目前只支持 properties 和 yaml 类型。
+							
+			2：使用SpringCloud 原生注解Spring Cloud 原生注解 @EnableDiscoveryClient 开启服务注发功能：
+				提示：可以直接在启动类上放添加 @SpringCloudApplication
+							
+服务发现：
+		引入包 前提一件引入了 Springboot 及SpringBoot cloud包的依赖 
+			<!--配置将服务配置到配置中心依赖包-->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+			</dependency>
+
+			<!--用于服务发现配置 -->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+			</dependency>
+			
+					
+		在后端中配置服务发现如果当前服务也要注册到服务中心上 配置可以说和上面一样
+			server:
+			  port: 9001 #配置对应当前服务的端口号
+
+			spring:
+			  application:
+				name: @artifactId@ #引入的名字就是当前工程中pom文件对应的<artifactId>xxxxx</artifactId>
+			  cloud:
+				nacos:
+				  discovery:
+					server-addr: gino2019-nacos:8848 #获取发货对应的nacos服务地址
+				  config: #对当前服务的额外参数配置 
+					server-addr: ${spring.cloud.nacos.discovery.server-addr} #指定哪个服务的注册中心进行配置
+					file-extension: yml #配置文件名的后缀名 (这样注册中心创建对应的配置文件就能对该服务生效)
+					shared-dataids: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension} #获取配置中心中的共享配置文件,只有注册中心中有该文件（application-dev.yml）就会对该服务配置生效
+			  profiles:
+				active: dev
+							
+		
+		服务发现并使用步骤
+			1：使用SpringCloud 原生注解Spring Cloud 原生注解 @EnableDiscoveryClient 开启服务注册发现功能：
+				提示：可以直接在启动类上放添加 @SpringCloudApplication
+							
+							
+			2：在Controller进行服务负债均衡服务获取
+				@Bean
+				@LoadBalanced//开启负载均衡的注解
+				RestTemplate restTemplate() {
+					return new RestTemplate();
+				}
+						
+						
+				@RequestMapping(value = "/echo/{str}", method = RequestMethod.GET)
+				public String echo(@PathVariable String str) {
+					return restTemplate.getForObject("http://service-provider/echo/" + str, String.class);
+				}
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
