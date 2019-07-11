@@ -1,0 +1,16 @@
+﻿前奏：
+	MinIO 是一个基于Apache License v2.0开源协议的对象存储服务。
+	它兼容亚马逊S3云存储服务接口，非常适合于存储大容量非结构化的数据，
+	例如图片、视频、日志文件、备份数据和容器/虚拟机镜像等，而一个对象文件可以是任意大小，从几kb到最大5T不等。
+	
+	
+安装：https://dl.min.io/server/minio/release/windows-amd64/minio.exe
+
+使用：使用cmd命令到这个minio.exe命令下 输入：minio.exe server D:\Photos  以后minio操作内容就会放到Photos目录下
+	 
+提示：会出现一个2个钥匙登陆要用到
+	  AccessKey: SCA4IVJU9P80SAY7IQNA
+	  SecretKey: g+Czhwy34BYF+NKLKD6vcEbOP+9uZGw5ET1OPSNt
+
+
+提示2：当关闭掉当前窗口的时候,下次启动如果还是minio.exe server D:\Photos 这个目录下的话 账号密码的钥匙是不变的 
