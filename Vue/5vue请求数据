@@ -92,7 +92,36 @@
                               console.log(err);
                             });
 
+        Axios同步使用：
+            1：先定义同步Axios方法：
+                  例子：
+                        async verifyNameExist(name,bookId){
+                            try {
+                                let url="/english/book/verifyNameExist" //使用params就会在&page=1&id=jiangxisheng
+                                let res = await Axios.get(url, {
+                                    params: {name:name,bookId:bookId}
+                                })
+                                return res;
+                            } catch (err) {
+                                this.$message({
+                                    showClose: true,
+                                    message: '系统错误,请重新尝试！',
+                                    type: 'error'
+                                });
+                            }
+                        }
 
+            2：获取同步方法执行下一个Axios方法
+                    var promise=this.verifyNameExist(this.addForm.name,this.addForm.bookId);
+                        promise.then(returnData=>{
+                            //就是上一个axios的返回值
+                        }.catch(() => {
+                             this.$message({
+                                 showClose: true,
+                                 message: '系统错误,请重新尝试！',
+                                 type: 'error'
+                             });
+                         });
 
 
 
